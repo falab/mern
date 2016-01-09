@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
-var word = test;
-window.alert("this is a " + word);
+var word = 'test';
+window.alert('this is a ' + word);
