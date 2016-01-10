@@ -1,5 +1,9 @@
 window.App = function () {
-  let data = {};
+  let data = {
+    modules: {
+      loaded: []
+    }
+  };
   let modules = {};
 
   // Abstract logging for later
@@ -7,6 +11,7 @@ window.App = function () {
   let logger = (function () {
     return {
       log: console.log,
+      info: console.info,
       warn: console.warn,
       error: console.error,
       table: console.table
