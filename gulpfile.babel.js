@@ -29,10 +29,8 @@ const paths = {
   templateSrc: `${dirs.src}/templates/*.hbs`,
   sassSrc: `${dirs.src}/styles/application.scss`,
   sassDest: `${dirs.dest}/styles/`,
-  jsSrc: [
-    `${dirs.vendor}/**/*.js`,
-    `${dirs.src}/scripts/**/*.js`
-  ],
+  vendorSrc: `${dirs.vendor}/**/*.js`,
+  jsSrc: `${dirs.src}/scripts/**/*.js`,
   jsDest: `${dirs.dest}/scripts/`
 };
 
@@ -73,6 +71,22 @@ gulp.task('templates', () => {
     .pipe(gulp.dest(paths.jsDest))
     .pipe(notify({
       message: 'Templates task complete'
+    }));
+});
+
+gulp.task('vendor', () => {
+  return gulp.src(paths.vendorSrc)
+    .pipe(sourcemaps.init())
+    .pipe(concat('vendor.js'))
+    .pipe(gulp.dest(paths.jsDest))
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(uglify())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(paths.jsDest))
+    .pipe(notify({
+      message: 'Vendor task complete'
     }));
 });
 
