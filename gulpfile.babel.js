@@ -19,7 +19,8 @@ import del from 'del';
 
 const dirs = {
   src: 'app',
-  dest: 'dist'
+  dest: 'dist',
+  vendor: 'vendor'
 };
 
 const paths = {
@@ -28,14 +29,19 @@ const paths = {
   templateSrc: `${dirs.src}/templates/*.hbs`,
   sassSrc: `${dirs.src}/styles/application.scss`,
   sassDest: `${dirs.dest}/styles/`,
-  jsSrc: `${dirs.src}/scripts/**/*.js`,
+  jsSrc: [
+    `${dirs.vendor}/**/*.js`,
+    `${dirs.src}/scripts/**/*.js`
+  ],
   jsDest: `${dirs.dest}/scripts/`
 };
 
 gulp.task('html', () => {
   return gulp.src(paths.htmlSrc)
     .pipe(gulp.dest(paths.htmlDest))
-    .pipe(notify({ message: 'HTML task complete' }));
+    .pipe(notify({
+      message: 'HTML task complete'
+    }));
 });
 
 gulp.task('styles', () => {
@@ -45,10 +51,14 @@ gulp.task('styles', () => {
     .pipe(autoprefixer('last 2 version'))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.sassDest))
-    .pipe(rename({ suffix: '.min' }))
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(minifycss())
     .pipe(gulp.dest(paths.sassDest))
-    .pipe(notify({ message: 'Styles task complete' }));
+    .pipe(notify({
+      message: 'Styles task complete'
+    }));
 });
 
 gulp.task('templates', () => {
@@ -61,20 +71,28 @@ gulp.task('templates', () => {
     }))
     .pipe(concat('templates.js'))
     .pipe(gulp.dest(paths.jsDest))
-    .pipe(notify({ message: 'Templates task complete' }));
+    .pipe(notify({
+      message: 'Templates task complete'
+    }));
 });
 
 gulp.task('scripts', () => {
   return gulp.src(paths.jsSrc)
     .pipe(sourcemaps.init())
-    .pipe(babel({ presets: ['es2015'] }))
+    .pipe(babel({
+      presets: ['es2015']
+    }))
     .pipe(concat('application.js'))
     .pipe(gulp.dest(paths.jsDest))
-    .pipe(rename({suffix: '.min'}))
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(uglify())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.jsDest))
-    .pipe(notify({ message: 'Scripts task complete' }));
+    .pipe(notify({
+      message: 'Scripts task complete'
+    }));
 });
 
 gulp.task('clean', () => {
