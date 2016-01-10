@@ -30,9 +30,40 @@ const paths = {
   sassSrc: `${dirs.src}/styles/application.scss`,
   sassDest: `${dirs.dest}/styles/`,
   vendorSrc: `${dirs.vendor}/**/*.js`,
-  jsSrc: `${dirs.src}/scripts/**/*.js`,
+  jsSrc: [
+    `${dirs.src}/scripts/application.js`,
+    `${dirs.src}/scripts/modules/**/*.js`
+  ],
   jsDest: `${dirs.dest}/scripts/`
 };
+
+gulp.task('clean:html', () => {
+  return del(`${paths.htmlDest}/*.html`);
+});
+
+gulp.task('clean:styles', () => {
+  return del(paths.sassDest);
+});
+
+gulp.task('clean:scripts', () => {
+  return del(`${paths.jsDest}/application.*`);
+});
+
+gulp.task('clean:templates', () => {
+  return del(`${paths.jsDest}/templates.*`);
+});
+
+gulp.task('clean:vendor', () => {
+  return del(`${paths.jsDest}/vendor.*`);
+});
+
+gulp.task('clean', [
+  'clean:html',
+  'clean:styles',
+  'clean:scripts',
+  'clean:templates',
+  'clean:vendor'
+]);
 
 gulp.task('html', () => {
   return gulp.src(paths.htmlSrc)
@@ -64,7 +95,7 @@ gulp.task('templates', () => {
     .pipe(handlebars())
     .pipe(wrap('Handlebars.template(<%= contents %>)'))
     .pipe(declare({
-      namespace: 'Thezanke.templates',
+      namespace: 'app.templates',
       noRedeclare: true
     }))
     .pipe(concat('templates.js'))
@@ -109,6 +140,12 @@ gulp.task('scripts', () => {
     }));
 });
 
-gulp.task('clean', () => {
-  return del([`${paths.htmlDest}/*.html`, paths.sassDest, paths.jsDest]);
+gulp.task('watch', () => {
+  gulp.watch(paths.htmlSrc, ['clean:html', 'html']);
+  gulp.watch(paths.sassSrc, ['clean:styles', 'styles']);
+  gulp.watch(paths.scriptsSrc, ['clean:scripts', 'scripts']);
+  gulp.watch(paths.vendorSrc, ['clean:vendor', 'vendor']);
+  gulp.watch(paths.templateSrc, ['clean:templates', 'templates']);
 });
+
+gulp.task('default', ['clean', 'html', 'styles', 'templates', 'vendor', 'scripts', 'watch']);
