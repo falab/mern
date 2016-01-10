@@ -1,6 +1,8 @@
 'use strict';
 
 window.App = function () {
+  var _this = this;
+
   var data = {};
   var modules = {};
 
@@ -32,12 +34,13 @@ window.App = function () {
         }
 
         if (data.length) {
-          data.forEach(function (i, modName) {
+          for (var i = 0; i < data.length; i++) {
+            var modName = data[i];
             data[i] = modules[modName];
-          });
+          }
         }
 
-        modules[name] = modFn.apply(data);
+        modules[name] = modFn.apply(_this, data);
       }
     }
 
@@ -65,6 +68,6 @@ app.module('TestModule', function () {
 
 app.module('init', ['TestModule', function (TestModule) {
   return function () {
-    window.alert('test');
+    window.alert(TestModule);
   };
 }]);

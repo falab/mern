@@ -13,7 +13,7 @@ window.App = function () {
     };
   }());
 
-  // module interface for setting and getting modules
+  // module interface for setting and getting modules with dependency injection
   // returns named module
   let module = (name, data) => {
     if (data !== undefined) {
@@ -30,12 +30,13 @@ window.App = function () {
         }
 
         if (data.length) {
-          data.forEach(function (i, modName) {
+          for (let i = 0; i < data.length; i++) {
+            let modName = data[i];
             data[i] = modules[modName];
-          });
+          }
         }
 
-        modules[name] = modFn.apply(data);
+        modules[name] = modFn.apply(this, data);
       }
     }
 

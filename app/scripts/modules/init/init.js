@@ -1,5 +1,5 @@
 app.module('init', ['TestModule', (TestModule) => {
   return function () {
-    window.alert('test');
+    window.alert(TestModule);
   };
 }]);

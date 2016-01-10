@@ -148,4 +148,4 @@ gulp.task('watch', () => {
   gulp.watch(paths.templateSrc, ['clean:templates', 'templates']);
 });
 
-gulp.task('default', ['clean', 'html', 'styles', 'templates', 'vendor', 'scripts', 'watch']);
+gulp.task('default', ['clean', 'html', 'styles', 'templates', 'vendor', 'scripts']);
