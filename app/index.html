@@ -7,8 +7,13 @@
   <script src="/scripts/vendor.js"></script>
 </head>
 <body>
-  Welcome to thezanke.com
+  <div id="app"></div>
   <script src="/scripts/templates.js"></script>
   <script src="/scripts/application.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      window.app.init();
+    });
+  </script>
 </body>
 </html>
