@@ -1,4 +1,13 @@
-app.module('main', ['xhr', (xhr) => {
-  app.logger.info('main loaded!!!');
-  xhr('http://www.google.com');
-}]);
+app.module('main', () => {
+  let appContainer = document.getElementById('app');
+
+  let data = {
+    menuItems: [
+      { path: '/', text: 'home' },
+      { path: '/portfolio', text: 'portfolio' },
+      { path: 'http://www.google.com', text: 'Google', remote: true}
+    ]
+  };
+
+  appContainer.innerHTML = app.templates.application(data);
+});

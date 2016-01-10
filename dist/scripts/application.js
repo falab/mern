@@ -3,16 +3,89 @@
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 window.App = function () {
-  var _data = {};
-  var _modules = {
+  var _data = {},
+      _modules = {
     loaded: {},
     unloaded: {},
     scopes: {}
-  };
+  },
+      _fn = {},
+      utils = {},
+      ret = {};
+
+  // Check if a module is registered for loading
+  function moduleRegistered(modName) {
+    return Object.key(_modules.unloaded).indexOf(modName) > -1;
+  }
+
+  // Check if a module has been loaded
+  function moduleLoaded(modName) {
+    return Object.keys(_modules.loaded).indexOf(modName) > -1;
+  }
+
+  // load a module
+  function loadModule(modName) {
+    var modData = _modules.unloaded[modName];
+
+    if (typeof modData === 'function') {
+      modData = {
+        fn: modData,
+        scope: {}
+      };
+    } else if (modData.hasOwnProperty('length')) {
+      var modFn = modData.pop();
+
+      modData = {
+        fn: modFn,
+        dependencies: modData,
+        scope: {}
+      };
+    } else if ((typeof modData === 'undefined' ? 'undefined' : _typeof(modData)) !== "object") {
+      utils.logger.error('Module \'' + modName + '\' could not be loaded.');
+      return;
+    }
+
+    if (!modData.hasOwnProperty('scope')) {
+      modData.scope = {};
+    }
+
+    var dependencies = [];
+
+    // TODO: handle 'call stack exceeded'
+    if (modData.dependencies !== undefined) {
+      modData.dependencies.forEach(function (depName, i) {
+        if (!moduleLoaded(depName)) {
+          if (!moduleRegistered) {
+            utils.logger.error('Dependency \'' + depName + '\' not a registered module.');
+            return;
+          }
+
+          loadModule(depName);
+          dependencies.push(_modules.loaded[depName]);
+        }
+      });
+    }
+
+    _modules.scopes[modName] = modData.scope;
+    _modules.loaded[modName] = modData.fn.apply(modData.scope, dependencies);
+
+    utils.logger.info('Module \'' + modName + '\' loaded!');
+
+    delete _modules.unloaded[name];
+  }
+
+  // Load all unloaded modules
+  function loadModules() {
+    Object.keys(_modules.unloaded).forEach(function (modName) {
+      if (!moduleLoaded(modName)) {
+        loadModule(modName);
+      }
+    });
+  }
 
   // Abstract logging for later
   // TODO: create custom logging
-  var logger = {
+  utils.logger = {
     log: function log() {
       console.log.apply(console, arguments);
     },
@@ -30,13 +103,26 @@ window.App = function () {
     }
   };
 
+  // Add the properties of one object to another, shallow copy
+  utils.extend = function (obj1, obj2) {
+    if ((typeof obj2 === 'undefined' ? 'undefined' : _typeof(obj2)) !== 'object') {
+      return;
+    }
+
+    Object.keys(obj2).forEach(function (key) {
+      obj1[key] = obj2[key];
+    });
+
+    return obj1;
+  };
+
   // When passed only a modName, returns module
   // when passed modName and modData, registers a module for loading
-  var registerModule = function registerModule(modName, modData) {
+  ret.module = function (modName, modData) {
     // If modData is passed, register and return unloaded module
     if (modData !== undefined) {
       if (Object.keys(_modules.unloaded).indexOf(modName) !== -1) {
-        logger.warn('Module \'' + modName + '\' already registered for loading.');
+        utils.logger.warn('Module \'' + modName + '\' already registered for loading.');
       } else {
         _modules.unloaded[modName] = modData;
       }
@@ -46,94 +132,50 @@ window.App = function () {
 
     // If modData is not passed return loaded module
     if (Object.keys(_modules.loaded).indexOf(modName) === -1) {
-      logger.error('Module \'' + modName + '\' doesn\'t exist');
+      utils.logger.error('Module \'' + modName + '\' doesn\'t exist');
       return;
     }
 
     return _modules.loaded[modName];
   };
 
-  var moduleLoaded = function moduleLoaded(modName) {
-    return Object.keys(_modules.loaded).indexOf(modName) > -1;
+  ret.init = function () {
+    loadModules();
   };
 
-  var moduleRegistered = function moduleRegistered(modName) {
-    return Object.key(_modules.unloaded).indexOf(modName) > -1;
-  };
-
-  var loadModule = function loadModule(modName) {
-    var modData = _modules.unloaded[modName];
-
-    if (typeof modData === 'function') {
-      modData = {
-        fn: modData,
-        scope: {}
-      };
-    } else if (modData.hasOwnProperty('length')) {
-      var modFn = modData.pop();
-
-      modData = {
-        fn: modFn,
-        dependencies: modData,
-        scope: {}
-      };
-    } else if ((typeof modData === 'undefined' ? 'undefined' : _typeof(modData)) !== "object") {
-      logger.error('Module \'' + modName + '\' could not be loaded.');
-      return;
-    }
-
-    if (!modData.hasOwnProperty('scope')) {
-      modData.scope = {};
-    }
-
-    var dependencies = [];
-
-    // TODO: handle 'call stack exceeded'
-    if (modData.dependencies !== undefined) {
-      modData.dependencies.forEach(function (depName, i) {
-        if (!moduleLoaded(depName)) {
-          if (!moduleRegistered) {
-            logger.error('Dependency \'' + depName + '\' not a registered module.');
-            return;
-          }
-
-          loadModule(depName);
-          dependencies.push(_modules.loaded[depName]);
-        }
-      });
-    }
-
-    _modules.scopes[modName] = modData.scope;
-    _modules.loaded[modName] = modData.fn.apply(modData.scope, dependencies);
-    logger.info('Module \'' + modName + '\' loaded!');
-
-    delete _modules.unloaded[name];
-  };
-
-  var loadModules = function loadModules() {
-    Object.keys(_modules.unloaded).forEach(function (modName) {
-      if (!moduleLoaded(modName)) {
-        loadModule(modName);
-      }
-    });
-  };
-
-  return {
-    logger: logger,
-    module: registerModule,
-    init: function init() {
-      loadModules();
-    }
-  };
+  return utils.extend(ret, utils);
 };
 
 window.app = App();
 'use strict';
 
-app.module('main', ['xhr', function (xhr) {
-  app.logger.info('main loaded!!!');
-  xhr('http://www.google.com');
-}]);
+app.module('main', function () {
+  var appContainer = document.getElementById('app');
+
+  var data = {
+    menuItems: [{ path: '/', text: 'home' }, { path: '/portfolio', text: 'portfolio' }, { path: 'http://www.google.com', text: 'Google', remote: true }]
+  };
+
+  appContainer.innerHTML = app.templates.application(data);
+});
+'use strict';
+
+app.module('router', function () {
+  var routes = [];
+
+  var addRoute = function addRoute(path, spec) {
+    routes[path] = spec;
+  };
+
+  var defaultRoute = function defaultRoute(spec) {
+    return addRoute('/', spec);
+  };
+
+  return {
+    when: addRoute,
+    otherwise: defaultRoute
+  };
+});
 "use strict";
 
 app.module('xhr', function () {
