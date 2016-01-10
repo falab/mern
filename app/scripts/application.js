@@ -8,15 +8,13 @@ window.App = function () {
 
   // Abstract logging for later
   // TODO: create custom logging
-  let logger = (function () {
-    return {
-      log: function () { console.log.apply(console, arguments); },
-      info: function () { console.info.apply(console, arguments); },
-      warn: function () { console.warn.apply(console, arguments); },
-      error: function () { console.error.apply(console, arguments); },
-      table: function () { console.table.apply(console, arguments); },
-    };
-  }());
+  let logger = {
+    log: function () { console.log.apply(console, arguments); },
+    info: function () { console.info.apply(console, arguments); },
+    warn: function () { console.warn.apply(console, arguments); },
+    error: function () { console.error.apply(console, arguments); },
+    table: function () { console.table.apply(console, arguments); },
+  };
 
   // When passed only a modName, returns module
   // when passed modName and modData, registers a module for loading
