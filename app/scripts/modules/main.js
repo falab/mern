@@ -9,5 +9,5 @@ zframe.module('main', () => {
     ]
   };
 
-  appContainer.innerHTML = zframe.Templates.application(data);
+  appContainer.innerHTML = zframe.templates.application(data);
 });
