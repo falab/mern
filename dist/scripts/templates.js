@@ -1,6 +1,6 @@
-this["app"] = this["app"] || {};
-this["app"]["templates"] = this["app"]["templates"] || {};
-this["app"]["templates"]["application"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+this["zframe"] = this["zframe"] || {};
+this["zframe"]["Templates"] = this["zframe"]["Templates"] || {};
+this["zframe"]["Templates"]["application"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
   return "        <li><a href=\""

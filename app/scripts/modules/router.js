@@ -1,4 +1,4 @@
-app.module('router', () => {
+zframe.module('router', () => {
   let routes = [];
 
   let addRoute = (path, spec) => {

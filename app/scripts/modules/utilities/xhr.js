@@ -1,4 +1,4 @@
-app.module('xhr', function () {
+zframe.module('xhr', function () {
   return (options) => {
     if (typeof options === "string") {
       options = {
@@ -6,6 +6,6 @@ app.module('xhr', function () {
       };
     }
 
-    app.logger.info(`Performing XHR to ${options.url} here`);
+    zframe.logger.info(`Performing XHR to ${options.url} here`);
   };
 });

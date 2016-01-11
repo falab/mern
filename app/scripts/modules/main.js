@@ -1,4 +1,4 @@
-app.module('main', () => {
+zframe.module('main', () => {
   let appContainer = document.getElementById('app');
 
   let data = {
@@ -9,5 +9,5 @@ app.module('main', () => {
     ]
   };
 
-  appContainer.innerHTML = app.templates.application(data);
+  appContainer.innerHTML = zframe.Templates.application(data);
 });

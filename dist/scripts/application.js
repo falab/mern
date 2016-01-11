@@ -2,7 +2,7 @@
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-window.App = function () {
+window.Zframe = function () {
   var _data = {},
       _modules = {
     loaded: {},
@@ -139,28 +139,33 @@ window.App = function () {
     return _modules.loaded[modName];
   };
 
+  // Initializes all of the modules
   ret.init = function () {
     loadModules();
+    utils.logger.info('zframe initialized');
   };
 
+  utils.logger.info('zframe loaded');
+
+  // Combine utility functions into the return object for use in modules
   return utils.extend(ret, utils);
 };
 
-window.app = App();
+window.zframe = Zframe();
 'use strict';
 
-app.module('main', function () {
+zframe.module('main', function () {
   var appContainer = document.getElementById('app');
 
   var data = {
     menuItems: [{ path: '/', text: 'home' }, { path: '/portfolio', text: 'portfolio' }, { path: 'http://www.google.com', text: 'Google', remote: true }]
   };
 
-  appContainer.innerHTML = app.templates.application(data);
+  appContainer.innerHTML = zframe.Templates.application(data);
 });
 'use strict';
 
-app.module('router', function () {
+zframe.module('router', function () {
   var routes = [];
 
   var addRoute = function addRoute(path, spec) {
@@ -178,7 +183,7 @@ app.module('router', function () {
 });
 "use strict";
 
-app.module('xhr', function () {
+zframe.module('xhr', function () {
   return function (options) {
     if (typeof options === "string") {
       options = {
@@ -186,6 +191,6 @@ app.module('xhr', function () {
       };
     }
 
-    app.logger.info("Performing XHR to " + options.url + " here");
+    zframe.logger.info("Performing XHR to " + options.url + " here");
   };
 });

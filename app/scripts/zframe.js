@@ -1,4 +1,4 @@
-window.App = function () {
+window.Zframe = function () {
   let _data = {},
     _modules = {
       loaded: {},
@@ -135,11 +135,16 @@ window.App = function () {
     return _modules.loaded[modName];
   };
 
+  // Initializes all of the modules
   ret.init = () => {
     loadModules();
+    utils.logger.info('zframe initialized');
   };
 
+  utils.logger.info('zframe loaded');
+
+  // Combine utility functions into the return object for use in modules
   return utils.extend(ret, utils);
 };
 
-window.app = App();
+window.zframe = Zframe();

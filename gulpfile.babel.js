@@ -31,7 +31,7 @@ const paths = {
   sassDest: `${dirs.dest}/styles/`,
   vendorSrc: `${dirs.vendor}/**/*.js`,
   jsSrc: [
-    `${dirs.src}/scripts/application.js`,
+    `${dirs.src}/scripts/zframe.js`,
     `${dirs.src}/scripts/modules/**/*.js`
   ],
   jsDest: `${dirs.dest}/scripts/`
@@ -95,7 +95,7 @@ gulp.task('templates', () => {
     .pipe(handlebars())
     .pipe(wrap('Handlebars.template(<%= contents %>)'))
     .pipe(declare({
-      namespace: 'app.templates',
+      namespace: 'zframe.Templates',
       noRedeclare: true
     }))
     .pipe(concat('templates.js'))
