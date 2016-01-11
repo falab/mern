@@ -42,7 +42,7 @@ window.Zframe = function () {
         scope: {}
       };
     } else if (typeof modData !== "object") {
-      utils.logger.error(`Module '${modName}' could not be loaded.`);
+      utils.logger.error(`${_info.name} module '${modName}' could not be loaded.`);
       return;
     }
 
@@ -57,7 +57,7 @@ window.Zframe = function () {
       modData.dependencies.forEach((depName, i) => {
         if (!moduleLoaded(depName)) {
           if (!moduleRegistered) {
-            utils.logger.error(`Dependency '${depName}' not a registered module.`);
+            utils.logger.error(`${_info.name} module '${modName}' dependency '${depName}' is not a registered module.`);
             return;
           }
 
@@ -70,7 +70,7 @@ window.Zframe = function () {
     _modules.scopes[modName] = modData.scope;
     _modules.loaded[modName] = modData.fn.apply(modData.scope, dependencies);
 
-    utils.logger.info(`Module '${modName}' loaded!`);
+    utils.logger.info(`${_info.name} module '${modName}' loaded!`);
 
     delete _modules.unloaded[name];
   }
@@ -143,7 +143,7 @@ window.Zframe = function () {
   // Initializes all of the modules
   ret.init = () => {
     loadModules();
-    utils.logger.info(`${_info.name} initialized`);
+    utils.logger.info(`${_info.name} initialization complete.`);
   };
 
   utils.logger.info(`${_info.name} v${_info.version} loaded!`);
