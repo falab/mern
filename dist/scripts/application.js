@@ -3,7 +3,12 @@
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 window.Zframe = function () {
-  var _data = {},
+  var _info = {
+    name: 'Zframe',
+    version: '0.0.0'
+  },
+      _data = {},
+      _cache = {},
       _modules = {
     loaded: {},
     unloaded: {},
@@ -122,7 +127,7 @@ window.Zframe = function () {
     // If modData is passed, register and return unloaded module
     if (modData !== undefined) {
       if (Object.keys(_modules.unloaded).indexOf(modName) !== -1) {
-        utils.logger.warn('Module \'' + modName + '\' already registered for loading.');
+        utils.logger.warn(_info.name + ' module \'' + modName + '\' already registered for loading.');
       } else {
         _modules.unloaded[modName] = modData;
       }
@@ -132,7 +137,7 @@ window.Zframe = function () {
 
     // If modData is not passed return loaded module
     if (Object.keys(_modules.loaded).indexOf(modName) === -1) {
-      utils.logger.error('Module \'' + modName + '\' doesn\'t exist');
+      utils.logger.error(_info.name + ' module \'' + modName + '\' doesn\'t exist.');
       return;
     }
 
@@ -142,10 +147,10 @@ window.Zframe = function () {
   // Initializes all of the modules
   ret.init = function () {
     loadModules();
-    utils.logger.info('zframe initialized');
+    utils.logger.info(_info.name + ' initialized');
   };
 
-  utils.logger.info('zframe loaded');
+  utils.logger.info(_info.name + ' v' + _info.version + ' loaded!');
 
   // Combine utility functions into the return object for use in modules
   return utils.extend(ret, utils);
