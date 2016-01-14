@@ -114,7 +114,7 @@ window.Zframe = function () {
     _modules.scopes[modName] = modData.scope;
     _modules.loaded[modName] = modData.fn.apply(modData.scope, dependencies);
 
-    zframe.logger.info(`${_info.name} module '${modName}' loaded!`);
+    zframe.logger.info(`module '${modName}' loaded!`);
 
     delete _modules.unloaded[name];
   }
