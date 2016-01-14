@@ -1,4 +1,4 @@
-zframe.module('zRouter', () => {
+zframe.module('zRouter', (_elements) => {
   let routes = [];
 
   let addRoute = (path, spec) => {
@@ -8,6 +8,11 @@ zframe.module('zRouter', () => {
   let defaultRoute = (spec) => {
     return addRoute('/', spec);
   };
+
+  zframe.bindEvent(_elements.app, 'click', 'a', (e) => {
+    e.preventDefault();
+    console.log('It works!', e);
+  });
 
   return {
     when: addRoute,

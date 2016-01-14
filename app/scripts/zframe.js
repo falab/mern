@@ -1,18 +1,24 @@
 window.Zframe = function () {
   let _info = {
-      name: 'Zframe',
-      version: '0.0.0'
-    },
-    _data = {},
-    _cache = {},
-    _modules = {
-      loaded: {},
-      unloaded: {},
-      scopes: {}
-    },
-    _fn = {},
-    utils = {},
-    ret = {};
+    name: 'Zframe',
+    version: '0.0.0'
+  };
+  let _data = {};
+  let _cache = {};
+  let _modules = {
+    loaded: {},
+    unloaded: {},
+    scopes: {}
+  };
+  let _fn = {};
+  let _elements = {};
+
+  let utils = {};
+  let ret = {};
+
+  function cacheElements() {
+    _elements.app = document.getElementById('app');
+  }
 
   // Check if a module is registered for loading
   function moduleRegistered(modName) {
@@ -50,9 +56,9 @@ window.Zframe = function () {
       modData.scope = {};
     }
 
-    let dependencies = [];
+    let dependencies = [_elements];
 
-    // TODO: handle 'call stack exceeded'
+    // TODO: handle 'call stack exceeded' if it shows up
     if (modData.dependencies !== undefined) {
       modData.dependencies.forEach((depName, i) => {
         if (!moduleLoaded(depName)) {
@@ -104,6 +110,40 @@ window.Zframe = function () {
     },
   };
 
+  // Binds an event to an element, support delegation
+  utils.bindEvent = (el, evtType, spec, fn) => {
+    let q;
+
+    if (fn === undefined) {
+      if (typeof spec === "function") {
+        fn = spec;
+      } else if (typeof spec === "object") {
+        fn = spec.fn;
+      }
+    }
+
+    if (typeof spec === "string") {
+      q = spec;
+    } else if (typeof spec === "object"){
+      q = spec.query;
+    }
+
+    if (typeof fn === undefined) {
+      app.logger.error(`${_info.name} couldn't find an event to bind`);
+    }
+
+    if (q === undefined) {
+      el.addEventListener(evtType, fn);
+    } else {
+      el.addEventListener(evtType, function (e) {
+        let qMatches = Array.prototype.slice.call(el.querySelectorAll(q));
+        if (qMatches.indexOf(e.target) !== -1) {
+          fn.apply(this, arguments);
+        }
+      });
+    }
+  };
+
   // Add the properties of one object to another, shallow copy
   utils.extend = (obj1, obj2) => {
     if (typeof obj2 !== 'object') {
@@ -142,6 +182,7 @@ window.Zframe = function () {
 
   // Initializes all of the modules
   ret.init = () => {
+    cacheElements();
     loadModules();
     utils.logger.info(`${_info.name} initialization complete.`);
   };

@@ -143,9 +143,9 @@ gulp.task('scripts', () => {
 gulp.task('watch', () => {
   gulp.watch(paths.htmlSrc, ['clean:html', 'html']);
   gulp.watch(paths.sassSrc, ['clean:styles', 'styles']);
-  gulp.watch(paths.scriptsSrc, ['clean:scripts', 'scripts']);
+  gulp.watch(paths.jsSrc, ['clean:scripts', 'scripts']);
   gulp.watch(paths.vendorSrc, ['clean:vendor', 'vendor']);
   gulp.watch(paths.templateSrc, ['clean:templates', 'templates']);
 });
 
-gulp.task('default', ['clean', 'html', 'styles', 'templates', 'vendor', 'scripts']);
+gulp.task('default', ['clean', 'html', 'styles', 'templates', 'vendor', 'scripts', 'watch']);

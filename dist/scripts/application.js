@@ -6,17 +6,23 @@ window.Zframe = function () {
   var _info = {
     name: 'Zframe',
     version: '0.0.0'
-  },
-      _data = {},
-      _cache = {},
-      _modules = {
+  };
+  var _data = {};
+  var _cache = {};
+  var _modules = {
     loaded: {},
     unloaded: {},
     scopes: {}
-  },
-      _fn = {},
-      utils = {},
-      ret = {};
+  };
+  var _fn = {};
+  var _elements = {};
+
+  var utils = {};
+  var ret = {};
+
+  function cacheElements() {
+    _elements.app = document.getElementById('app');
+  }
 
   // Check if a module is registered for loading
   function moduleRegistered(modName) {
@@ -54,9 +60,9 @@ window.Zframe = function () {
       modData.scope = {};
     }
 
-    var dependencies = [];
+    var dependencies = [_elements];
 
-    // TODO: handle 'call stack exceeded'
+    // TODO: handle 'call stack exceeded' if it shows up
     if (modData.dependencies !== undefined) {
       modData.dependencies.forEach(function (depName, i) {
         if (!moduleLoaded(depName)) {
@@ -108,6 +114,40 @@ window.Zframe = function () {
     }
   };
 
+  // Binds an event to an element, support delegation
+  utils.bindEvent = function (el, evtType, spec, fn) {
+    var q = undefined;
+
+    if (fn === undefined) {
+      if (typeof spec === "function") {
+        fn = spec;
+      } else if ((typeof spec === 'undefined' ? 'undefined' : _typeof(spec)) === "object") {
+        fn = spec.fn;
+      }
+    }
+
+    if (typeof spec === "string") {
+      q = spec;
+    } else if ((typeof spec === 'undefined' ? 'undefined' : _typeof(spec)) === "object") {
+      q = spec.query;
+    }
+
+    if ((typeof fn === 'undefined' ? 'undefined' : _typeof(fn)) === undefined) {
+      app.logger.error(_info.name + ' couldn\'t find an event to bind');
+    }
+
+    if (q === undefined) {
+      el.addEventListener(evtType, fn);
+    } else {
+      el.addEventListener(evtType, function (e) {
+        var qMatches = Array.prototype.slice.call(el.querySelectorAll(q));
+        if (qMatches.indexOf(e.target) !== -1) {
+          fn.apply(this, arguments);
+        }
+      });
+    }
+  };
+
   // Add the properties of one object to another, shallow copy
   utils.extend = function (obj1, obj2) {
     if ((typeof obj2 === 'undefined' ? 'undefined' : _typeof(obj2)) !== 'object') {
@@ -146,6 +186,7 @@ window.Zframe = function () {
 
   // Initializes all of the modules
   ret.init = function () {
+    cacheElements();
     loadModules();
     utils.logger.info(_info.name + ' initialization complete.');
   };
@@ -159,18 +200,16 @@ window.Zframe = function () {
 window.zframe = Zframe();
 'use strict';
 
-zframe.module('main', function () {
-  var appContainer = document.getElementById('app');
-
+zframe.module('main', function (_elements) {
   var data = {
     menuItems: [{ path: '/', text: 'home' }, { path: '/portfolio', text: 'portfolio' }, { path: 'http://www.google.com', text: 'Google', remote: true }]
   };
 
-  appContainer.innerHTML = zframe.Templates.application(data);
+  _elements.app.innerHTML = zframe.Templates.application(data);
 });
 'use strict';
 
-zframe.module('router', function () {
+zframe.module('zRouter', function (_elements) {
   var routes = [];
 
   var addRoute = function addRoute(path, spec) {
@@ -180,6 +219,11 @@ zframe.module('router', function () {
   var defaultRoute = function defaultRoute(spec) {
     return addRoute('/', spec);
   };
+
+  zframe.bindEvent(_elements.app, 'click', 'a', function (e) {
+    e.preventDefault();
+    console.log('It works!', e);
+  });
 
   return {
     when: addRoute,

@@ -1,6 +1,4 @@
-zframe.module('main', () => {
-  let appContainer = document.getElementById('app');
-
+zframe.module('main', (_elements) => {
   let data = {
     menuItems: [
       { path: '/', text: 'home' },
@@ -9,5 +7,5 @@ zframe.module('main', () => {
     ]
   };
 
-  appContainer.innerHTML = zframe.templates.application(data);
+  _elements.app.innerHTML = zframe.Templates.application(data);
 });
