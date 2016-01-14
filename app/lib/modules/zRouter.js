@@ -45,6 +45,7 @@ zframe.module('zRouter', function (_elements) {
   function getRouteByPath(path) {
     let route;
 
+    // Loop through routes and break on first match (screw your 'for' loop.)
     Object.keys(routes).every((routeName) => {
       if (routes[routeName].path === path) {
         route = routes[routeName];

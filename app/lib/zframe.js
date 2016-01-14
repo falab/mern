@@ -10,11 +10,49 @@ window.Zframe = function () {
     unloaded: {},
     scopes: {}
   };
+  let _controllers = {};
   let _fn = {};
   let _elements = {};
+  let _prototypes = {};
 
-  let utils = {};
-  let ret = {};
+  _prototypes.controller = {
+    name: null,
+    fn: null,
+    deps: [_elements],
+    isValid: function () {
+      if (typeof this.name !== 'string') return false;
+      if (typeof this.fn !== 'function') return false;
+      if (!Array.isArray(this.deps)) return false;
+      return true;
+    },
+    loadDeps: function () {
+      // intentionally starting at 1 to skip the elements hash
+      for (let i = 1; i < this.deps.length; i++) {
+        let modName = this.deps[i];
+        let module = _modules.loaded[modName];
+
+        if (module === undefined) {
+          zframe.logger.warn(`controller '${this.name}' dependency '${modName}' is not a loaded module.`);
+        }
+
+        this.deps[i] = module;
+      }
+    },
+    init: function () {
+      if (!this.isValid()) {
+        return false;
+      }
+
+      this.loadDeps();
+      this.methods = this.fn.apply(this, this.deps);
+
+      zframe.logger.info(`controller '${this.name}' initialized.`);
+
+      return true;
+    }
+  };
+
+  let zframe = {};
 
   function cacheElements() {
     _elements.app = document.getElementById('app');
@@ -48,7 +86,7 @@ window.Zframe = function () {
         scope: {}
       };
     } else if (typeof modData !== "object") {
-      utils.logger.error(`${_info.name} module '${modName}' could not be loaded.`);
+      zframe.logger.error(`module '${modName}' could not be loaded.`);
       return;
     }
 
@@ -63,7 +101,7 @@ window.Zframe = function () {
       modData.dependencies.forEach((depName, i) => {
         if (!moduleLoaded(depName)) {
           if (!moduleRegistered) {
-            utils.logger.error(`${_info.name} module '${modName}' dependency '${depName}' is not a registered module.`);
+            zframe.logger.error(`module '${modName}' dependency '${depName}' is not a registered module.`);
             return;
           }
 
@@ -76,7 +114,7 @@ window.Zframe = function () {
     _modules.scopes[modName] = modData.scope;
     _modules.loaded[modName] = modData.fn.apply(modData.scope, dependencies);
 
-    utils.logger.info(`${_info.name} module '${modName}' loaded!`);
+    zframe.logger.info(`${_info.name} module '${modName}' loaded!`);
 
     delete _modules.unloaded[name];
   }
@@ -90,20 +128,26 @@ window.Zframe = function () {
     });
   }
 
+  function initializeControllers() {
+    Object.keys(_controllers).forEach((key) => {
+      _controllers[key].init();
+    });
+  }
+
   // Abstract logging for later
   // TODO: create custom logging
-  utils.logger = {
+  zframe.logger = {
     log: function () {
       console.log.apply(console, arguments);
     },
-    info: function () {
-      console.info.apply(console, arguments);
+    info: function (message) {
+      console.info(`${_info.name}: ${message}`);
     },
-    warn: function () {
-      console.warn.apply(console, arguments);
+    warn: function (message) {
+      console.warn(`${_info.name}: ${message}`);
     },
-    error: function () {
-      console.error.apply(console, arguments);
+    error: function (message) {
+      console.error(`${_info.name}: ${message}`);
     },
     table: function () {
       console.table.apply(console, arguments);
@@ -111,7 +155,7 @@ window.Zframe = function () {
   };
 
   // TODO: write xhr utility
-  utils.xhr = () => {
+  zframe.xhr = () => {
     return (options) => {
       if (typeof options === "string") {
         options = {
@@ -119,11 +163,11 @@ window.Zframe = function () {
         };
       }
 
-      zframe.logger.info(`Performing XHR to ${options.url} here`);
+      zframe.logger.info(`performing XHR to '${options.url}' here.`);
     };
   };
 
-  utils.trigger = (el, evtType, spec) => {
+  zframe.trigger = (el, evtType, spec) => {
     if (typeof el === 'string') {
       el = document.querySelector(el);
     }
@@ -137,7 +181,7 @@ window.Zframe = function () {
   };
 
   // Binds an event to an element, support delegation
-  utils.bindEvent = (el, evtType, spec, fn) => {
+  zframe.bindEvent = (el, evtType, spec, fn) => {
     if (typeof el === 'string') {
       el = document.querySelector(el);
     }
@@ -150,24 +194,25 @@ window.Zframe = function () {
       }
     }
 
-    let q;
+    let query;
 
     if (typeof spec === "string") {
-      q = spec;
-    } else if (typeof spec === "object"){
-      q = spec.query;
+      query = spec;
+    } else if (typeof spec === "object") {
+      query = spec.query;
     }
 
     if (typeof fn === undefined) {
-      app.logger.error(`${_info.name} couldn't find an event to bind`);
+      app.logger.error('couldn\'t find an event to bind');
     }
 
-    if (q === undefined) {
+    if (query === undefined) {
       el.addEventListener(evtType, fn);
     } else {
       el.addEventListener(evtType, function (e) {
-        let qMatches = Array.prototype.slice.call(el.querySelectorAll(q));
-        if (qMatches.indexOf(e.target) !== -1) {
+        let matches = Array.prototype.slice.call(el.querySelectorAll(query));
+
+        if (matches.indexOf(e.target) !== -1) {
           fn.apply(this, arguments);
         }
       });
@@ -175,7 +220,7 @@ window.Zframe = function () {
   };
 
   // Add the properties of one object to another, shallow copy
-  utils.extend = (obj1, obj2) => {
+  zframe.extend = (obj1, obj2) => {
     if (typeof obj2 !== 'object') {
       return;
     }
@@ -189,39 +234,68 @@ window.Zframe = function () {
 
   // When passed only a modName, returns module
   // when passed modName and modData, registers a module for loading
-  ret.module = (modName, modData) => {
+  zframe.module = function (modName, modData) {
     // If modData is passed, register and return unloaded module
     if (modData !== undefined) {
       if (Object.keys(_modules.unloaded).indexOf(modName) !== -1) {
-        utils.logger.warn(`${_info.name} module '${modName}' already registered for loading.`);
+        zframe.logger.warn(`module '${modName}' already registered for loading.`);
       } else {
         _modules.unloaded[modName] = modData;
       }
 
-      return _modules.unloaded[modName];
+      return zframe;
     }
 
     // If modData is not passed return loaded module
     if (Object.keys(_modules.loaded).indexOf(modName) === -1) {
-      utils.logger.error(`${_info.name} module '${modName}' doesn't exist.`);
-      return;
+      return zframe.logger.error(`module '${modName}' doesn't exist.`);
     }
 
     return _modules.loaded[modName];
   };
 
-  // Initializes all of the modules
-  ret.init = () => {
-    cacheElements();
-    loadModules();
+  // Method for registering and returning controllers
+  zframe.controller = function (contName, spec) {
+    if (spec !== undefined) {
+      if (Object.keys(_controllers).indexOf(contName) !== -1) {
+        zframe.logger.warn(`controller '${contName}' already loaded.`);
+        return zframe;
+      }
 
-    utils.logger.info(`${_info.name} initialization complete.`);
+      let controller = Object.create(_prototypes.controller);
+      controller.name = contName;
+
+      if (typeof spec === 'function') {
+        controller.fn = spec;
+      } else if (Array.isArray(spec)) {
+        controller.fn = spec.pop();
+        controller.deps = controller.deps.concat(spec);
+      } else if (typeof spec === 'object') {
+        zframe.extend(controller.prototype, spec);
+      }
+
+      _controllers[contName] = controller;
+
+      return zframe;
+    }
+
+    if (Object.keys(_controllers).indexOf(contName) === -1) {
+      return zframe.logger.error(`controller '${contName}' doesn't exist.`);
+    }
+
+    return _controllers[contName];
   };
 
-  utils.logger.info(`${_info.name} v${_info.version} loaded!`);
+  // Initializes all of the modules
+  zframe.init = () => {
+    cacheElements();
+    loadModules();
+    initializeControllers();
 
-  // Combine utility functions into the return object for use in modules
-  return utils.extend(ret, utils);
+    zframe.logger.info('initialization complete.');
+  };
+
+  return zframe;
 };
 
 window.zframe = Zframe();
