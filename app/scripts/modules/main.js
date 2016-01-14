@@ -1,4 +1,4 @@
-zframe.module('main', (_elements) => {
+zframe.module('main', function (_elements) {
   let data = {
     menuItems: [
       { path: '/', text: 'home' },
