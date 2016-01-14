@@ -31,8 +31,8 @@ const paths = {
   sassDest: `${dirs.dest}/styles/`,
   vendorSrc: `${dirs.vendor}/**/*.js`,
   jsSrc: [
-    `${dirs.src}/scripts/zframe.js`,
-    `${dirs.src}/scripts/modules/**/*.js`
+    `${dirs.src}/lib/zframe.js`,
+    `${dirs.src}/lib/**/*.js`
   ],
   jsDest: `${dirs.dest}/scripts/`
 };

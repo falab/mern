@@ -8,11 +8,13 @@ zframe.module('zRouter', function (_elements) {
     'home': {
       path: '/',
       controller: 'homeController',
+      action: 'show',
       template: 'home'
     },
     'portfolio': {
       path: '/portfolio',
       controller: 'portfolioController',
+      action: 'index',
       template: 'portfolio'
     }
   };
@@ -36,8 +38,7 @@ zframe.module('zRouter', function (_elements) {
 
   // Pushes a routeSpec object into the routes hash with a path of /
   function defaultRoute(routeSpec) {
-    routeSpec.path = '/';
-    return addRoute('default', routeSpec);
+    return addRoute('default', zframe.extend(routeSpec, { path: '/' }));
   }
 
   // Returns the first route that matches a path
@@ -56,7 +57,7 @@ zframe.module('zRouter', function (_elements) {
     return route;
   }
 
-  // Processes a route object and routes the user accordingly
+  // TODO: Processes a route object and routes the user accordingly
   function processRoute(route) {
     zframe.logger.log(`Process route '${route.path}'`, route);
   }

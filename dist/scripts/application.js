@@ -114,9 +114,37 @@ window.Zframe = function () {
     }
   };
 
+  // TODO: write xhr utility
+  utils.xhr = function () {
+    return function (options) {
+      if (typeof options === "string") {
+        options = {
+          url: options
+        };
+      }
+
+      zframe.logger.info('Performing XHR to ' + options.url + ' here');
+    };
+  };
+
+  utils.trigger = function (el, evtType, spec) {
+    if (typeof el === 'string') {
+      el = document.querySelector(el);
+    }
+
+    var e = new Event(evtType, {
+      bubbles: false,
+      cancelable: false
+    });
+
+    el.dispatchEvent(e);
+  };
+
   // Binds an event to an element, support delegation
   utils.bindEvent = function (el, evtType, spec, fn) {
-    var q = undefined;
+    if (typeof el === 'string') {
+      el = document.querySelector(el);
+    }
 
     if (fn === undefined) {
       if (typeof spec === "function") {
@@ -125,6 +153,8 @@ window.Zframe = function () {
         fn = spec.fn;
       }
     }
+
+    var q = undefined;
 
     if (typeof spec === "string") {
       q = spec;
@@ -188,6 +218,7 @@ window.Zframe = function () {
   ret.init = function () {
     cacheElements();
     loadModules();
+
     utils.logger.info(_info.name + ' initialization complete.');
   };
 
@@ -219,11 +250,13 @@ zframe.module('zRouter', function (_elements) {
     'home': {
       path: '/',
       controller: 'homeController',
+      action: 'show',
       template: 'home'
     },
     'portfolio': {
       path: '/portfolio',
       controller: 'portfolioController',
+      action: 'index',
       template: 'portfolio'
     }
   };
@@ -247,8 +280,7 @@ zframe.module('zRouter', function (_elements) {
 
   // Pushes a routeSpec object into the routes hash with a path of /
   function defaultRoute(routeSpec) {
-    routeSpec.path = '/';
-    return addRoute('default', routeSpec);
+    return addRoute('default', zframe.extend(routeSpec, { path: '/' }));
   }
 
   // Returns the first route that matches a path
@@ -267,7 +299,7 @@ zframe.module('zRouter', function (_elements) {
     return route;
   }
 
-  // Processes a route object and routes the user accordingly
+  // TODO: Processes a route object and routes the user accordingly
   function processRoute(route) {
     zframe.logger.log('Process route \'' + route.path + '\'', route);
   }
@@ -296,18 +328,5 @@ zframe.module('zRouter', function (_elements) {
   return {
     when: addRoute,
     otherwise: defaultRoute
-  };
-});
-"use strict";
-
-zframe.module('xhr', function () {
-  return function (options) {
-    if (typeof options === "string") {
-      options = {
-        url: options
-      };
-    }
-
-    zframe.logger.info("Performing XHR to " + options.url + " here");
   };
 });

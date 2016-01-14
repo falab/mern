@@ -110,9 +110,37 @@ window.Zframe = function () {
     },
   };
 
+  // TODO: write xhr utility
+  utils.xhr = () => {
+    return (options) => {
+      if (typeof options === "string") {
+        options = {
+          url: options
+        };
+      }
+
+      zframe.logger.info(`Performing XHR to ${options.url} here`);
+    };
+  };
+
+  utils.trigger = (el, evtType, spec) => {
+    if (typeof el === 'string') {
+      el = document.querySelector(el);
+    }
+
+    let e = new Event(evtType, {
+      bubbles: false,
+      cancelable: false
+    });
+
+    el.dispatchEvent(e);
+  };
+
   // Binds an event to an element, support delegation
   utils.bindEvent = (el, evtType, spec, fn) => {
-    let q;
+    if (typeof el === 'string') {
+      el = document.querySelector(el);
+    }
 
     if (fn === undefined) {
       if (typeof spec === "function") {
@@ -121,6 +149,8 @@ window.Zframe = function () {
         fn = spec.fn;
       }
     }
+
+    let q;
 
     if (typeof spec === "string") {
       q = spec;
@@ -184,6 +214,7 @@ window.Zframe = function () {
   ret.init = () => {
     cacheElements();
     loadModules();
+
     utils.logger.info(`${_info.name} initialization complete.`);
   };
 
