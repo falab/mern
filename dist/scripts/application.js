@@ -305,16 +305,6 @@ window.Zframe = function () {
 window.zframe = Zframe();
 'use strict';
 
-zframe.controller('HomeController', ['zRouter', function (_elements, zRouter) {
-  return {
-    index: function index() {
-      zframe.logger.info('HomeController index method ran');
-      zframe.logger.log(_elements, zRouter);
-    }
-  };
-}]);
-'use strict';
-
 zframe.module('main', function (_elements) {
   var data = {
     menuItems: [{ path: '/', text: 'home' }, { path: '/portfolio', text: 'portfolio' }, { path: 'http://www.google.com', text: 'Google', remote: true }]
@@ -415,3 +405,13 @@ zframe.module('zRouter', function (_elements) {
     otherwise: defaultRoute
   };
 });
+'use strict';
+
+zframe.controller('HomeController', ['zRouter', function (_elements, zRouter) {
+  return {
+    index: function index() {
+      zframe.logger.info('HomeController index method ran');
+      zframe.logger.log(_elements, zRouter);
+    }
+  };
+}]);
