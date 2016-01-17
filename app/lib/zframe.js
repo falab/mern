@@ -13,7 +13,7 @@ window.Zframe = function () {
   let _controllers = {};
   let _fn = {};
   let _elements = {};
-  let _prototypes = {};  
+  let _prototypes = {};
 
   _prototypes.controller = {
     name: null,
