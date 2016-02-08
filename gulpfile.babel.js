@@ -11,60 +11,44 @@ import concat from 'gulp-concat';
 import notify from 'gulp-notify';
 import cache from 'gulp-cache';
 import sourcemaps from 'gulp-sourcemaps';
-import babel from 'gulp-babel';
-import handlebars from 'gulp-handlebars';
 import wrap from 'gulp-wrap';
 import declare from 'gulp-declare';
 import del from 'del';
+import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
+import browserify from 'browserify';
+import reactify from 'reactify';
+import babelify from 'babelify';
+import watchify from 'watchify';
+import lazypipe from 'lazypipe';
+import assign from 'lodash.assign';
 
-const dirs = {
-  src: 'app',
-  dest: 'dist',
-  vendor: 'vendor'
+let dirs = {
+  src: 'dist/src',
+  dest: 'dist/build',
+  vendor: 'dist/vendor'
 };
 
-const paths = {
+let files = {
+  sassSrc: 'application.scss',
+  jsMain: 'application.js'
+};
+
+let paths = {
   htmlSrc: `${dirs.src}/*.html`,
   htmlDest: `${dirs.dest}/`,
-  templateSrc: `${dirs.src}/templates/*.hbs`,
-  sassSrc: `${dirs.src}/styles/application.scss`,
+  sassSrc: `${dirs.src}/styles/${files.sassSrc}`,
   sassDest: `${dirs.dest}/styles/`,
   vendorSrc: `${dirs.vendor}/**/*.js`,
-  jsSrc: [
-    `${dirs.src}/lib/zframe.js`,
-    `${dirs.src}/lib/**/*.js`
+  jsEntryPoints: [
+    `./${dirs.src}/${files.jsMain}`
   ],
   jsDest: `${dirs.dest}/scripts/`
 };
 
-gulp.task('clean:html', () => {
-  return del(`${paths.htmlDest}/*.html`);
-});
-
-gulp.task('clean:styles', () => {
-  return del(paths.sassDest);
-});
-
-gulp.task('clean:scripts', () => {
-  return del(`${paths.jsDest}/application.*`);
-});
-
-gulp.task('clean:templates', () => {
-  return del(`${paths.jsDest}/templates.*`);
-});
-
-gulp.task('clean:vendor', () => {
-  return del(`${paths.jsDest}/vendor.*`);
-});
-
-gulp.task('clean', [
-  'clean:html',
-  'clean:styles',
-  'clean:scripts',
-  'clean:templates',
-  'clean:vendor'
-]);
-
+/**
+ * HTML
+ */
 gulp.task('html', () => {
   return gulp.src(paths.htmlSrc)
     .pipe(gulp.dest(paths.htmlDest))
@@ -73,79 +57,129 @@ gulp.task('html', () => {
     }));
 });
 
+gulp.task('clean:html', () => {
+  return del(`${paths.htmlDest}/*.html`);
+});
+
+/**
+ * Styles
+ */
 gulp.task('styles', () => {
   return gulp.src(paths.sassSrc)
     .pipe(sourcemaps.init())
-    .pipe(sass.sync().on('error', sass.logError))
-    .pipe(autoprefixer('last 2 version'))
+      .pipe(sass.sync().on('error', sass.logError))
+      .pipe(autoprefixer('last 2 version'))
+      .pipe(gulp.dest(paths.sassDest))
+      .pipe(rename({
+        suffix: '.min'
+      }))
+      .pipe(minifycss())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.sassDest))
-    .pipe(rename({
-      suffix: '.min'
-    }))
-    .pipe(minifycss())
-    .pipe(gulp.dest(paths.sassDest))
     .pipe(notify({
-      message: 'Styles task complete'
+      message: 'Styles task complete',
+      onLast: true
     }));
 });
 
-gulp.task('templates', () => {
-  return gulp.src(paths.templateSrc)
-    .pipe(handlebars())
-    .pipe(wrap('Handlebars.template(<%= contents %>)'))
-    .pipe(declare({
-      namespace: 'zframe.Templates',
-      noRedeclare: true
-    }))
-    .pipe(concat('templates.js'))
-    .pipe(gulp.dest(paths.jsDest))
-    .pipe(notify({
-      message: 'Templates task complete'
-    }));
+gulp.task('clean:styles', () => {
+  return del(paths.sassDest);
 });
 
+/**
+ * Vendor
+ */
 gulp.task('vendor', () => {
   return gulp.src(paths.vendorSrc)
     .pipe(sourcemaps.init())
-    .pipe(concat('vendor.js'))
-    .pipe(gulp.dest(paths.jsDest))
-    .pipe(rename({
-      suffix: '.min'
-    }))
-    .pipe(uglify())
+      .pipe(concat('vendor.js'))
+      .pipe(gulp.dest(paths.jsDest))
+      .pipe(rename({
+        suffix: '.min'
+      }))
+      .pipe(uglify())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.jsDest))
     .pipe(notify({
-      message: 'Vendor task complete'
+      message: 'Vendor task complete',
+      onLast: true
     }));
 });
+
+gulp.task('clean:vendor', () => {
+  return del(`${paths.jsDest}/vendor.*`);
+});
+
+/**
+ * Scripts
+ */
+
+let browserifyProps = assign({}, watchify.args, {
+  entries: paths.jsEntryPoints,
+  transform: [
+    reactify,
+    [ 'babelify', { presets: ['es2015', 'react'] } ]
+  ],
+  debug: true
+});
+
+let jsPipeline = lazypipe()
+  .pipe(source, files.jsMain)
+  .pipe(buffer)
+  .pipe(sourcemaps.init, { loadMaps: true })
+    .pipe(gulp.dest, paths.jsDest)
+    .pipe(rename, { suffix: '.min' })
+    .pipe(uglify)
+  .pipe(sourcemaps.write, '.')
+  .pipe(gulp.dest, paths.jsDest)
+  .pipe(notify, { message: 'Scripts task complete', onLast: true });
 
 gulp.task('scripts', () => {
-  return gulp.src(paths.jsSrc)
-    .pipe(sourcemaps.init())
-    .pipe(babel({
-      presets: ['es2015']
-    }))
-    .pipe(concat('application.js'))
-    .pipe(gulp.dest(paths.jsDest))
-    .pipe(rename({
-      suffix: '.min'
-    }))
-    .pipe(uglify())
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(paths.jsDest))
-    .pipe(notify({
-      message: 'Scripts task complete'
-    }));
+  browserify(browserifyProps).bundle().pipe(jsPipeline());
 });
 
+let cleanScripts = () => {
+  return del(`${paths.jsDest}/${files.jsMain}`);
+};
+
+gulp.task('clean:scripts', () => {
+  cleanScripts();
+});
+
+/**
+ * Clean
+ */
+gulp.task('clean', [
+  'clean:html',
+  'clean:styles',
+  'clean:scripts',
+  'clean:vendor'
+]);
+
+/**
+ * Watch
+ */
 gulp.task('watch', () => {
   gulp.watch(paths.htmlSrc, ['clean:html', 'html']);
   gulp.watch(paths.sassSrc, ['clean:styles', 'styles']);
   gulp.watch(paths.jsSrc, ['clean:scripts', 'scripts']);
   gulp.watch(paths.vendorSrc, ['clean:vendor', 'vendor']);
-  gulp.watch(paths.templateSrc, ['clean:templates', 'templates']);
+
+  let watcher = watchify(browserify(browserifyProps), { poll: true });
+
+  watcher.on('update', () => {
+    cleanScripts();
+    return watcher.bundle().pipe(jsPipeline());
+  });
+
+  watcher.on('log', function (data) {
+    console.log(data);
+  });
+
+  watcher.bundle().pipe(jsPipeline());
 });
 
-gulp.task('default', ['clean', 'html', 'styles', 'templates', 'vendor', 'scripts', 'watch']);
+/**
+ * Default
+ */
+gulp.task('default', ['clean', 'html', 'styles', 'vendor', 'watch']);
