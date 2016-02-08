@@ -22,6 +22,7 @@ import babelify from 'babelify';
 import watchify from 'watchify';
 import lazypipe from 'lazypipe';
 import assign from 'lodash.assign';
+import gutil from 'gulp-util';
 
 let dirs = {
   src: 'dist/src',
@@ -173,7 +174,7 @@ gulp.task('watch', () => {
   });
 
   watcher.on('log', function (data) {
-    console.log(data);
+    gutil.log(`${gutil.colors.cyan('Watchify')}:`, data);
   });
 
   watcher.bundle().pipe(jsPipeline());
