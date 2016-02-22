@@ -23,11 +23,12 @@ import watchify from 'watchify';
 import lazypipe from 'lazypipe';
 import assign from 'lodash.assign';
 import gutil from 'gulp-util';
+import nodemon from 'gulp-nodemon';
 
 let dirs = {
-  src: 'dist/src',
-  dest: 'dist/build',
-  vendor: 'dist/vendor'
+  src: 'src',
+  dest: 'public',
+  vendor: 'vendor'
 };
 
 let files = {
@@ -49,6 +50,7 @@ let paths = {
 
 /**
  * HTML
+ * Can eventually be precompiled from another source
  */
 gulp.task('html', () => {
   return gulp.src(paths.htmlSrc)
@@ -180,7 +182,16 @@ gulp.task('watch', () => {
   watcher.bundle().pipe(jsPipeline());
 });
 
+gulp.task('develop', function () {
+  nodemon({
+    script: './bin/www',
+    env: { 'NODE_ENV': 'development' },
+    ignore: [ 'public/', 'src/', 'vendor/' ]
+  })
+  .on('start', ['watch']);
+});
+
 /**
  * Default
  */
-gulp.task('default', ['clean', 'html', 'styles', 'vendor', 'watch']);
+gulp.task('default', ['clean', 'html', 'styles', 'vendor', 'develop']);
