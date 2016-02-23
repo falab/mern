@@ -32,7 +32,7 @@ let dirs = {
 
 let files = {
   sassSrc: 'application.scss',
-  jsMain: 'application.js'
+  jsMain: 'application.jsx'
 };
 
 let paths = {
@@ -122,11 +122,14 @@ let browserifyProps = assign({}, watchify.args, {
     reactify,
     [ 'babelify', { presets: ['es2015', 'react'] } ]
   ],
+  insertGlobals: true,
+  extensions: ['.jsx'],
   debug: true
 });
 
 let jsPipeline = lazypipe()
   .pipe(source, files.jsMain)
+  .pipe(rename, 'application.js')
   .pipe(buffer)
   .pipe(sourcemaps.init, { loadMaps: true })
     .pipe(gulp.dest, paths.jsDest)
