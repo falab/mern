@@ -1,4 +1,4 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Test = require('./components/container');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const Test = require('./components/container');
 ReactDOM.render(<Test />, document.getElementById('app'));
