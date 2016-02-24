@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default class MainApp extends React.Component {
+export default class Footer extends React.Component {
   render() {
     return (
       <div>
-        MainApp
+        Footer
       </div>
     );
   }

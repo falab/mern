@@ -103,7 +103,7 @@ gulp.task('vendor',
         onLast: true,
       })
     )
-  );
+);
 
 gulp.task('clean:vendor', () => del(`${paths.jsDest}/vendor.*`));
 
