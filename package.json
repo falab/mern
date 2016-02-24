@@ -54,13 +54,18 @@
     "watchify": "^3.7.0"
   },
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "test": "eslint ./src/**",
+    "eslint": "eslint ./src/application.jsx --print-config"
+  },
+  "eslintConfig":{
+    "extends": "airbnb"
   },
   "repository": {
     "type": "git",
     "url": "git+https://bitbucket.org/thezanke/thezanke.com.git"
   },
-  "author": "",
+  "author": "Alex 'TheZanke' Howard",
   "license": "MIT",
   "homepage": "https://bitbucket.org/thezanke/thezanke.com"
 }
