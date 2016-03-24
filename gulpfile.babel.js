@@ -29,11 +29,10 @@ const files = {
 };
 
 const paths = {
-    htmlSrc: `${dirs.appSrc}/*.html`,
-    htmlDest: `${dirs.dest}/`,
     sassSrc: `${dirs.sassSrc}/**/*.scss`,
     sassDest: `${dirs.dest}/styles/`,
     vendorSrc: `${dirs.vendor}/**/*.js`,
+    componentSrc: `${dirs.appSrc}/**/*.jsx`,
     jsEntryPoints: [
         `${dirs.appSrc}/${files.jsMain}`,
     ],
@@ -45,22 +44,6 @@ function logger(pluginName) {
         gutil.log(`${pluginName}:`, data.toString());
     };
 }
-
-/**
- * HTML
- * Can eventually be precompiled from another source
- */
-gulp.task('html',
-    () => gulp.src(paths.htmlSrc)
-    .pipe(gulp.dest(paths.htmlDest))
-    .pipe(
-        notify({
-            message: 'HTML task complete',
-        })
-    )
-);
-
-gulp.task('clean:html', () => del(`${paths.htmlDest}/*.html`));
 
 /**
  * Styles
@@ -138,24 +121,11 @@ function handleBundle(bundle) {
         .pipe(notify({
             message: 'Scripts task complete',
             onLast: true
+        }))
+        .pipe(livereload({
+            reloadPage: ''
         }));
 }
-
-const browserifyProps = assign({}, watchify.args, {
-    entries: paths.jsEntryPoints,
-    insertGlobals: true,
-    extensions: ['.jsx'],
-    debug: true,
-});
-
-gulp.task('scripts', () => {
-    handleBundle(browserify(browserifyProps)
-        .transform(babelify, {
-            presets: ['es2015', 'react']
-        })
-        .bundle()
-    );
-});
 
 const cleanScripts = () => del(`${paths.jsDest}/${files.jsMain}`);
 
@@ -165,7 +135,6 @@ gulp.task('clean:scripts', cleanScripts);
  * Clean
  */
 gulp.task('clean', [
-    'clean:html',
     'clean:styles',
     'clean:scripts',
     'clean:vendor',
@@ -174,16 +143,20 @@ gulp.task('clean', [
 /**
  * Watch
  */
+
 gulp.task('watch', () => {
     livereload.listen();
 
-    gulp.watch(paths.htmlSrc, ['clean:html', 'html']);
     gulp.watch(paths.sassSrc, ['clean:styles', 'styles']);
-    gulp.watch(paths.jsSrc, ['clean:scripts', 'scripts']);
     gulp.watch(paths.vendorSrc, ['clean:vendor', 'vendor']);
 
     const watcher = watchify(
-        browserify(browserifyProps)
+        browserify(assign({}, watchify.args, {
+            entries: paths.jsEntryPoints,
+            insertGlobals: true,
+            extensions: ['.jsx'],
+            debug: true,
+        }))
         .transform(babelify, {
             presets: ['es2015', 'react']
         }), {
@@ -204,4 +177,4 @@ gulp.task('watch', () => {
 /**
  * Default
  */
-gulp.task('default', ['clean', 'html', 'styles', 'vendor', 'watch']);
+gulp.task('default', ['clean', 'styles', 'vendor', 'watch']);
