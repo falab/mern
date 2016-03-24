@@ -13,7 +13,6 @@ import buffer from 'vinyl-buffer';
 import browserify from 'browserify';
 import babelify from 'babelify';
 import watchify from 'watchify';
-import lazypipe from 'lazypipe';
 import assign from 'lodash.assign';
 import gutil from 'gulp-util';
 
@@ -39,6 +38,12 @@ const paths = {
     ],
     jsDest: `${dirs.dest}/scripts/`,
 };
+
+function logger(pluginName) {
+    return (data) => {
+        gutil.log(`${pluginName}:`, data.toString());
+    };
+}
 
 /**
  * HTML
@@ -112,6 +117,28 @@ gulp.task('clean:vendor', () => del(`${paths.jsDest}/vendor.*`));
  * Scripts
  */
 
+function handleBundle(bundle) {
+    return bundle
+        .on('error', logger(gutil.colors.red('Watchify')))
+        .pipe(source(files.jsMain))
+        .pipe(rename('application.js'))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({
+            loadMaps: true
+        }))
+        .pipe(gulp.dest(paths.jsDest))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(uglify())
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(paths.jsDest))
+        .pipe(notify({
+            message: 'Scripts task complete',
+            onLast: true
+        }));
+}
+
 const browserifyProps = assign({}, watchify.args, {
     entries: paths.jsEntryPoints,
     insertGlobals: true,
@@ -119,39 +146,18 @@ const browserifyProps = assign({}, watchify.args, {
     debug: true,
 });
 
-const jsPipeline = lazypipe()
-    .pipe(source, files.jsMain)
-    .pipe(rename, 'application.js')
-    .pipe(buffer)
-    .pipe(sourcemaps.init, {
-        loadMaps: true
-    })
-    .pipe(gulp.dest, paths.jsDest)
-    .pipe(rename, {
-        suffix: '.min'
-    })
-    .pipe(uglify)
-    .pipe(sourcemaps.write, '.')
-    .pipe(gulp.dest, paths.jsDest)
-    .pipe(notify, {
-        message: 'Scripts task complete',
-        onLast: true
-    });
-
 gulp.task('scripts', () => {
-    browserify(browserifyProps)
+    handleBundle(browserify(browserifyProps)
         .transform(babelify, {
             presets: ['es2015', 'react']
         })
         .bundle()
-        .pipe(jsPipeline());
+    );
 });
 
 const cleanScripts = () => del(`${paths.jsDest}/${files.jsMain}`);
 
-gulp.task('clean:scripts', () => {
-    cleanScripts();
-});
+gulp.task('clean:scripts', cleanScripts);
 
 /**
  * Clean
@@ -184,17 +190,11 @@ gulp.task('watch', () => {
     watcher
         .on('update', () => {
             cleanScripts();
-            return watcher.bundle()
-                .on('error', (data) => {
-                    gutil.log(`${gutil.colors.red('Watchify')}:`, data.toString());
-                })
-                .pipe(jsPipeline());
+            return handleBundle(watcher.bundle());
         })
-        .on('log', (data) => {
-            gutil.log(`${gutil.colors.cyan('Watchify')}:`, data.toString());
-        });
+        .on('log', logger(gutil.colors.cyan('Watchify')));
 
-    watcher.bundle().pipe(jsPipeline());
+    handleBundle(watcher.bundle());
 });
 
 /**
