@@ -1,3 +1,7 @@
 body {
   background: #ddd;
   color: #222; }
+
+div {
+  color: red;
+  background: black; }

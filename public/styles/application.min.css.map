@@ -1,1 +1,1 @@
-{"version":3,"sources":["application.scss"],"names":[],"mappings":"AAAA,KACE,WAAA,KACA,MAAA","file":"application.min.css","sourcesContent":["body {\n  background: #ddd;\n  color: #222;\n}\n"],"sourceRoot":"/source/"}
+{"version":3,"sources":["application.scss","footer.css"],"names":[],"mappings":"AAAA,KACE,WAAA,KACA,MAAA,KCFF,IACE,MAAA,IACA,WAAA","file":"application.min.css","sourcesContent":["body {\n  background: #ddd;\n  color: #222;\n}\n","div {\n  color: red;\n  background: black; }\n"],"sourceRoot":"/source/"}
