@@ -57,7 +57,7 @@
     "test": "eslint ./src/**",
     "eslint": "eslint ./src/application.jsx --print-config"
   },
-  "eslintConfig":{
+  "eslintConfig": {
     "extends": "airbnb"
   },
   "repository": {

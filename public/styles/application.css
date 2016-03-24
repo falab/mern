@@ -1,7 +1,8 @@
 body {
-  background: #ddd;
-  color: #222; }
+  background: green;
+  color: #222;
+  font-size: 40px; }
 
 div {
-  color: red;
-  background: black; }
+  color: white;
+  background: purple; }

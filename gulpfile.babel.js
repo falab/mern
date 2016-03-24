@@ -15,6 +15,7 @@ import babelify from 'babelify';
 import watchify from 'watchify';
 import assign from 'lodash.assign';
 import gutil from 'gulp-util';
+import livereload from 'gulp-livereload';
 
 const dirs = {
     appSrc: 'app/src',
@@ -71,6 +72,7 @@ gulp.task('styles',
     .pipe(autoprefixer('last 2 version'))
     .pipe(concat('application.css'))
     .pipe(gulp.dest(paths.sassDest))
+    .pipe(livereload())
     .pipe(rename({
         suffix: '.min',
     }))
@@ -173,6 +175,8 @@ gulp.task('clean', [
  * Watch
  */
 gulp.task('watch', () => {
+    livereload.listen();
+
     gulp.watch(paths.htmlSrc, ['clean:html', 'html']);
     gulp.watch(paths.sassSrc, ['clean:styles', 'styles']);
     gulp.watch(paths.jsSrc, ['clean:scripts', 'scripts']);
