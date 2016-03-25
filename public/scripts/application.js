@@ -66,12 +66,12 @@ var App = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(_TestComponent2.default, null),
-                _react2.default.createElement(_TestComponent2.default, null),
-                _react2.default.createElement(_TestComponent2.default, null),
-                _react2.default.createElement(_TestComponent2.default, null),
-                _react2.default.createElement(_TestComponent2.default, null),
-                _react2.default.createElement(_TestComponent2.default, null)
+                _react2.default.createElement(_TestComponent2.default, { content: 'This is a test' }),
+                _react2.default.createElement(_TestComponent2.default, { content: 'Of the emergency' }),
+                _react2.default.createElement(_TestComponent2.default, { content: 'broadcast system.' }),
+                _react2.default.createElement(_TestComponent2.default, { content: 'If this had been' }),
+                _react2.default.createElement(_TestComponent2.default, { content: 'An actual emergency' }),
+                _react2.default.createElement(_TestComponent2.default, { content: 'you would have been instructed' })
             );
         }
     }]);
@@ -120,7 +120,7 @@ var App = function (_React$Component) {
             return _react2.default.createElement(
                 "div",
                 { className: "test-component" },
-                "Some text here"
+                this.props.content
             );
         }
     }]);

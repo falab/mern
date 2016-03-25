@@ -4,7 +4,7 @@ export default class App extends React.Component {
     render() {
         return (
             <div className="test-component">
-                Some text here
+                {this.props.content}
             </div>
         );
     }
