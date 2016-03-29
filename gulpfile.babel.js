@@ -18,10 +18,8 @@ import source from 'vinyl-source-stream';
 import watchify from 'watchify';
 
 const dirs = {
-  appSrc: 'app/src',
-  sassSrc: 'app/styles',
+  src: 'app',
   dest: 'public',
-  vendor: 'vendor',
 };
 
 const files = {
@@ -29,14 +27,11 @@ const files = {
 };
 
 const paths = {
-  sassSrc: `${dirs.sassSrc}/**/*.scss`,
-  sassDest: `${dirs.dest}/styles/`,
-  vendorSrc: `${dirs.vendor}/**/*.js`,
-  componentSrc: `${dirs.appSrc}/**/*.jsx`,
+  appDest: `${dirs.dest}/`,
+  sassSrc: `${dirs.src}/**/*.scss`,
   jsEntryPoints: [
-    `${dirs.appSrc}/${files.jsMain}`,
+    `${dirs.src}/${files.jsMain}`,
   ],
-  jsDest: `${dirs.dest}/scripts/`,
 };
 
 function logger(pluginName) {
@@ -54,14 +49,14 @@ gulp.task('styles',
   .pipe(sass.sync().on('error', sass.logError))
   .pipe(autoprefixer('last 2 version'))
   .pipe(concat('application.css'))
-  .pipe(gulp.dest(paths.sassDest))
+  .pipe(gulp.dest(paths.appDest))
   .pipe(livereload())
   .pipe(rename({
     suffix: '.min',
   }))
   .pipe(minifycss())
   .pipe(sourcemaps.write('.'))
-  .pipe(gulp.dest(paths.sassDest))
+  .pipe(gulp.dest(paths.appDest))
   .pipe(
     notify({
       message: 'Styles task complete',
@@ -70,33 +65,7 @@ gulp.task('styles',
   )
 );
 
-gulp.task('clean:styles', () => del(paths.sassDest));
-
-/**
- * Vendor
- */
-gulp.task('vendor',
-  () => gulp.src(paths.vendorSrc)
-  .pipe(sourcemaps.init())
-  .pipe(concat('vendor.js'))
-  .pipe(gulp.dest(paths.jsDest))
-  .pipe(
-    rename({
-      suffix: '.min',
-    })
-  )
-  .pipe(uglify())
-  .pipe(sourcemaps.write('.'))
-  .pipe(gulp.dest(paths.jsDest))
-  .pipe(
-    notify({
-      message: 'Vendor task complete',
-      onLast: true,
-    })
-  )
-);
-
-gulp.task('clean:vendor', () => del(`${paths.jsDest}/vendor.*`));
+gulp.task('clean:styles', () => del(`${paths.appDest}/*.{css,css.map}`));
 
 /**
  * Scripts
@@ -111,13 +80,13 @@ function handleBundle(bundle) {
     .pipe(sourcemaps.init({
       loadMaps: true,
     }))
-    .pipe(gulp.dest(paths.jsDest))
+    .pipe(gulp.dest(paths.appDest))
     .pipe(rename({
       suffix: '.min',
     }))
     .pipe(uglify())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(paths.jsDest))
+    .pipe(gulp.dest(paths.appDest))
     .pipe(notify({
       message: 'Scripts task complete',
       onLast: true,
@@ -127,7 +96,7 @@ function handleBundle(bundle) {
     }));
 }
 
-const cleanScripts = () => del(`${paths.jsDest}/${files.jsMain}`);
+const cleanScripts = () => del(`${paths.appDest}/*.{js,js.map}`);
 
 gulp.task('clean:scripts', cleanScripts);
 
@@ -137,7 +106,6 @@ gulp.task('clean:scripts', cleanScripts);
 gulp.task('clean', [
   'clean:styles',
   'clean:scripts',
-  'clean:vendor',
 ]);
 
 /**
@@ -148,7 +116,6 @@ gulp.task('watch', () => {
   livereload.listen();
 
   gulp.watch(paths.sassSrc, ['clean:styles', 'styles']);
-  gulp.watch(paths.vendorSrc, ['clean:vendor', 'vendor']);
 
   const watcher = watchify(
     browserify(assign({}, watchify.args, {
@@ -177,4 +144,4 @@ gulp.task('watch', () => {
 /**
  * Default
  */
-gulp.task('default', ['clean', 'styles', 'vendor', 'watch']);
+gulp.task('default', ['clean', 'styles', 'watch']);

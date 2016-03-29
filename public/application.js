@@ -20,7 +20,7 @@ _reactDom2.default.render(_react2.default.createElement(_App2.default, null), do
 
 // COMPONENTS
 
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/src/application.jsx","/app/src")
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/application.jsx","/app")
 
 },{"./components/App/App":2,"_process":36,"buffer":6,"react":166,"react-dom":37}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
@@ -98,7 +98,7 @@ var App = function (_React$Component) {
 
 exports.default = App;
 
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/src/components/App/App.jsx","/app/src/components/App")
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/App/App.jsx","/app/components/App")
 
 },{"../Menu/Menu":3,"../MenuItem/MenuItem":4,"_process":36,"buffer":6,"react":166}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
@@ -152,7 +152,7 @@ Menu.propTypes = {
   children: _react2.default.PropTypes.node
 };
 
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/src/components/Menu/Menu.jsx","/app/src/components/Menu")
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/Menu/Menu.jsx","/app/components/Menu")
 
 },{"_process":36,"buffer":6,"react":166}],4:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
@@ -206,7 +206,7 @@ MenuItem.propTypes = {
   children: _react2.default.PropTypes.string
 };
 
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/src/components/MenuItem/MenuItem.jsx","/app/src/components/MenuItem")
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/MenuItem/MenuItem.jsx","/app/components/MenuItem")
 
 },{"_process":36,"buffer":6,"react":166}],5:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
