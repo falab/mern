@@ -3,9 +3,9 @@ import React from 'react';
 export default class MenuItem extends React.Component {
   render() {
     return (
-      <div className="menuItem">
+      <li className="menuItem">
         {this.props.children}
-      </div>
+      </li>
     );
   }
 }

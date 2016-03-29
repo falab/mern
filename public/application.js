@@ -137,7 +137,11 @@ var Menu = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         { className: "menu" },
-        this.props.children
+        _react2.default.createElement(
+          "ul",
+          null,
+          this.props.children
+        )
       );
     }
   }]);
@@ -189,7 +193,7 @@ var MenuItem = function (_React$Component) {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
-        "div",
+        "li",
         { className: "menuItem" },
         this.props.children
       );

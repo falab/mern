@@ -1,2 +1,2 @@
-body{margin:0;padding:5px;background:#000;color:#fff}
+.menu ul,body{padding:0;margin:0}.menu{border-bottom:1px solid #000}.menu ul{list-style:none}.menuItem{display:inline-block;padding:3px 5px;border-right:1px solid #000}.menuItem:hover{background-color:rgba(0,0,0,.1);cursor:pointer}
 /*# sourceMappingURL=application.min.css.map */

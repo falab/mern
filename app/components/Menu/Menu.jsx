@@ -4,7 +4,9 @@ export default class Menu extends React.Component {
   render() {
     return (
       <div className="menu">
-        {this.props.children}
+        <ul>
+          {this.props.children}
+        </ul>
       </div>
     );
   }

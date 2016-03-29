@@ -28,7 +28,10 @@ const files = {
 
 const paths = {
   appDest: `${dirs.dest}/`,
-  sassSrc: `${dirs.src}/**/*.scss`,
+  sassSrc: [
+    `${dirs.src}/application.scss`,
+    `${dirs.src}/components/**/*.scss`,
+  ],
   jsEntryPoints: [
     `${dirs.src}/${files.jsMain}`,
   ],
