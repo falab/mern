@@ -1,10 +1,10 @@
 .menuItem {
   display     : inline-block;
   padding     : 3px 5px;
-  border-right: 1px solid black;
+  border-right: 1px solid #aaa;
 
   &:hover {
-    background-color: rgba(0,0,0,.1);
-    cursor: pointer;
+    background-color: rgba(0,0,0,.05);
+    cursor          : pointer;
   }
 }
