@@ -1,13 +1,11 @@
 import React from 'react';
 
-export default class MenuItem extends React.Component {
-  render() {
-    return (
-      <li className="menuItem">
-        {this.props.children}
-      </li>
-    );
-  }
+export default function MenuItem(props) {
+  return (
+    <li className="menuItem">
+      {props.children}
+    </li>
+  );
 }
 
 MenuItem.propTypes = {
