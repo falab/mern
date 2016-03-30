@@ -2,6 +2,13 @@ body {
   margin: 0;
   padding: 0; }
 
+.menu {
+  border-bottom: 1px solid #aaa; }
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+
 .menuItem {
   display: inline-block;
   padding: 3px 5px;
@@ -9,10 +16,3 @@ body {
   .menuItem:hover {
     background-color: rgba(0, 0, 0, 0.05);
     cursor: pointer; }
-
-.menu {
-  border-bottom: 1px solid #aaa; }
-  .menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0; }
