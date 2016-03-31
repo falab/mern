@@ -10,15 +10,15 @@ export default function App(props) {
   return (
     <div>
       <Menu>
-        <MenuItem>
-          <Link to="/">Home</Link>
-        </MenuItem>
-        <MenuItem>
-          <Link to="portfolio">Portfolio</Link>
-        </MenuItem>
-        <MenuItem>
-          <Link to="blog">Blog</Link>
-        </MenuItem>
+        <Link to="/">
+          <MenuItem>Home</MenuItem>
+        </Link>
+        <Link to="portfolio">
+          <MenuItem>Portfolio</MenuItem>
+        </Link>
+        <Link to="blog">
+          <MenuItem>Blog</MenuItem>
+        </Link>
       </Menu>
       <div>{props.children}</div>
     </div>

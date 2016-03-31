@@ -9,5 +9,5 @@ export default function MenuItem(props) {
 }
 
 MenuItem.propTypes = {
-  children: React.PropTypes.string,
+  children: React.PropTypes.node,
 };
