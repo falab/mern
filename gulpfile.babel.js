@@ -32,7 +32,7 @@ const files = {
 const paths = {
   appDest: `${dirs.dest}/`,
   sassSrc: [
-    `${dirs.src}/application.scss`,
+    `${dirs.src}/*.scss`,
     `${dirs.src}/components/**/*.scss`,
   ],
   imageSrc: `${dirs.assets}/images/*.{png,gif,jpg,svg}`,

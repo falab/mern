@@ -3,9 +3,11 @@ import React from 'react';
 export default function Menu(props) {
   return (
     <div className="menu">
-      <ul>
-        {props.children}
-      </ul>
+      <div className="container">
+        <ul>
+          {props.children}
+        </ul>
+      </div>
     </div>
   );
 }

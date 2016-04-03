@@ -4,23 +4,15 @@ import React from 'react';
 import Menu from '../../Menu/Menu';
 import MenuItem from '../../MenuItem/MenuItem';
 
-import { Link } from 'react-router';
-
 export default function App(props) {
   return (
-    <div>
+    <div className="fullHeight">
       <Menu>
-        <Link to="/">
-          <MenuItem>Home</MenuItem>
-        </Link>
-        <Link to="portfolio">
-          <MenuItem>Portfolio</MenuItem>
-        </Link>
-        <Link to="blog">
-          <MenuItem>Blog</MenuItem>
-        </Link>
+        <MenuItem to="/">Home</MenuItem>
+        <MenuItem to="portfolio">Portfolio</MenuItem>
+        <MenuItem to="blog">Blog</MenuItem>
       </Menu>
-      <div>{props.children}</div>
+      {props.children}
     </div>
   );
 }

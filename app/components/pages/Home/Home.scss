@@ -1,0 +1,8 @@
+@import '../../../_base_components';
+
+.home-container {
+  @extend .page-container;
+  background     : url("/images/mountain-bg.jpg") fixed no-repeat top center;
+  background-size: cover;
+  min-height     : 100%;
+}

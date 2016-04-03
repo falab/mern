@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default function Blog() {
+export default function NotFound() {
   return (
     <div className="page-container">
       <div className="container">
-        Blog
+        404 Page Not Found
       </div>
     </div>
   );

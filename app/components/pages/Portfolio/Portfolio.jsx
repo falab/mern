@@ -2,8 +2,10 @@ import React from 'react';
 
 export default function Portfolio() {
   return (
-    <div>
-      Portfolio
+    <div className="page-container">
+      <div className="container">
+        Portfolio
+      </div>
     </div>
   );
 }
