@@ -1,10 +1,13 @@
+@import '../../_variables';
+
 .menu {
   height       : 50px;
   position     : absolute;
   top          : 0;
   left         : 0;
   width        : 100%;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid darken($menu-color, 50%);
+  background   : $menu-color;
 
   ul {
     list-style: none;

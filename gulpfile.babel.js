@@ -152,6 +152,7 @@ gulp.task('watch', () => {
     }))
     .transform(babelify, {
       presets: ['es2015', 'react'],
+      plugins: ['transform-class-properties'],
     }), {
       poll: true,
     }
