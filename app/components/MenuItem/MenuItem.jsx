@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 export default class MenuItem extends React.Component {
-  _handleClick = (e) => {
+  _handleClick(e) {
     const target = e.target;
 
     if (!target.hasAttribute('href')) {

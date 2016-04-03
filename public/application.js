@@ -116,26 +116,21 @@ var MenuItem = function (_React$Component) {
   _inherits(MenuItem, _React$Component);
 
   function MenuItem() {
-    var _Object$getPrototypeO;
-
-    var _temp, _this, _ret;
-
     _classCallCheck(this, MenuItem);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(MenuItem).apply(this, arguments));
+  }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(MenuItem)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this._handleClick = function (e) {
+  _createClass(MenuItem, [{
+    key: '_handleClick',
+    value: function _handleClick(e) {
       var target = e.target;
 
       if (!target.hasAttribute('href')) {
         target.querySelector('a').click();
       }
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  _createClass(MenuItem, [{
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(

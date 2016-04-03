@@ -1,6 +1,10 @@
 @import "_variables";
 
 .page-container {
-  height     : 100%;
-  padding-top: 80px;
+  background-size      : cover;
+  background-attachment: fixed;
+  background-repeat    : no-repeat;
+  background-position  : top center;
+  height               : 100%;
+  padding-top          : 80px;
 }
