@@ -1,4 +1,42 @@
+@import '_variables';
+
+html,
 body {
   margin : 0;
   padding: 0;
+}
+
+.container {
+  width : 100%;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: $screen-xs) {
+  .container {
+    width: $screen-xs - 40;
+  }
+}
+
+@media screen and (min-width: $screen-sm) {
+  .container {
+    width: $screen-sm - 40;
+  }
+}
+
+@media screen and (min-width: $screen-md) {
+  .container {
+    width: $screen-md - 40;
+  }
+}
+
+@media screen and (min-width: $screen-lg) {
+  .container {
+    width: $screen-lg - 40;
+  }
+}
+
+@media screen and (min-width: $screen-xl) {
+  .container {
+    width: $screen-xl - 40;
+  }
 }

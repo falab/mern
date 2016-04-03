@@ -16,10 +16,13 @@ import assign from 'lodash.assign';
 import buffer from 'vinyl-buffer';
 import source from 'vinyl-source-stream';
 import watchify from 'watchify';
+import imagemin from 'gulp-imagemin';
+import pngquant from 'imagemin-pngquant';
 
 const dirs = {
   src: 'app',
   dest: 'public',
+  assets: 'assets',
 };
 
 const files = {
@@ -32,6 +35,8 @@ const paths = {
     `${dirs.src}/application.scss`,
     `${dirs.src}/components/**/*.scss`,
   ],
+  imageSrc: `${dirs.assets}/images/*.{png,gif,jpg,svg}`,
+  imageDest: `${dirs.dest}/images/`,
   jsEntryPoints: [
     `${dirs.src}/${files.jsMain}`,
   ],
@@ -42,6 +47,22 @@ function logger(pluginName) {
     gutil.log(`${pluginName}:`, data.toString());
   };
 }
+
+/**
+ * Assets
+ */
+gulp.task('images',
+  () => gulp.src(paths.imageSrc)
+  .pipe(imagemin({
+    progressive: true,
+    svgoPlugins: [{ removeViewBox: false }],
+    use: [pngquant()],
+  }))
+  .pipe(gulp.dest(paths.imageDest))
+  .pipe(livereload())
+);
+
+gulp.task('clean:images', () => del(paths.imageDest));
 
 /**
  * Styles
@@ -109,6 +130,7 @@ gulp.task('clean:scripts', cleanScripts);
 gulp.task('clean', [
   'clean:styles',
   'clean:scripts',
+  'clean:images',
 ]);
 
 /**
@@ -119,6 +141,7 @@ gulp.task('watch', () => {
   livereload.listen();
 
   gulp.watch(paths.sassSrc, ['clean:styles', 'styles']);
+  gulp.watch(paths.imageSrc, ['clean:images', 'images']);
 
   const watcher = watchify(
     browserify(assign({}, watchify.args, {
@@ -147,4 +170,4 @@ gulp.task('watch', () => {
 /**
  * Default
  */
-gulp.task('default', ['clean', 'styles', 'watch']);
+gulp.task('default', ['clean', 'styles', 'images', 'watch']);

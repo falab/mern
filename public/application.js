@@ -213,14 +213,14 @@ function Blog() {
 
 },{"_process":59,"buffer":9,"react":224}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Home;
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -228,9 +228,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function Home() {
   return _react2.default.createElement(
-    'div',
-    null,
-    'Home'
+    "div",
+    { className: "container" },
+    "Home"
   );
 }
 
