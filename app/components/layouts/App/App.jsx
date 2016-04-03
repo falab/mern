@@ -6,7 +6,7 @@ import MenuItem from '../../MenuItem/MenuItem';
 
 export default function App(props) {
   return (
-    <div className="fullHeight">
+    <div>
       <Menu>
         <MenuItem to="/">Home</MenuItem>
         <MenuItem to="portfolio">Portfolio</MenuItem>

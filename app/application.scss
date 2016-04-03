@@ -7,16 +7,10 @@ body,
   box-sizing: border-box;
 }
 
-.fullHeight {
-  height: 100%;
-}
-
 html,
 body {
-  @extend .fullHeight;
   margin : 0;
   padding: 0;
-  height : 100%;
 }
 
 a {

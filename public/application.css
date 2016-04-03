@@ -1,11 +1,10 @@
 .page-container {
   background: url("/images/mountain-bg.jpg");
-  min-height: 100%;
+  min-height: 100vh;
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: top center;
-  height: 100%;
   padding-top: 80px; }
 
 html,
@@ -13,15 +12,10 @@ body,
 * {
   box-sizing: border-box; }
 
-.fullHeight, html,
-body {
-  height: 100%; }
-
 html,
 body {
   margin: 0;
-  padding: 0;
-  height: 100%; }
+  padding: 0; }
 
 a {
   text-decoration: none; }
