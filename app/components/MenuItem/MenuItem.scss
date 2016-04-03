@@ -4,11 +4,11 @@
   position    : relative;
   display     : inline-block;
   padding     : 0 50px;
-  border-right: 1px solid darken($menu-color, 30%);
-  line-height : 50px;
+  border-right: 1px solid $menu-border-color;
+  line-height : $menu-height;
 
   &:first-child {
-    border-left: 1px solid darken($menu-color, 30%);
+    border-left: 1px solid $menu-border-color;
   }
 
   &:hover {
@@ -17,9 +17,11 @@
   }
 
   a {
-    position: relative;
-    display : block;
-    width   : 100%;
-    height  : 100%;
+    position : relative;
+    display  : block;
+    width    : 100%;
+    height   : 100%;
+    color    : $menu-font-color;
+    font-size: 18px;
   }
 }

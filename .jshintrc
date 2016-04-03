@@ -10,7 +10,7 @@
   "maxlen": 100,
   "newcap": true,
   "quotmark": "single",
-  "strict": true,
+  "strict": false,
   "undef": true,
   "unused": true,
   "eqnull": true

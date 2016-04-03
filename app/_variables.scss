@@ -1,7 +1,11 @@
+$menu-height: 50px;
+
 // colors
-$link-color     : rgb(37, 123, 224);
-$menu-base-color: #fff;
-$menu-color     : rgba($menu-base-color, 0.2);
+$link-color       : rgb(37, 123, 224);
+$menu-base-color  : rgb(254, 254, 254);
+$menu-color       : rgba($menu-base-color, 0.5);
+$menu-border-color: darken($menu-color, 30%);
+$menu-font-color  : rgb(100, 100, 100);
 
 // Screen sizes
 $screen-xl: 1824px;

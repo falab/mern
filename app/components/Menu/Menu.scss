@@ -1,13 +1,13 @@
 @import '../../_variables';
 
 .menu {
-  height       : 50px;
+  height       : $menu-height;
   position     : absolute;
   top          : 0;
   left         : 0;
   width        : 100%;
   background   : $menu-color;
-  border-bottom: 1px solid darken($menu-color, 50%);
+  border-bottom: 1px solid $menu-border-color;
 
   ul {
     list-style: none;
