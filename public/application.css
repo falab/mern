@@ -66,7 +66,7 @@ body {
 
 .page-container, .home-container {
   height: 100%;
-  padding-top: 100px; }
+  padding-top: 80px; }
 
 .home-container {
   background: url("/images/mountain-bg.jpg") fixed no-repeat top center;
