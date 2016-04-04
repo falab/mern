@@ -1,17 +1,51 @@
 @import '../../_variables';
+$menu-base-color: rgb(254, 254, 254);
+$menu-color: rgba($menu-base-color, 0.3);
+$menu-border-color: darken($menu-color, 30%);
+$menu-font-color: rgb(100, 100, 100);
+
+.menu,
+.menuItem {
+  background-color: $menu-color;
+}
 
 .menu {
+  border-bottom: 1px solid $menu-border-color;
   height       : $menu-height;
   position     : absolute;
   top          : 0;
   left         : 0;
   width        : 100%;
-  background   : $menu-color;
-  border-bottom: 1px solid $menu-border-color;
+}
 
-  ul {
-    list-style: none;
-    padding   : 0;
-    margin    : 0;
+.menuItem {
+  border-bottom: 1px solid $menu-border-color;
+  height       : $menu-height;
+  display      : inline-block;
+  padding      : 0 50px;
+  position     : relative;
+  transition   : background-color 0.2s, box-shadow 0.5s;
+  line-height  : $menu-height;
+  border-right : 1px solid $menu-border-color;
+  box-shadow   : 0 0 0 transparent inset;
+  font-size    : 16px;
+
+  &,
+  &:hover,
+  &:active,
+  &:visited,
+  &:focus {
+    color: $menu-font-color;
+  }
+
+  &:hover,
+  &.active {
+    box-shadow      : 0 0 10px rgba(#dddddd, 0.5) inset;
+    background-color: transparent;
+    cursor          : pointer;
+  }
+
+  &:first-child {
+    border-left: 1px solid $menu-border-color;
   }
 }

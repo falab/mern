@@ -188,11 +188,7 @@ function Menu(props) {
     _react2.default.createElement(
       "div",
       { className: "container" },
-      _react2.default.createElement(
-        "ul",
-        null,
-        props.children
-      )
+      props.children
     )
   );
 }
@@ -237,25 +233,14 @@ var MenuItem = function (_React$Component) {
   }
 
   _createClass(MenuItem, [{
-    key: '_handleClick',
-    value: function _handleClick(e) {
-      var target = e.target;
-
-      if (!target.hasAttribute('href')) {
-        target.querySelector('a').click();
-      }
-    }
-  }, {
     key: 'render',
     value: function render() {
+      var Tag = this.props.to === '/' ? _reactRouter.IndexLink : _reactRouter.Link;
+
       return _react2.default.createElement(
-        'li',
-        { onClick: this._handleClick, className: 'menuItem' },
-        _react2.default.createElement(
-          _reactRouter.Link,
-          { to: this.props.to },
-          this.props.children
-        )
+        Tag,
+        { className: 'menuItem', to: this.props.to, activeClassName: 'active' },
+        this.props.children
       );
     }
   }]);

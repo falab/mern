@@ -1,23 +1,16 @@
 import React from 'react';
 
-import { Link } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 
 export default class MenuItem extends React.Component {
-  _handleClick(e) {
-    const target = e.target;
-
-    if (!target.hasAttribute('href')) {
-      target.querySelector('a').click();
-    }
-  }
 
   render() {
+    const Tag = this.props.to === '/' ? IndexLink : Link;
+
     return (
-      <li onClick={this._handleClick} className="menuItem">
-        <Link to={this.props.to}>
-          {this.props.children}
-        </Link>
-      </li>
+      <Tag className="menuItem" to={this.props.to} activeClassName="active">
+        {this.props.children}
+      </Tag>
     );
   }
 }

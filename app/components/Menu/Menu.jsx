@@ -4,9 +4,7 @@ export default function Menu(props) {
   return (
     <div className="menu">
       <div className="container">
-        <ul>
-          {props.children}
-        </ul>
+        {props.children}
       </div>
     </div>
   );

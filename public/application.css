@@ -26,7 +26,7 @@ a {
     color: #257be0; }
 
 .container {
-  width: 100%;
+  width: 100vw;
   margin: 0 auto; }
 
 @media screen and (min-width: 480px) {
@@ -49,33 +49,34 @@ a {
   .container {
     width: 1784px; } }
 
+.menu,
+.menuItem {
+  background-color: rgba(254, 254, 254, 0.3); }
+
 .menu {
+  border-bottom: 1px solid rgba(178, 178, 178, 0.3);
   height: 50px;
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  background: rgba(254, 254, 254, 0.5);
-  border-bottom: 1px solid rgba(178, 178, 178, 0.5); }
-  .menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0; }
+  width: 100%; }
 
 .menuItem {
+  border-bottom: 1px solid rgba(178, 178, 178, 0.3);
+  height: 50px;
   display: inline-block;
   padding: 0 50px;
   position: relative;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s, box-shadow 0.5s;
   line-height: 50px;
-  border-right: 1px solid rgba(178, 178, 178, 0.5); }
-  .menuItem:first-child {
-    border-left: 1px solid rgba(178, 178, 178, 0.5); }
-  .menuItem:hover {
-    background-color: rgba(229, 229, 229, 0.5);
+  border-right: 1px solid rgba(178, 178, 178, 0.3);
+  box-shadow: 0 0 0 transparent inset;
+  font-size: 16px; }
+  .menuItem, .menuItem:hover, .menuItem:active, .menuItem:visited, .menuItem:focus {
+    color: #646464; }
+  .menuItem:hover, .menuItem.active {
+    box-shadow: 0 0 10px rgba(221, 221, 221, 0.5) inset;
+    background-color: transparent;
     cursor: pointer; }
-  .menuItem a {
-    position: relative;
-    display: block;
-    color: #646464;
-    font-size: 16px; }
+  .menuItem:first-child {
+    border-left: 1px solid rgba(178, 178, 178, 0.3); }
