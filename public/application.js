@@ -12,25 +12,25 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRouter = require('react-router');
 
-var _App = require('./components/layouts/App/App');
+var _AppLayout = require('./components/AppLayout/AppLayout');
 
-var _App2 = _interopRequireDefault(_App);
+var _AppLayout2 = _interopRequireDefault(_AppLayout);
 
-var _Home = require('./components/pages/Home/Home');
+var _HomePage = require('./components/HomePage/HomePage');
 
-var _Home2 = _interopRequireDefault(_Home);
+var _HomePage2 = _interopRequireDefault(_HomePage);
 
-var _Portfolio = require('./components/pages/Portfolio/Portfolio');
+var _PortfolioPage = require('./components/PortfolioPage/PortfolioPage');
 
-var _Portfolio2 = _interopRequireDefault(_Portfolio);
+var _PortfolioPage2 = _interopRequireDefault(_PortfolioPage);
 
-var _Blog = require('./components/pages/Blog/Blog');
+var _BlogPage = require('./components/BlogPage/BlogPage');
 
-var _Blog2 = _interopRequireDefault(_Blog);
+var _BlogPage2 = _interopRequireDefault(_BlogPage);
 
-var _NotFound = require('./components/pages/NotFound/NotFound');
+var _NotFoundPage = require('./components/NotFoundPage/NotFoundPage');
 
-var _NotFound2 = _interopRequireDefault(_NotFound);
+var _NotFoundPage2 = _interopRequireDefault(_NotFoundPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39,11 +39,11 @@ _reactDom2.default.render(_react2.default.createElement(
   { history: _reactRouter.browserHistory },
   _react2.default.createElement(
     _reactRouter.Route,
-    { path: '/', component: _App2.default },
-    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'portfolio', component: _Portfolio2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'blog', component: _Blog2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '*', component: _NotFound2.default })
+    { path: '/', component: _AppLayout2.default },
+    _react2.default.createElement(_reactRouter.IndexRoute, { component: _HomePage2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: 'portfolio', component: _PortfolioPage2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: 'blog', component: _BlogPage2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: '*', component: _NotFoundPage2.default })
   )
 ), document.getElementById('app'));
 
@@ -51,7 +51,122 @@ _reactDom2.default.render(_react2.default.createElement(
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/application.jsx","/app")
 
-},{"./components/layouts/App/App":4,"./components/pages/Blog/Blog":5,"./components/pages/Home/Home":6,"./components/pages/NotFound/NotFound":7,"./components/pages/Portfolio/Portfolio":8,"_process":60,"buffer":10,"react":225,"react-dom":62,"react-router":90}],2:[function(require,module,exports){
+},{"./components/AppLayout/AppLayout":2,"./components/BlogPage/BlogPage":3,"./components/HomePage/HomePage":4,"./components/NotFoundPage/NotFoundPage":7,"./components/PortfolioPage/PortfolioPage":8,"_process":60,"buffer":10,"react":225,"react-dom":62,"react-router":90}],2:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = AppLayout;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Menu = require('../Menu/Menu');
+
+var _Menu2 = _interopRequireDefault(_Menu);
+
+var _MenuItem = require('../Menu/MenuItem');
+
+var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// COMPONENTS
+function AppLayout(props) {
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      _Menu2.default,
+      null,
+      _react2.default.createElement(
+        _MenuItem2.default,
+        { to: '/' },
+        'Home'
+      ),
+      _react2.default.createElement(
+        _MenuItem2.default,
+        { to: 'portfolio' },
+        'Portfolio'
+      ),
+      _react2.default.createElement(
+        _MenuItem2.default,
+        { to: 'blog' },
+        'Blog'
+      )
+    ),
+    props.children
+  );
+}
+
+AppLayout.propTypes = {
+  children: _react2.default.PropTypes.node
+};
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/AppLayout/AppLayout.jsx","/app/components/AppLayout")
+
+},{"../Menu/Menu":5,"../Menu/MenuItem":6,"_process":60,"buffer":10,"react":225}],3:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Blog;
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Blog() {
+  return _react2.default.createElement(
+    "div",
+    { className: "page-container" },
+    _react2.default.createElement(
+      "div",
+      { className: "container" },
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora odio qui officiis assumenda quos ut ipsa repudiandae rerum quo aut autem praesentium nemo asperiores nulla, animi eos veritatis totam obcaecati quas atque expedita aliquid et dolore repellat. Aliquid a nobis enim magni animi, consectetur atque error minus aperiam quam aspernatur, odio saepe quas totam, aut reiciendis dolorum sequi facere ut quibusdam qui quia! Mollitia id vitae assumenda, repudiandae impedit optio est quisquam magnam ducimus beatae dolorum quibusdam blanditiis nesciunt minima illo, rerum laudantium enim. Aspernatur suscipit quae, quam. Nobis reprehenderit vel optio rem asperiores debitis aliquam placeat consectetur voluptatibus maiores!"
+    )
+  );
+}
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/BlogPage/BlogPage.jsx","/app/components/BlogPage")
+
+},{"_process":60,"buffer":10,"react":225}],4:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = HomePage;
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function HomePage() {
+  return _react2.default.createElement(
+    "div",
+    { className: "page-container" },
+    _react2.default.createElement(
+      "div",
+      { className: "container" },
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, praesentium, porro officia laborum voluptatem molestias modi animi quae mollitia cum quam quibusdam asperiores eaque iste. Aliquid eaque, obcaecati, ea est tempore impedit animi corporis quasi voluptatum amet commodi. Officiis fuga sequi veritatis ipsam id eveniet dolore odit dolor repudiandae, consectetur dolorum aliquam, ab reiciendis, quas, alias quidem ullam beatae nobis optio! Soluta natus, hic nam in quo molestias adipisci distinctio, consequuntur consectetur neque ullam suscipit omnis mollitia enim provident! Veritatis facere corporis ipsa repellat? Error sed necessitatibus, quae saepe sunt laborum, in ducimus rem. Beatae quaerat architecto suscipit, dolores rerum."
+    )
+  );
+}
+
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/HomePage/HomePage.jsx","/app/components/HomePage")
+
+},{"_process":60,"buffer":10,"react":225}],5:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 
@@ -88,7 +203,7 @@ Menu.propTypes = {
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/Menu/Menu.jsx","/app/components/Menu")
 
-},{"_process":60,"buffer":10,"react":225}],3:[function(require,module,exports){
+},{"_process":60,"buffer":10,"react":225}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -156,73 +271,16 @@ MenuItem.propTypes = {
   children: _react2.default.PropTypes.node
 };
 
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/MenuItem/MenuItem.jsx","/app/components/MenuItem")
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/Menu/MenuItem.jsx","/app/components/Menu")
 
-},{"_process":60,"buffer":10,"react":225,"react-router":90}],4:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = App;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Menu = require('../../Menu/Menu');
-
-var _Menu2 = _interopRequireDefault(_Menu);
-
-var _MenuItem = require('../../MenuItem/MenuItem');
-
-var _MenuItem2 = _interopRequireDefault(_MenuItem);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// COMPONENTS
-function App(props) {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      _Menu2.default,
-      null,
-      _react2.default.createElement(
-        _MenuItem2.default,
-        { to: '/' },
-        'Home'
-      ),
-      _react2.default.createElement(
-        _MenuItem2.default,
-        { to: 'portfolio' },
-        'Portfolio'
-      ),
-      _react2.default.createElement(
-        _MenuItem2.default,
-        { to: 'blog' },
-        'Blog'
-      )
-    ),
-    props.children
-  );
-}
-
-App.propTypes = {
-  children: _react2.default.PropTypes.node
-};
-
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/layouts/App/App.jsx","/app/components/layouts/App")
-
-},{"../../Menu/Menu":2,"../../MenuItem/MenuItem":3,"_process":60,"buffer":10,"react":225}],5:[function(require,module,exports){
+},{"_process":60,"buffer":10,"react":225,"react-router":90}],7:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = Blog;
+exports.default = NotFoundPage;
 
 var _react = require("react");
 
@@ -230,65 +288,7 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Blog() {
-  return _react2.default.createElement(
-    "div",
-    { className: "page-container" },
-    _react2.default.createElement(
-      "div",
-      { className: "container" },
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora odio qui officiis assumenda quos ut ipsa repudiandae rerum quo aut autem praesentium nemo asperiores nulla, animi eos veritatis totam obcaecati quas atque expedita aliquid et dolore repellat. Aliquid a nobis enim magni animi, consectetur atque error minus aperiam quam aspernatur, odio saepe quas totam, aut reiciendis dolorum sequi facere ut quibusdam qui quia! Mollitia id vitae assumenda, repudiandae impedit optio est quisquam magnam ducimus beatae dolorum quibusdam blanditiis nesciunt minima illo, rerum laudantium enim. Aspernatur suscipit quae, quam. Nobis reprehenderit vel optio rem asperiores debitis aliquam placeat consectetur voluptatibus maiores!"
-    )
-  );
-}
-
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/pages/Blog/Blog.jsx","/app/components/pages/Blog")
-
-},{"_process":60,"buffer":10,"react":225}],6:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = Home;
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function Home() {
-  return _react2.default.createElement(
-    "div",
-    { className: "page-container" },
-    _react2.default.createElement(
-      "div",
-      { className: "container" },
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, praesentium, porro officia laborum voluptatem molestias modi animi quae mollitia cum quam quibusdam asperiores eaque iste. Aliquid eaque, obcaecati, ea est tempore impedit animi corporis quasi voluptatum amet commodi. Officiis fuga sequi veritatis ipsam id eveniet dolore odit dolor repudiandae, consectetur dolorum aliquam, ab reiciendis, quas, alias quidem ullam beatae nobis optio! Soluta natus, hic nam in quo molestias adipisci distinctio, consequuntur consectetur neque ullam suscipit omnis mollitia enim provident! Veritatis facere corporis ipsa repellat? Error sed necessitatibus, quae saepe sunt laborum, in ducimus rem. Beatae quaerat architecto suscipit, dolores rerum."
-    )
-  );
-}
-
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/pages/Home/Home.jsx","/app/components/pages/Home")
-
-},{"_process":60,"buffer":10,"react":225}],7:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = NotFound;
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function NotFound() {
+function NotFoundPage() {
   return _react2.default.createElement(
     "div",
     { className: "page-container" },
@@ -300,7 +300,7 @@ function NotFound() {
   );
 }
 
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/pages/NotFound/NotFound.jsx","/app/components/pages/NotFound")
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/NotFoundPage/NotFoundPage.jsx","/app/components/NotFoundPage")
 
 },{"_process":60,"buffer":10,"react":225}],8:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
@@ -309,7 +309,7 @@ function NotFound() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = Portfolio;
+exports.default = PortfolioPage;
 
 var _react = require("react");
 
@@ -317,7 +317,7 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Portfolio() {
+function PortfolioPage() {
   return _react2.default.createElement(
     "div",
     { className: "page-container" },
@@ -329,119 +329,128 @@ function Portfolio() {
   );
 }
 
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/pages/Portfolio/Portfolio.jsx","/app/components/pages/Portfolio")
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/PortfolioPage/PortfolioPage.jsx","/app/components/PortfolioPage")
 
 },{"_process":60,"buffer":10,"react":225}],9:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-'use strict'
+;(function (exports) {
+  'use strict'
 
-exports.toByteArray = toByteArray
-exports.fromByteArray = fromByteArray
+  var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 
-var lookup = []
-var revLookup = []
-var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
+  var Arr = (typeof Uint8Array !== 'undefined')
+    ? Uint8Array
+    : Array
 
-function init () {
-  var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-  for (var i = 0, len = code.length; i < len; ++i) {
-    lookup[i] = code[i]
-    revLookup[code.charCodeAt(i)] = i
+  var PLUS = '+'.charCodeAt(0)
+  var SLASH = '/'.charCodeAt(0)
+  var NUMBER = '0'.charCodeAt(0)
+  var LOWER = 'a'.charCodeAt(0)
+  var UPPER = 'A'.charCodeAt(0)
+  var PLUS_URL_SAFE = '-'.charCodeAt(0)
+  var SLASH_URL_SAFE = '_'.charCodeAt(0)
+
+  function decode (elt) {
+    var code = elt.charCodeAt(0)
+    if (code === PLUS || code === PLUS_URL_SAFE) return 62 // '+'
+    if (code === SLASH || code === SLASH_URL_SAFE) return 63 // '/'
+    if (code < NUMBER) return -1 // no match
+    if (code < NUMBER + 10) return code - NUMBER + 26 + 26
+    if (code < UPPER + 26) return code - UPPER
+    if (code < LOWER + 26) return code - LOWER + 26
   }
 
-  revLookup['-'.charCodeAt(0)] = 62
-  revLookup['_'.charCodeAt(0)] = 63
-}
+  function b64ToByteArray (b64) {
+    var i, j, l, tmp, placeHolders, arr
 
-init()
+    if (b64.length % 4 > 0) {
+      throw new Error('Invalid string. Length must be a multiple of 4')
+    }
 
-function toByteArray (b64) {
-  var i, j, l, tmp, placeHolders, arr
-  var len = b64.length
+    // the number of equal signs (place holders)
+    // if there are two placeholders, than the two characters before it
+    // represent one byte
+    // if there is only one, then the three characters before it represent 2 bytes
+    // this is just a cheap hack to not do indexOf twice
+    var len = b64.length
+    placeHolders = b64.charAt(len - 2) === '=' ? 2 : b64.charAt(len - 1) === '=' ? 1 : 0
 
-  if (len % 4 > 0) {
-    throw new Error('Invalid string. Length must be a multiple of 4')
+    // base64 is 4/3 + up to two characters of the original data
+    arr = new Arr(b64.length * 3 / 4 - placeHolders)
+
+    // if there are placeholders, only get up to the last complete 4 chars
+    l = placeHolders > 0 ? b64.length - 4 : b64.length
+
+    var L = 0
+
+    function push (v) {
+      arr[L++] = v
+    }
+
+    for (i = 0, j = 0; i < l; i += 4, j += 3) {
+      tmp = (decode(b64.charAt(i)) << 18) | (decode(b64.charAt(i + 1)) << 12) | (decode(b64.charAt(i + 2)) << 6) | decode(b64.charAt(i + 3))
+      push((tmp & 0xFF0000) >> 16)
+      push((tmp & 0xFF00) >> 8)
+      push(tmp & 0xFF)
+    }
+
+    if (placeHolders === 2) {
+      tmp = (decode(b64.charAt(i)) << 2) | (decode(b64.charAt(i + 1)) >> 4)
+      push(tmp & 0xFF)
+    } else if (placeHolders === 1) {
+      tmp = (decode(b64.charAt(i)) << 10) | (decode(b64.charAt(i + 1)) << 4) | (decode(b64.charAt(i + 2)) >> 2)
+      push((tmp >> 8) & 0xFF)
+      push(tmp & 0xFF)
+    }
+
+    return arr
   }
 
-  // the number of equal signs (place holders)
-  // if there are two placeholders, than the two characters before it
-  // represent one byte
-  // if there is only one, then the three characters before it represent 2 bytes
-  // this is just a cheap hack to not do indexOf twice
-  placeHolders = b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0
+  function uint8ToBase64 (uint8) {
+    var i
+    var extraBytes = uint8.length % 3 // if we have 1 byte left, pad 2 bytes
+    var output = ''
+    var temp, length
 
-  // base64 is 4/3 + up to two characters of the original data
-  arr = new Arr(len * 3 / 4 - placeHolders)
+    function encode (num) {
+      return lookup.charAt(num)
+    }
 
-  // if there are placeholders, only get up to the last complete 4 chars
-  l = placeHolders > 0 ? len - 4 : len
+    function tripletToBase64 (num) {
+      return encode(num >> 18 & 0x3F) + encode(num >> 12 & 0x3F) + encode(num >> 6 & 0x3F) + encode(num & 0x3F)
+    }
 
-  var L = 0
+    // go through the array every three bytes, we'll deal with trailing stuff later
+    for (i = 0, length = uint8.length - extraBytes; i < length; i += 3) {
+      temp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
+      output += tripletToBase64(temp)
+    }
 
-  for (i = 0, j = 0; i < l; i += 4, j += 3) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)]
-    arr[L++] = (tmp >> 16) & 0xFF
-    arr[L++] = (tmp >> 8) & 0xFF
-    arr[L++] = tmp & 0xFF
+    // pad the end with zeros, but make sure to not forget the extra bytes
+    switch (extraBytes) {
+      case 1:
+        temp = uint8[uint8.length - 1]
+        output += encode(temp >> 2)
+        output += encode((temp << 4) & 0x3F)
+        output += '=='
+        break
+      case 2:
+        temp = (uint8[uint8.length - 2] << 8) + (uint8[uint8.length - 1])
+        output += encode(temp >> 10)
+        output += encode((temp >> 4) & 0x3F)
+        output += encode((temp << 2) & 0x3F)
+        output += '='
+        break
+      default:
+        break
+    }
+
+    return output
   }
 
-  if (placeHolders === 2) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4)
-    arr[L++] = tmp & 0xFF
-  } else if (placeHolders === 1) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2)
-    arr[L++] = (tmp >> 8) & 0xFF
-    arr[L++] = tmp & 0xFF
-  }
-
-  return arr
-}
-
-function tripletToBase64 (num) {
-  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F]
-}
-
-function encodeChunk (uint8, start, end) {
-  var tmp
-  var output = []
-  for (var i = start; i < end; i += 3) {
-    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
-    output.push(tripletToBase64(tmp))
-  }
-  return output.join('')
-}
-
-function fromByteArray (uint8) {
-  var tmp
-  var len = uint8.length
-  var extraBytes = len % 3 // if we have 1 byte left, pad 2 bytes
-  var output = ''
-  var parts = []
-  var maxChunkLength = 16383 // must be multiple of 3
-
-  // go through the array every three bytes, we'll deal with trailing stuff later
-  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
-    parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)))
-  }
-
-  // pad the end with zeros, but make sure to not forget the extra bytes
-  if (extraBytes === 1) {
-    tmp = uint8[len - 1]
-    output += lookup[tmp >> 2]
-    output += lookup[(tmp << 4) & 0x3F]
-    output += '=='
-  } else if (extraBytes === 2) {
-    tmp = (uint8[len - 2] << 8) + (uint8[len - 1])
-    output += lookup[tmp >> 10]
-    output += lookup[(tmp >> 4) & 0x3F]
-    output += lookup[(tmp << 2) & 0x3F]
-    output += '='
-  }
-
-  parts.push(output)
-
-  return parts.join('')
-}
+  exports.toByteArray = b64ToByteArray
+  exports.fromByteArray = uint8ToBase64
+}(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/base64-js/lib/b64.js","/node_modules/base64-js/lib")
 
@@ -672,14 +681,6 @@ function fromJsonObject (that, object) {
 if (Buffer.TYPED_ARRAY_SUPPORT) {
   Buffer.prototype.__proto__ = Uint8Array.prototype
   Buffer.__proto__ = Uint8Array
-  if (typeof Symbol !== 'undefined' && Symbol.species &&
-      Buffer[Symbol.species] === Buffer) {
-    // Fix subarray() in ES2016. See: https://github.com/feross/buffer/pull/97
-    Object.defineProperty(Buffer, Symbol.species, {
-      value: null,
-      configurable: true
-    })
-  }
 } else {
   // pre-set for values that may exist in the future
   Buffer.prototype.length = undefined
@@ -734,12 +735,17 @@ Buffer.compare = function compare (a, b) {
   var x = a.length
   var y = b.length
 
-  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
-    if (a[i] !== b[i]) {
-      x = a[i]
-      y = b[i]
-      break
-    }
+  var i = 0
+  var len = Math.min(x, y)
+  while (i < len) {
+    if (a[i] !== b[i]) break
+
+    ++i
+  }
+
+  if (i !== len) {
+    x = a[i]
+    y = b[i]
   }
 
   if (x < y) return -1
@@ -900,6 +906,7 @@ Buffer.prototype.inspect = function inspect () {
 
 Buffer.prototype.compare = function compare (b) {
   if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer')
+  if (this === b) return 0
   return Buffer.compare(this, b)
 }
 
@@ -18051,10 +18058,6 @@ var ReactEmptyComponentInjection = {
   }
 };
 
-function registerNullComponentID() {
-  ReactEmptyComponentRegistry.registerNullComponentID(this._rootNodeID);
-}
-
 var ReactEmptyComponent = function (instantiate) {
   this._currentElement = null;
   this._rootNodeID = null;
@@ -18063,7 +18066,7 @@ var ReactEmptyComponent = function (instantiate) {
 assign(ReactEmptyComponent.prototype, {
   construct: function (element) {},
   mountComponent: function (rootID, transaction, context) {
-    transaction.getReactMountReady().enqueue(registerNullComponentID, this);
+    ReactEmptyComponentRegistry.registerNullComponentID(rootID);
     this._rootNodeID = rootID;
     return ReactReconciler.mountComponent(this._renderedComponent, rootID, transaction, context);
   },
@@ -22433,7 +22436,7 @@ module.exports = ReactUpdates;
 
 'use strict';
 
-module.exports = '0.14.8';
+module.exports = '0.14.7';
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/lib/ReactVersion.js","/node_modules/react/lib")
 
 },{"_process":60,"buffer":10}],181:[function(require,module,exports){

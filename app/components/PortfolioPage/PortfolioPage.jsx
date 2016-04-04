@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Portfolio() {
+export default function PortfolioPage() {
   return (
     <div className="page-container">
       <div className="container">

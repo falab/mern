@@ -1,10 +1,10 @@
 import React from 'react';
 
 // COMPONENTS
-import Menu from '../../Menu/Menu';
-import MenuItem from '../../MenuItem/MenuItem';
+import Menu from '../Menu/Menu';
+import MenuItem from '../Menu/MenuItem';
 
-export default function App(props) {
+export default function AppLayout(props) {
   return (
     <div>
       <Menu>
@@ -17,6 +17,6 @@ export default function App(props) {
   );
 }
 
-App.propTypes = {
+AppLayout.propTypes = {
   children: React.PropTypes.node,
 };
