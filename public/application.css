@@ -75,7 +75,7 @@ a {
   .menuItem, .menuItem:hover, .menuItem:active, .menuItem:visited, .menuItem:focus {
     color: #646464; }
   .menuItem:hover, .menuItem.active {
-    box-shadow: 0 0 10px rgba(221, 221, 221, 0.5) inset;
+    box-shadow: 0 0 15px rgba(221, 221, 221, 0.75) inset;
     background-color: transparent;
     cursor: pointer; }
   .menuItem:first-child {

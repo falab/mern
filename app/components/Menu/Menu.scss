@@ -1,8 +1,9 @@
 @import '../../_variables';
-$menu-base-color: rgb(254, 254, 254);
-$menu-color: rgba($menu-base-color, 0.3);
+
+$menu-base-color  : rgb(254, 254, 254);
+$menu-color       : rgba($menu-base-color, 0.3);
 $menu-border-color: darken($menu-color, 30%);
-$menu-font-color: rgb(100, 100, 100);
+$menu-font-color  : rgb(100, 100, 100);
 
 .menu,
 .menuItem {
@@ -40,7 +41,7 @@ $menu-font-color: rgb(100, 100, 100);
 
   &:hover,
   &.active {
-    box-shadow      : 0 0 10px rgba(#dddddd, 0.5) inset;
+    box-shadow      : 0 0 15px rgba(#dddddd, 0.75) inset;
     background-color: transparent;
     cursor          : pointer;
   }
