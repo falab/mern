@@ -1,5 +1,6 @@
 @import '../../_variables';
 
+// variables
 $menu-base-color  : rgb(254, 254, 254);
 $menu-color       : rgba($menu-base-color, 0.3);
 $menu-border-color: darken($menu-color, 30%);
@@ -23,13 +24,15 @@ $menu-font-color  : rgb(100, 100, 100);
   border-bottom: 1px solid $menu-border-color;
   height       : $menu-height;
   display      : inline-block;
-  padding      : 0 50px;
   position     : relative;
   transition   : background-color 0.2s, box-shadow 0.5s;
   line-height  : $menu-height;
   border-right : 1px solid $menu-border-color;
   box-shadow   : 0 0 0 transparent inset;
   font-size    : 16px;
+  min-width    : 100px;
+  text-align   : center;
+  padding: 0 30px;
 
   &,
   &:hover,
@@ -48,5 +51,16 @@ $menu-font-color  : rgb(100, 100, 100);
 
   &:first-child {
     border-left: 1px solid $menu-border-color;
+  }
+}
+
+@media screen and (min-width: $screen-xs) {
+  .menu .container {
+    display: flex;
+  }
+
+  .menuItem {
+    padding: 0 0;
+    min-width: 120px;
   }
 }
