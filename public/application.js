@@ -248,13 +248,11 @@ var MenuItem = function (_React$Component) {
   return MenuItem;
 }(_react2.default.Component);
 
-exports.default = MenuItem;
-
-
 MenuItem.propTypes = {
   to: _react2.default.PropTypes.string,
   children: _react2.default.PropTypes.node
 };
+exports.default = MenuItem;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/Menu/MenuItem.jsx","/app/components/Menu")
 

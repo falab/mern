@@ -3,6 +3,10 @@ import React from 'react';
 import { Link, IndexLink } from 'react-router';
 
 export default class MenuItem extends React.Component {
+  static propTypes = {
+    to: React.PropTypes.string,
+    children: React.PropTypes.node,
+  };
 
   render() {
     const Tag = this.props.to === '/' ? IndexLink : Link;
@@ -14,8 +18,3 @@ export default class MenuItem extends React.Component {
     );
   }
 }
-
-MenuItem.propTypes = {
-  to: React.PropTypes.string,
-  children: React.PropTypes.node,
-};

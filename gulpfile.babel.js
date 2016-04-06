@@ -33,7 +33,7 @@ const paths = {
   appDest: `${dirs.dest}/`,
   sassSrc: [
     `${dirs.src}/*.scss`,
-    `${dirs.src}/components/**/*.scss`,
+    `${dirs.src}/**/*.scss`,
   ],
   imageSrc: `${dirs.assets}/images/*.{png,gif,jpg,svg}`,
   imageDest: `${dirs.dest}/images/`,
