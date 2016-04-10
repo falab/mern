@@ -1,3 +1,6 @@
+.container {
+  margin: 0 auto; }
+
 .page-container {
   background: url("/images/mountain-bg.jpg");
   min-height: 100vh;
@@ -5,31 +8,31 @@
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: top center;
-  padding: 70px 20px 0; }
-
-.container {
-  width: calc(100vw - $gutter-width);
-  margin: 0 auto; }
+  padding: 70px 20px 20px; }
+  .page-container .container {
+    margin-top: 20px; }
+    .page-container .container:first-child {
+      margin-top: 0; }
 
 @media screen and (min-width: 480px) {
   .container {
-    width: 460px; } }
+    width: 440px; } }
 
 @media screen and (min-width: 768px) {
   .container {
-    width: 748px; } }
+    width: 728px; } }
 
 @media screen and (min-width: 1024px) {
   .container {
-    width: 1004px; } }
+    width: 984px; } }
 
 @media screen and (min-width: 1224px) {
   .container {
-    width: 1204px; } }
+    width: 1184px; } }
 
 @media screen and (min-width: 1824px) {
   .container {
-    width: 1804px; } }
+    width: 1784px; } }
 
 html,
 body,

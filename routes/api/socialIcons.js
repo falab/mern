@@ -7,19 +7,19 @@ const router = new express.Router();
 const socialIcons = [
   {
     id: 1,
-    serviceName: 'Facebook',
+    service: 'Facebook',
     iconPath: '/images/facebook_128.png',
     linkUrl: 'http://www.facebook.com/thezanke',
   },
   {
     id: 2,
-    serviceName: 'Twitter',
+    service: 'Twitter',
     iconPath: '/images/twitter_128.png',
     linkUrl: 'http://www.twitter.com/thezanke',
   },
   {
     id: 3,
-    serviceName: 'LinkedIn',
+    service: 'LinkedIn',
     iconPath: '/images/linkedin_128.png',
     linkUrl: 'https://www.linkedin.com/in/alex-howard-9597a957',
   },
