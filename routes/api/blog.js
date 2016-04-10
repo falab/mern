@@ -6,11 +6,6 @@ const router = new express.Router();
 // Faux posts array
 const posts = [
   {
-    id: 0,
-    title: 'Lorem ipsum dolor sit amet, consectetur.',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel reprehenderit architecto, non id itaque sit fugit debitis, nisi placeat voluptatum laborum laudantium! Accusamus ullam nemo quidem deleniti eos id tenetur eveniet dicta dolores unde, repellat dolore odit adipisci molestiae incidunt inventore ipsum nam quis quas! Ipsa ducimus veritatis praesentium molestias rerum eos quasi accusamus nulla error, quas natus eius et obcaecati necessitatibus tenetur reprehenderit iusto quibusdam enim inventore consequuntur aliquid totam dolore incidunt expedita. Id vero eos, maxime accusantium similique nostrum voluptatum assumenda quis eveniet quod officia natus impedit doloribus explicabo consectetur facilis harum officiis laborum tempore quae? Cumque harum nobis tempora beatae laborum, voluptatum cum, unde distinctio maxime aperiam quam ducimus quia doloribus dolor explicabo iste temporibus sed magnam nesciunt labore! Eum alias doloremque reiciendis. Voluptatem explicabo molestias facilis, inventore esse nihil placeat iste excepturi dicta assumenda quia expedita perspiciatis! Perspiciatis, sed architecto cupiditate obcaecati fugiat eos illo sequi?',
-  },
-  {
     id: 1,
     title: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
     content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut distinctio aliquam, assumenda doloribus eos sit architecto fuga non voluptatum eaque, dolorum unde, debitis perspiciatis id alias reprehenderit praesentium obcaecati labore reiciendis, aut illo sapiente natus in amet. Consequatur aliquam, molestias quod hic sapiente beatae deserunt tempora, facilis, ratione dignissimos provident quia. Sit culpa saepe magni ut ad eveniet, error ducimus alias possimus labore ipsam at in? Optio distinctio fugiat provident, doloremque nemo dolores odit. Sit cum sapiente eveniet fugit quo officiis molestias labore porro pariatur suscipit dolorem deserunt rem adipisci sunt vero quos, nobis blanditiis assumenda, quia. Temporibus sequi tempora corporis aliquid placeat, non itaque esse provident sapiente sint laudantium ab et. Assumenda ducimus veritatis quos culpa corporis pariatur deleniti, distinctio dignissimos, rerum eum minima ex nostrum accusantium. Veritatis maiores, hic sunt qui tenetur, perspiciatis consequatur adipisci quas labore saepe unde voluptate accusantium voluptatibus accusamus. Omnis vero numquam ea corporis.',
@@ -105,10 +100,18 @@ const posts = [
     title: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
     content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut distinctio aliquam, assumenda doloribus eos sit architecto fuga non voluptatum eaque, dolorum unde, debitis perspiciatis id alias reprehenderit praesentium obcaecati labore reiciendis, aut illo sapiente natus in amet. Consequatur aliquam, molestias quod hic sapiente beatae deserunt tempora, facilis, ratione dignissimos provident quia. Sit culpa saepe magni ut ad eveniet, error ducimus alias possimus labore ipsam at in? Optio distinctio fugiat provident, doloremque nemo dolores odit. Sit cum sapiente eveniet fugit quo officiis molestias labore porro pariatur suscipit dolorem deserunt rem adipisci sunt vero quos, nobis blanditiis assumenda, quia. Temporibus sequi tempora corporis aliquid placeat, non itaque esse provident sapiente sint laudantium ab et. Assumenda ducimus veritatis quos culpa corporis pariatur deleniti, distinctio dignissimos, rerum eum minima ex nostrum accusantium. Veritatis maiores, hic sunt qui tenetur, perspiciatis consequatur adipisci quas labore saepe unde voluptate accusantium voluptatibus accusamus. Omnis vero numquam ea corporis.',
   },
+  {
+    id: 20,
+    title: 'Lorem ipsum dolor sit amet, consectetur.',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel reprehenderit architecto, non id itaque sit fugit debitis, nisi placeat voluptatum laborum laudantium! Accusamus ullam nemo quidem deleniti eos id tenetur eveniet dicta dolores unde, repellat dolore odit adipisci molestiae incidunt inventore ipsum nam quis quas! Ipsa ducimus veritatis praesentium molestias rerum eos quasi accusamus nulla error, quas natus eius et obcaecati necessitatibus tenetur reprehenderit iusto quibusdam enim inventore consequuntur aliquid totam dolore incidunt expedita. Id vero eos, maxime accusantium similique nostrum voluptatum assumenda quis eveniet quod officia natus impedit doloribus explicabo consectetur facilis harum officiis laborum tempore quae? Cumque harum nobis tempora beatae laborum, voluptatum cum, unde distinctio maxime aperiam quam ducimus quia doloribus dolor explicabo iste temporibus sed magnam nesciunt labore! Eum alias doloremque reiciendis. Voluptatem explicabo molestias facilis, inventore esse nihil placeat iste excepturi dicta assumenda quia expedita perspiciatis! Perspiciatis, sed architecto cupiditate obcaecati fugiat eos illo sequi?',
+  },
 ];
 
 // Posts index
-router.get('/posts?', (req, res) => {
+router.get([
+  '/',
+  '/posts',
+], (req, res) => {
   let count;
 
   if (req.query.count || req.query.count !== '0') {
