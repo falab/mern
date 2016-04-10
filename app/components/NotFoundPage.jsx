@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function NotFoundPage() {
+function NotFoundPage() {
   return (
     <div className="page-container">
       <div className="container">
@@ -9,3 +9,5 @@ export default function NotFoundPage() {
     </div>
   );
 }
+
+export default NotFoundPage;

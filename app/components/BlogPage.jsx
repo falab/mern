@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Blog() {
+function BlogPage() {
   return (
     <div className="page-container">
       <div className="container">
@@ -9,3 +9,5 @@ export default function Blog() {
     </div>
   );
 }
+
+export default BlogPage;

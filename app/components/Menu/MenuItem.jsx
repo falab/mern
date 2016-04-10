@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link, IndexLink } from 'react-router';
 
-export default class MenuItem extends React.Component {
+class MenuItem extends React.Component {
   static propTypes = {
     to: React.PropTypes.string,
     children: React.PropTypes.node,
@@ -18,3 +18,5 @@ export default class MenuItem extends React.Component {
     );
   }
 }
+
+export default MenuItem;
