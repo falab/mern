@@ -4,11 +4,11 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 // COMPONENTS
-import AppLayout from './components/AppLayout/AppLayout';
-import HomePage from './components/HomePage/HomePage';
-import PortfolioPage from './components/PortfolioPage/PortfolioPage';
-import BlogPage from './components/BlogPage/BlogPage';
-import NotFoundPage from './components/NotFoundPage/NotFoundPage';
+import AppLayout from './components/AppLayout';
+import HomePage from './components/HomePage';
+import PortfolioPage from './components/PortfolioPage';
+import BlogPage from './components/BlogPage';
+import NotFoundPage from './components/NotFoundPage';
 
 ReactDOM.render(
   <Router history={browserHistory}>

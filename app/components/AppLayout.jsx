@@ -1,8 +1,8 @@
 import React from 'react';
 
 // COMPONENTS
-import Menu from '../Menu/Menu';
-import MenuItem from '../Menu/MenuItem';
+import Menu from './Menu/Menu';
+import MenuItem from './Menu/MenuItem';
 
 export default function AppLayout(props) {
   return (

@@ -12,23 +12,23 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRouter = require('react-router');
 
-var _AppLayout = require('./components/AppLayout/AppLayout');
+var _AppLayout = require('./components/AppLayout');
 
 var _AppLayout2 = _interopRequireDefault(_AppLayout);
 
-var _HomePage = require('./components/HomePage/HomePage');
+var _HomePage = require('./components/HomePage');
 
 var _HomePage2 = _interopRequireDefault(_HomePage);
 
-var _PortfolioPage = require('./components/PortfolioPage/PortfolioPage');
+var _PortfolioPage = require('./components/PortfolioPage');
 
 var _PortfolioPage2 = _interopRequireDefault(_PortfolioPage);
 
-var _BlogPage = require('./components/BlogPage/BlogPage');
+var _BlogPage = require('./components/BlogPage');
 
 var _BlogPage2 = _interopRequireDefault(_BlogPage);
 
-var _NotFoundPage = require('./components/NotFoundPage/NotFoundPage');
+var _NotFoundPage = require('./components/NotFoundPage');
 
 var _NotFoundPage2 = _interopRequireDefault(_NotFoundPage);
 
@@ -51,7 +51,7 @@ _reactDom2.default.render(_react2.default.createElement(
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/application.jsx","/app")
 
-},{"./components/AppLayout/AppLayout":2,"./components/BlogPage/BlogPage":3,"./components/HomePage/HomePage":4,"./components/NotFoundPage/NotFoundPage":7,"./components/PortfolioPage/PortfolioPage":8,"_process":60,"buffer":10,"react":225,"react-dom":62,"react-router":90}],2:[function(require,module,exports){
+},{"./components/AppLayout":2,"./components/BlogPage":3,"./components/HomePage":4,"./components/NotFoundPage":7,"./components/PortfolioPage":8,"_process":60,"buffer":10,"react":225,"react-dom":62,"react-router":90}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 'use strict';
 
@@ -64,11 +64,11 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Menu = require('../Menu/Menu');
+var _Menu = require('./Menu/Menu');
 
 var _Menu2 = _interopRequireDefault(_Menu);
 
-var _MenuItem = require('../Menu/MenuItem');
+var _MenuItem = require('./Menu/MenuItem');
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -106,9 +106,9 @@ AppLayout.propTypes = {
   children: _react2.default.PropTypes.node
 };
 
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/AppLayout/AppLayout.jsx","/app/components/AppLayout")
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/AppLayout.jsx","/app/components")
 
-},{"../Menu/Menu":5,"../Menu/MenuItem":6,"_process":60,"buffer":10,"react":225}],3:[function(require,module,exports){
+},{"./Menu/Menu":5,"./Menu/MenuItem":6,"_process":60,"buffer":10,"react":225}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 
@@ -135,7 +135,7 @@ function Blog() {
   );
 }
 
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/BlogPage/BlogPage.jsx","/app/components/BlogPage")
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/BlogPage.jsx","/app/components")
 
 },{"_process":60,"buffer":10,"react":225}],4:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
@@ -164,7 +164,7 @@ function HomePage() {
   );
 }
 
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/HomePage/HomePage.jsx","/app/components/HomePage")
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/HomePage.jsx","/app/components")
 
 },{"_process":60,"buffer":10,"react":225}],5:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
@@ -283,7 +283,7 @@ function NotFoundPage() {
   );
 }
 
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/NotFoundPage/NotFoundPage.jsx","/app/components/NotFoundPage")
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/NotFoundPage.jsx","/app/components")
 
 },{"_process":60,"buffer":10,"react":225}],8:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
@@ -312,7 +312,7 @@ function PortfolioPage() {
   );
 }
 
-}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/PortfolioPage/PortfolioPage.jsx","/app/components/PortfolioPage")
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app/components/PortfolioPage.jsx","/app/components")
 
 },{"_process":60,"buffer":10,"react":225}],9:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
