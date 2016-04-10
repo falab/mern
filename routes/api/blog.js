@@ -108,11 +108,11 @@ const posts = [
 ];
 
 // Posts index
-router.get(['/', '/posts/:count?'], (req, res) => {
+router.get('/posts?', (req, res) => {
   let count;
 
-  if (req.params.count || req.params.count !== '0') {
-    count = parseInt(req.params.count, 10);
+  if (req.query.count || req.query.count !== '0') {
+    count = parseInt(req.query.count, 10);
   }
 
   return res.json(count ? posts.slice(0, count) : posts);
