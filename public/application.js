@@ -179,19 +179,18 @@ var BlogList = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var posts = [];
+      var posts = this.state.posts;
 
-      this.state.posts.forEach(function (post) {
-        posts.push(_react2.default.createElement(_BlogPost2.default, {
-          key: post.id,
-          postData: post
-        }));
-      });
 
       return _react2.default.createElement(
         'div',
         { className: 'blog-list' },
-        posts
+        posts.map(function (post) {
+          return _react2.default.createElement(_BlogPost2.default, {
+            key: post.id,
+            postData: post
+          });
+        })
       );
     }
   }]);
@@ -685,26 +684,25 @@ var SocialIconList = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var icons = [];
+      var icons = this.state.icons;
 
-      this.state.icons.forEach(function (icon) {
-        icons.push(_react2.default.createElement(_SocialIcon2.default, {
-          key: icon.id,
-          service: icon.service,
-          iconPath: icon.iconPath,
-          linkUrl: icon.linkUrl
-        }));
-      });
 
-      if (icons.length) {
-        return _react2.default.createElement(
-          'div',
-          { className: 'social-icon-list' },
-          icons
-        );
+      if (!icons.length) {
+        return null;
       }
 
-      return null;
+      return _react2.default.createElement(
+        'div',
+        { className: 'social-icon-list' },
+        icons.map(function (icon) {
+          return _react2.default.createElement(_SocialIcon2.default, {
+            key: icon.id,
+            service: icon.service,
+            iconPath: icon.iconPath,
+            linkUrl: icon.linkUrl
+          });
+        })
+      );
     }
   }]);
 

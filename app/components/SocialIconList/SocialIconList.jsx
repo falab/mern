@@ -18,28 +18,24 @@ class SocialIconList extends React.Component {
   }
 
   render() {
-    const icons = [];
+    const { icons } = this.state;
 
-    this.state.icons.forEach((icon) => {
-      icons.push(
-        <SocialIcon
-          key={icon.id}
-          service={icon.service}
-          iconPath={icon.iconPath}
-          linkUrl={icon.linkUrl}
-        />
-      );
-    });
-
-    if (icons.length) {
-      return (
-        <div className="social-icon-list">
-          {icons}
-        </div>
-      );
+    if (!icons.length) {
+      return null;
     }
 
-    return null;
+    return (
+      <div className="social-icon-list">
+        {icons.map((icon) =>
+          <SocialIcon
+            key={icon.id}
+            service={icon.service}
+            iconPath={icon.iconPath}
+            linkUrl={icon.linkUrl}
+          />
+        )}
+      </div>
+    );
   }
 }
 

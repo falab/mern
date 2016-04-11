@@ -27,20 +27,16 @@ class BlogList extends React.Component {
   }
 
   render() {
-    const posts = [];
-
-    this.state.posts.forEach((post) => {
-      posts.push(
-        <BlogPost
-          key={post.id}
-          postData={post}
-        />
-      );
-    });
+    const { posts } = this.state;
 
     return (
       <div className="blog-list">
-        {posts}
+        {posts.map((post) =>
+          <BlogPost
+            key={post.id}
+            postData={post}
+          />
+        )}
       </div>
     );
   }
