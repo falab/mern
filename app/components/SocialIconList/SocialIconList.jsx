@@ -29,11 +29,15 @@ class SocialIconList extends React.Component {
       />);
     });
 
-    return (
-      <div className="social-icon-list">
-        {icons}
-      </div>
-    );
+    if (icons.length) {
+      return (
+        <div className="social-icon-list">
+          {icons}
+        </div>
+      );
+    }
+
+    return null;
   }
 }
 

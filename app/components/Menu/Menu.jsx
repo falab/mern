@@ -1,6 +1,10 @@
 import React from 'react';
 
 class Menu extends React.Component {
+  static propTypes = {
+    children: React.PropTypes.node,
+  }
+
   render() {
     return (
       <div className="menu">
@@ -11,9 +15,5 @@ class Menu extends React.Component {
     );
   }
 }
-
-Menu.propTypes = {
-  children: React.PropTypes.node,
-};
 
 export default Menu;
