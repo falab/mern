@@ -99,16 +99,16 @@ function handleBundle(bundle) {
   return bundle
     .on('error', logger(gutil.colors.red('Watchify')))
     .pipe(source(files.jsMain))
-    .pipe(rename('application.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({
       loadMaps: true,
     }))
-    .pipe(gulp.dest(paths.appDest))
-    .pipe(rename({
-      suffix: '.min',
-    }))
     .pipe(uglify())
+    .pipe(rename({
+      basename: 'application',
+      suffix: '.min',
+      extname: '.js',
+    }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.appDest))
     .pipe(notify({
