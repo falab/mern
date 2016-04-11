@@ -103,10 +103,8 @@ function handleBundle(bundle) {
     .pipe(sourcemaps.init({
       loadMaps: true,
     }))
-    .pipe(uglify())
     .pipe(rename({
       basename: 'application',
-      suffix: '.min',
       extname: '.js',
     }))
     .pipe(sourcemaps.write('.'))

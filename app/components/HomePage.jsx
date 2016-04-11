@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SocialIconList from './SocialIconList';
+import SocialIconList, { SocialIcon } from './SocialIconList';
 
 function HomePage() {
   return (

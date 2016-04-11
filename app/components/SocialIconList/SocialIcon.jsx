@@ -5,7 +5,7 @@ class SocialIcon extends React.Component {
     service: React.PropTypes.string,
     linkUrl: React.PropTypes.string,
     iconPath: React.PropTypes.string,
-  };
+  }
 
   render() {
     return (

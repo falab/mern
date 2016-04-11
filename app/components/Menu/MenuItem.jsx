@@ -12,9 +12,7 @@ export default class MenuItem extends React.Component {
   };
 
   render() {
-    const Tag = this.props.to === '/'
-      ? IndexLink
-      : Link;
+    const Tag = (this.props.to === '/') ? IndexLink : Link;
 
     return (
       <Tag className="menuItem" to={this.props.to} activeClassName="active">
