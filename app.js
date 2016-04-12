@@ -9,6 +9,8 @@ const api = require('./routes/api');
 
 const app = express();
 
+const debug = process.env.NODE_ENV !== 'production';
+
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -33,7 +35,7 @@ app.use((req, res, next) => {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (debug) {
   app.use((err, req, res) => {
     res.status(err.status || 500);
     res.render('error', {
@@ -52,6 +54,5 @@ app.use((err, req, res) => {
     error: {},
   });
 });
-
 
 module.exports = app;

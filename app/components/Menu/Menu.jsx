@@ -1,4 +1,5 @@
 import React from 'react';
+import './Menu.scss';
 
 class Menu extends React.Component {
   static propTypes = {

@@ -10,6 +10,9 @@ import PortfolioPage from './components/PortfolioPage';
 import BlogPage from './components/BlogPage';
 import NotFoundPage from './components/NotFoundPage';
 
+// style
+import './application.scss';
+
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={AppLayout}>

@@ -25,7 +25,7 @@ $menu-font-color  : rgb(100, 100, 100);
   height       : $menu-height;
   display      : inline-block;
   position     : relative;
-  transition   : background-color 0.2s, box-shadow 0.5s;
+  transition   : background-color 0.25s, box-shadow 0.5s, border 0.15s;
   line-height  : $menu-height;
   border-right : 1px solid $menu-border-color;
   box-shadow   : 0 0 0 transparent inset;
@@ -44,6 +44,7 @@ $menu-font-color  : rgb(100, 100, 100);
 
   &:hover,
   &.active {
+    border-bottom   : 2px solid $menu-border-color;
     box-shadow      : 0 0 15px rgba(#dddddd, 0.75) inset;
     background-color: transparent;
     cursor          : pointer;
