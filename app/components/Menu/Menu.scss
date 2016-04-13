@@ -1,4 +1,4 @@
-@import '../../_variables';
+@import '../../variables';
 
 // variables
 $menu-base-color  : rgb(254, 254, 254);
@@ -29,7 +29,7 @@ $menu-font-color  : rgb(100, 100, 100);
   line-height  : $menu-height;
   border-right : 1px solid $menu-border-color;
   box-shadow   : 0 0 0 transparent inset;
-  font-size    : 16px;
+  font-size    : 14px;
   min-width    : 100px;
   text-align   : center;
   padding      : 0 30px;

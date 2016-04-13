@@ -6,7 +6,7 @@ class BlogPage extends React.Component {
     blogPostCount: 5,
   }
 
-  inputHandler = (e) => {
+  _onCountChange = (e) => {
     const target = e.target;
     const nextVal = parseInt(target.value, 10);
 
@@ -23,7 +23,7 @@ class BlogPage extends React.Component {
       <div className="page-container">
         <div className="container">
           <input type="number"
-            onChange={this.inputHandler}
+            onChange={this._onCountChange}
             defaultValue={this.state.blogPostCount}
           />
           <BlogList count={this.state.blogPostCount} />

@@ -27,7 +27,7 @@ module.exports = {
         query: {
           presets: ['react', 'es2015', 'stage-0', 'react-hmre'],
           plugins: ['transform-class-properties'],
-        }
+        },
       },
       {
         test: /\.scss$/,

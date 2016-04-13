@@ -2,7 +2,7 @@ import React from 'react';
 
 class BlogPost extends React.Component {
   static propTypes = {
-    title: React.PropTypes.object,
+    postData: React.PropTypes.object,
   }
 
   render() {
