@@ -1,14 +1,36 @@
 import React from 'react';
 import { BlogList } from './Blog';
 
-function BlogPage() {
-  return (
-    <div className="page-container">
-      <div className="container">
-        <BlogList count={3} />
+class BlogPage extends React.Component {
+  state = {
+    blogPostCount: 5,
+  }
+
+  inputHandler = (e) => {
+    const target = e.target;
+    const nextVal = parseInt(target.value, 10);
+
+    if (nextVal < 1) {
+      target.value = 1;
+      return;
+    }
+
+    this.setState({ blogPostCount: nextVal });
+  }
+
+  render() {
+    return (
+      <div className="page-container">
+        <div className="container">
+          <input type="number"
+            onChange={this.inputHandler}
+            defaultValue={this.state.blogPostCount}
+          />
+          <BlogList count={this.state.blogPostCount} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default BlogPage;
