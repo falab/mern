@@ -5,10 +5,16 @@ module.exports = {
   context: `${__dirname}/app`,
   devtool: debug ? 'inline-sourcemap' : null,
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:3001',
-    'webpack/hot/only-dev-server',
+    // 'webpack-dev-server/client?http://0.0.0.0:3001',
+    // 'webpack/hot/only-dev-server',
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
     './application.jsx',
   ],
+  output: {
+    path: `${__dirname}/public`,
+    filename: 'application.min.js',
+    publicPath: '/',
+  },
   resolve: {
     extensions: ['', '.js', '.jsx', '.scss'],
   },
@@ -17,10 +23,11 @@ module.exports = {
       {
         test: /\.jsx$/,
         exclude: /(node_modules|bower_components)/,
-        loaders: [
-          'react-hot-loader',
-          'babel-loader?presets[]=react&presets[]=es2015&presets[]=stage-0&plugins=transform-class-properties',
-        ],
+        loader: 'babel',
+        query: {
+          presets: ['react', 'es2015', 'stage-0', 'react-hmre'],
+          plugins: ['transform-class-properties'],
+        }
       },
       {
         test: /\.scss$/,
@@ -34,11 +41,6 @@ module.exports = {
         },
       },
     ],
-  },
-  output: {
-    path: `${__dirname}/public`,
-    filename: 'application.min.js',
-    publicPath: 'http://localhost:3000/',
   },
   plugins: debug ? [
     new webpack.HotModuleReplacementPlugin(),

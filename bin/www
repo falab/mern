@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const app = require('../app');
+const app = require('../server');
 const debug = require('debug')('api:server');
 const http = require('http');
 
@@ -88,23 +88,26 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-
-if (app.get('env') !== 'production') {
-  const webpack = require('webpack');
-  const WebpackDevServer = require('webpack-dev-server');
-  const config = require('../webpack.config.js');
-
-  new WebpackDevServer(webpack(config), {
-    hot: true,
-    historyApiFallback: true,
-    proxy: {
-      '*': 'http://localhost:3000',
-    },
-  }).listen(3001, 'localhost', (err) => {
-    if (err) {
-      console.log(err);
-    }
-
-    console.log('Listening at localhost:3001');
-  });
-}
+// if (app.get('env') !== 'production') {
+//   const webpack = require('webpack');
+//   const WebpackDevServer = require('webpack-dev-server');
+//   const config = require('../webpack.config.js');
+//
+//   new WebpackDevServer(webpack(config), {
+//     hot: true,
+//     historyApiFallback: true,
+//     quiet: false,
+//     noInfo: false,
+//     proxy: {
+//       '*': 'http://localhost:3000',
+//     },
+//     headers: { 'X-Custom-Header': 'yes' },
+//     stats: { colors: true },
+//   }).listen(3001, 'localhost', (err) => {
+//     if (err) {
+//       console.log(err);
+//     }
+//
+//     console.log('Listening at localhost:3001');
+//   });
+// }
