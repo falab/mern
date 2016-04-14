@@ -1,44 +1,50 @@
-import { EventEmitter } from 'events';
+import Store from './Store';
 import request from 'superagent';
 
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import BlogConstants from '../constants/BlogConstants';
 
-const CHANGE_EVENT = 'change';
+/**
+ * Request post from api and return request object
+ *
+ * @private
+ * @param {number} count
+ * @return {Object} req - the request object
+ */
+function _fetchPosts(count) {
+  const req = request
+    .get('/api/blog')
+    .type('json');
 
-class BlogStore extends EventEmitter {
-  // The actual array blogs are stored in
-  _store = [];
+  if (count > 0) {
+    req.query({ count });
+  }
 
+  return req;
+}
+
+/**
+ * Class representing a blog store
+ *
+ * @extends Store
+ */
+class BlogStore extends Store {
   constructor() {
     super();
-    this._fetchPosts();
+    this.store.posts = [];
+    _fetchPosts();
   }
 
-  _fetchPosts(count) {
-    const req = request
-      .get('/api/blog')
-      .type('json');
-
-    if (count > 0) {
-      req.query({ count });
-    }
-
-    req.end((err, res) => {
-      if (err) throw err;
-      this._store = res.body;
-      this.emit(CHANGE_EVENT);
-    });
-  }
-
-  onChange(callback) {
-    this.on(CHANGE_EVENT, callback);
-  }
-
-  offChange(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  }
-
+  /**
+   * Returns posts from the posts store. If a count is supplied it will return a
+   * page of results. If a page number is supplied with count it will return a
+   * slice of posts that represent that page. If page is larger than the maximum
+   * possible pages, will return the last page.
+   *
+   * @param {number} count - how many posts you want per page (max)
+   * @param {number} page - represents which page of posts you want
+   * @returns {Object[]} posts - an array of post objects
+   */
   getPosts(count = 0, page = 1) {
     let _page = page;
     let posts = this._store;
@@ -57,22 +63,39 @@ class BlogStore extends EventEmitter {
     return posts;
   }
 
-  createPost({ postData }) {
-    this._store.push(postData);
-    this.emit(CHANGE_EVENT);
+  /**
+   * Inserts a new post at the front of the posts store and emits a change
+   * event.
+   *
+   * @param {Object} param - destructured object
+   * @param {Object} param.post - an object representing a blog post
+   */
+  createPost({ post }) {
+    this._store.unshift(post);
+    this.emitChange();
   }
 
-  destroyPost({ postId }) {
-    this._store = this._store.filter(item => item.id !== postId);
-    this.emit(CHANGE_EVENT);
+  /**
+   * Removes a post from the posts store by id and emits a change event.
+   *
+   * @param {Object} param - destructured object
+   * @param {Object} param.id - The id of a post
+   */
+  destroyPost({ id }) {
+    this._store = this._store.filter(item => item.id !== id);
+    this.emitChange();
   }
 
-  // Dispatcher action handler
-  // Fat-arrow to bind to this automatically
+  /**
+   * Implements a switch to route different event types to different methods.
+   * Will be passed to the AppDispatcher.
+   *
+   * @param {Object} payload - the payload object from the dispatcher
+   */
   dispatchHandler = (payload) => {
-    const { actionType } = payload;
+    const { type } = payload;
 
-    switch (actionType) {
+    switch (type) {
       // Handle create action
       case BlogConstants.BLOG_CREATE:
         this.createPost(payload);
