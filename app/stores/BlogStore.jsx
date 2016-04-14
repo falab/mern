@@ -84,7 +84,7 @@ class BlogStore extends Store {
    * Removes a post from the posts store by id and emits a change event.
    *
    * @param {Object} param - destructured object
-   * @param {Object} param.id - The id of a post
+   * @param {number} param.id - The id of a post
    */
   destroyPost({ id }) {
     this.store.posts = this.store.posts.filter(item => item.id !== id);
