@@ -4,48 +4,72 @@ import BlogConstants from 'BlogConstants';
 
 const CHANGE_EVENT = 'change';
 
-const _store = {
-  blogPosts: [],
-};
-
 class BlogStore extends EventEmitter {
-  addChangeListener(cb) {
-    this.on(CHANGE_EVENT, cb);
+  // The actual array blogs are stored in
+  _store = [];
+
+  onChange(callback) {
+    this.on(CHANGE_EVENT, callback);
   }
 
-  removeChangeListener(cb) {
-    this.removeListener(CHANGE_EVENT, cb);
+  offChange(callback) {
+    this.removeListener(CHANGE_EVENT, callback);
   }
 
-  getBlogPosts() {
-    return _store;
+  getPosts(count = 0, page = 1) {
+    let posts = this._store;
+    let _page = page;
+
+    const maxPage = Math.ceil(posts.length / count);
+
+    if (count) {
+      if (_page > maxPage) _page = maxPage;
+
+      const start = (_page - 1) * count;
+      const end = start + count;
+
+      posts = posts.slice(start, end);
+    }
+
+    return posts;
+  }
+
+  createPost({ postData }) {
+    this._store.push(postData);
+    this.emit(CHANGE_EVENT);
+  }
+
+  destroyPost({ postId }) {
+    this._store = this._store.filter(item => item.id !== postId);
+    this.emit(CHANGE_EVENT);
+  }
+
+  // Dispatcher action handler
+  // Fat-arrow to bind to this automatically
+  dispatchHandler = (payload) => {
+    const { actionType } = payload;
+
+    switch (actionType) {
+      // Handle create action
+      case BlogConstants.BLOG_CREATE:
+        this.createPost(payload);
+        break;
+
+      // Handle destroy action
+      case BlogConstants.BLOG_DESTROY:
+        this.destroyPost(payload);
+        break;
+
+      default:
+        // do nothing
+    }
   }
 }
 
-const blogStore = new BlogStore();
+// Instantiate the store before exporting
+const blogStore = new BlogStore;
 
-AppDispatcher.register((payload) => {
-  const action = payload.action;
-
-  switch (action.actionType) {
-    case BlogConstants.BLOG_CREATE:
-      _store.blogPosts.push(action.postData);
-      blogStore.emit(CHANGE_EVENT);
-      break;
-    case BlogConstants.BLOG_DESTROY:
-      _store.blogPosts = _store.blogPosts.filter(
-        item => item.id !== action.blogPostId
-      );
-      blogStore.emit(CHANGE_EVENT);
-      break;
-    // case BlogConstants.BLOG_UPDATE:
-    //   blogStore.emit(CHANGE_EVENT);
-    //   break;
-    default:
-      return true;
-  }
-
-  return true;
-});
+// Register dispatch handler
+AppDispatcher.register(blogStore.dispatchHandler);
 
 export default blogStore;
