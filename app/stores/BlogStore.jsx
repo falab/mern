@@ -42,8 +42,8 @@ class BlogStore extends Store {
    * possible pages, will return the last page.
    *
    * @param {number} count - how many posts you want per page (max)
-   * @param {number} page - represents which page of posts you want
-   * @returns {Object[]} posts - an array of post objects
+   * @param {number} [page=0] - represents which page of posts you want
+   * @returns {Object[]} [posts=1] - an array of post objects
    */
   getPosts(count = 0, page = 1) {
     let _page = page;
