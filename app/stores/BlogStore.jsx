@@ -83,8 +83,7 @@ class BlogStore extends EventEmitter {
         this.destroyPost(payload);
         break;
 
-      default:
-        // do nothing
+      default: // do nothing
     }
   }
 }
