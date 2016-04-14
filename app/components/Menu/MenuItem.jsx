@@ -1,10 +1,14 @@
 import React from 'react';
 
-import {
-  Link,
-  IndexLink,
-} from 'react-router';
+import { Link, IndexLink } from 'react-router';
 
+/**
+ * Class representing a menu item
+ *
+ * @extends React.Component
+ * @prop {string} to - the url the link will go to
+ * @prop {node} children - child elements of the component
+ */
 export default class MenuItem extends React.Component {
   static propTypes = {
     to: React.PropTypes.string,
@@ -12,12 +16,12 @@ export default class MenuItem extends React.Component {
   };
 
   render() {
-    const Tag = (this.props.to === '/') ? IndexLink : Link;
+    const LinkTag = (this.props.to === '/') ? IndexLink : Link;
 
     return (
-      <Tag className="menuItem" to={this.props.to} activeClassName="active">
+      <LinkTag className="menuItem" to={this.props.to} activeClassName="active">
         {this.props.children}
-      </Tag>
+      </LinkTag>
     );
   }
 }

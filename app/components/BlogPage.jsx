@@ -1,7 +1,12 @@
 import React from 'react';
 import { BlogList } from './Blog';
 
-class BlogPage extends React.Component {
+/**
+ * Class representing the blog page used in routing
+ *
+ * @extends React.Component
+ */
+export default class BlogPage extends React.Component {
   render() {
     return (
       <div className="page-container">
@@ -12,5 +17,3 @@ class BlogPage extends React.Component {
     );
   }
 }
-
-export default BlogPage;

@@ -1,6 +1,12 @@
 import React from 'react';
 
-class BlogPost extends React.Component {
+/**
+ * Class representing a blog post
+ *
+ * @extends React.Component
+ * @prop {Object} postData - a post object
+ */
+export default class BlogPost extends React.Component {
   static propTypes = {
     postData: React.PropTypes.object,
   }
@@ -17,5 +23,3 @@ class BlogPost extends React.Component {
     );
   }
 }
-
-export default BlogPost;

@@ -2,7 +2,13 @@ import React from 'react';
 import request from 'superagent';
 import SocialIcon from './SocialIcon';
 
+/**
+ * Class representing a list of social icons
+ *
+ * @extends React.Component
+ */
 class SocialIconList extends React.Component {
+  // Sets the initial state of the component
   constructor() {
     super();
 
@@ -11,6 +17,7 @@ class SocialIconList extends React.Component {
     };
   }
 
+  // Fires ajax request to retrieve social icon data and updates internal state
   componentDidMount() {
     request
       .get('/api/socialIcons')

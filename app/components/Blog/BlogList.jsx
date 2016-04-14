@@ -2,10 +2,17 @@ import React from 'react';
 import BlogPost from './BlogPost';
 import blogStore from '../../stores/BlogStore';
 
-class BlogList extends React.Component {
+/**
+ * Class representing a list of blog posts
+ *
+ * @extends React.Component
+ * @prop {number} count - how many blog posts to list
+ */
+export default class BlogList extends React.Component {
   static propTypes = { count: React.PropTypes.number }
   static defaultProps = { count: 0 }
 
+  // Sets the initial state of the component
   constructor() {
     super();
 
@@ -14,19 +21,20 @@ class BlogList extends React.Component {
     };
   }
 
+  // Binds this._getPosts to the blog store's change event
   componentWillMount() {
-    this._getBlogs();
-    blogStore.onChange(this._getBlogs);
+    blogStore.onChange(this._getPosts);
   }
 
+  // Unbinds this._getPosts from the blog store's change event
   componentWillUnmount() {
-    blogStore.offChange(this._getBlogs);
+    blogStore.offChange(this._getPosts);
   }
 
-  _getBlogs = () => {
-    this.setState({
-      posts: blogStore.getPosts(this.props.count),
-    });
+  // Gets some posts from the blog store and update posts in state
+  _getPosts = () => {
+    const posts = blogStore.getPosts(this.props.count);
+    this.setState({ posts });
   }
 
   render() {
@@ -44,5 +52,3 @@ class BlogList extends React.Component {
     );
   }
 }
-
-export default BlogList;

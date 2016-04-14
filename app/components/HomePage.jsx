@@ -1,18 +1,20 @@
 import React from 'react';
 
-import SocialIconList, { SocialIcon } from './SocialIconList';
+import SocialIconList from './SocialIconList';
 
-function HomePage() {
-  return (
-    <div className="page-container">
-      <div className="container">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, praesentium, porro officia laborum voluptatem molestias modi animi quae mollitia cum quam quibusdam asperiores eaque iste. Aliquid eaque, obcaecati, ea est tempore impedit animi corporis quasi voluptatum amet commodi. Officiis fuga sequi veritatis ipsam id eveniet dolore odit dolor repudiandae, consectetur dolorum aliquam, ab reiciendis, quas, alias quidem ullam beatae nobis optio! Soluta natus, hic nam in quo molestias adipisci distinctio, consequuntur consectetur neque ullam suscipit omnis mollitia enim provident! Veritatis facere corporis ipsa repellat? Error sed necessitatibus, quae saepe sunt laborum, in ducimus rem. Beatae quaerat architecto suscipit, dolores rerum.
+/**
+ * Class representing the home page used in routing
+ *
+ * @extends React.Component
+ */
+export default class HomePage extends React.Component {
+  render() {
+    return (
+      <div className="page-container">
+        <div className="container">
+          <SocialIconList />
+        </div>
       </div>
-      <div className="container">
-        <SocialIconList />
-      </div>
-    </div>
-  );
+    );
+  }
 }
-
-export default HomePage;

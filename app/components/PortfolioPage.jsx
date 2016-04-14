@@ -1,13 +1,18 @@
 import React from 'react';
 
-function PortfolioPage() {
-  return (
-    <div className="page-container">
-      <div className="container">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus voluptas vel provident tempora ut eos, ad odit beatae! Blanditiis mollitia harum recusandae iusto cumque libero, rem nemo vitae dolorem nostrum cum. Odit, quaerat iste laborum, et optio eos consectetur eveniet minima, veniam rerum accusantium illo velit aut consequatur iure assumenda voluptate reprehenderit deleniti cupiditate quidem? Expedita omnis ipsam, dolore iusto, voluptas voluptatem. Odit placeat blanditiis veniam modi laudantium ea voluptatum corporis quis, facilis dolor commodi necessitatibus pariatur, tenetur distinctio non delectus explicabo! Rem ab error, quasi expedita laboriosam autem, quam veritatis, commodi temporibus perferendis, libero fugit ducimus perspiciatis? Dicta, ex.
+/**
+ * Class representing the portfolio page used in routing
+ *
+ * @extends React.Component
+ */
+export default class PortfolioPage extends React.Component {
+  render() {
+    return (
+      <div className="page-container">
+        <div className="container">
+          Nothing here yet.
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
-export default PortfolioPage;

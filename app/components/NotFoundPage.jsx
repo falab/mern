@@ -1,13 +1,18 @@
 import React from 'react';
 
-function NotFoundPage() {
-  return (
-    <div className="page-container">
-      <div className="container">
-        404 Page Not Found
+/**
+ * Class representing the "not found" error page used in routing
+ *
+ * @extends React.Component
+ */
+export default class NotFoundPage extends React.Component {
+  render() {
+    return (
+      <div className="page-container">
+        <div className="container">
+          404 Page Not Found
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
-export default NotFoundPage;

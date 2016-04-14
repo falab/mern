@@ -1,7 +1,13 @@
 import React from 'react';
 import './Menu.scss';
 
-class Menu extends React.Component {
+/**
+ * Class representing a menu
+ *
+ * @extends React.Component
+ * @prop {node} children - child elements of the component
+ */
+export default class Menu extends React.Component {
   static propTypes = {
     children: React.PropTypes.node,
   }
@@ -16,5 +22,3 @@ class Menu extends React.Component {
     );
   }
 }
-
-export default Menu;
