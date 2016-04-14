@@ -3,8 +3,12 @@ import request from 'superagent';
 import SocialIcon from './SocialIcon';
 
 class SocialIconList extends React.Component {
-  state = {
-    icons: [],
+  constructor() {
+    super();
+
+    this.state = {
+      icons: [],
+    };
   }
 
   componentDidMount() {

@@ -6,8 +6,12 @@ class BlogList extends React.Component {
   static propTypes = { count: React.PropTypes.number }
   static defaultProps = { count: 0 }
 
-  state = {
-    posts: [],
+  constructor() {
+    super();
+
+    this.state = {
+      posts: [],
+    };
   }
 
   componentWillMount() {
