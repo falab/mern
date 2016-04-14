@@ -4,24 +4,6 @@ import request from 'superagent';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import BlogConstants from '../constants/BlogConstants';
 
-/**
- * Request post from api and return request object
- *
- * @private
- * @param {number} count
- * @return {Object} req - the request object
- */
-function _fetchPosts(count) {
-  const req = request
-    .get('/api/blog')
-    .type('json');
-
-  if (count > 0) {
-    req.query({ count });
-  }
-
-  return req;
-}
 
 /**
  * Class representing a blog store
@@ -29,10 +11,34 @@ function _fetchPosts(count) {
  * @extends Store
  */
 class BlogStore extends Store {
+  // Initializes posts array on the store and fetches initial posts
   constructor() {
     super();
     this.store.posts = [];
-    _fetchPosts();
+    this._fetchPosts();
+  }
+
+  /**
+   * Request post from api and return request object
+   *
+   * @private
+   * @param {number} count
+   * @return {Object} req - the request object
+   */
+  _fetchPosts(count) {
+    const req = request
+      .get('/api/blog')
+      .type('json');
+
+    if (count > 0) {
+      req.query({ count });
+    }
+
+    req.end((err, res) => {
+      if (err) throw err;
+      this.store.posts = res.body;
+      this.emitChange();
+    });
   }
 
   /**
@@ -47,7 +53,7 @@ class BlogStore extends Store {
    */
   getPosts(count = 0, page = 1) {
     let _page = page;
-    let posts = this._store;
+    let posts = this.store.posts;
 
     const maxPage = Math.ceil(posts.length / count);
 
@@ -71,7 +77,7 @@ class BlogStore extends Store {
    * @param {Object} param.post - an object representing a blog post
    */
   createPost({ post }) {
-    this._store.unshift(post);
+    this.store.posts.unshift(post);
     this.emitChange();
   }
 
@@ -82,7 +88,7 @@ class BlogStore extends Store {
    * @param {Object} param.id - The id of a post
    */
   destroyPost({ id }) {
-    this._store = this._store.filter(item => item.id !== id);
+    this.store.posts = this.store.posts.filter(item => item.id !== id);
     this.emitChange();
   }
 

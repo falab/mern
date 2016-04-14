@@ -13,11 +13,11 @@ export default class BlogList extends React.Component {
   static defaultProps = { count: 0 }
 
   // Sets the initial state of the component
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {
-      posts: [],
+      posts: blogStore.getPosts(props.count),
     };
   }
 
