@@ -1,33 +1,27 @@
 import React from 'react';
-import request from 'superagent';
 import BlogPost from './BlogPost';
+import blogStore from '../../stores/BlogStore';
 
 class BlogList extends React.Component {
   static propTypes = { count: React.PropTypes.number }
   static defaultProps = { count: 0 }
-  state = { posts: [] }
 
-  componentDidMount() {
-    const props = this.props;
-    this.getBlogPosts(props.count);
+  state = {
+    posts: [],
   }
 
-  componentWillReceiveProps(props) {
-    this.getBlogPosts(props.count);
+  componentWillMount() {
+    this._getBlogs();
+    blogStore.onChange(this._getBlogs);
   }
 
-  getBlogPosts = (count) => {
-    const req = request
-      .get('/api/blog')
-      .type('json');
+  componentWillUnmount() {
+    blogStore.offChange(this._getBlogs);
+  }
 
-    if (count > 0) {
-      req.query({ count });
-    }
-
-    req.end((err, res) => {
-      if (err) throw err;
-      this.setState({ posts: res.body });
+  _getBlogs = () => {
+    this.setState({
+      posts: blogStore.getPosts(this.props.count),
     });
   }
 

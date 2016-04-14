@@ -1,12 +1,35 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
 import { EventEmitter } from 'events';
-import BlogConstants from 'BlogConstants';
+import request from 'superagent';
+
+import AppDispatcher from '../dispatchers/AppDispatcher';
+import BlogConstants from '../constants/BlogConstants';
 
 const CHANGE_EVENT = 'change';
 
 class BlogStore extends EventEmitter {
   // The actual array blogs are stored in
   _store = [];
+
+  constructor() {
+    super();
+    this._fetchPosts();
+  }
+
+  _fetchPosts(count) {
+    const req = request
+      .get('/api/blog')
+      .type('json');
+
+    if (count > 0) {
+      req.query({ count });
+    }
+
+    req.end((err, res) => {
+      if (err) throw err;
+      this._store = res.body;
+      this.emit(CHANGE_EVENT);
+    });
+  }
 
   onChange(callback) {
     this.on(CHANGE_EVENT, callback);
@@ -17,8 +40,8 @@ class BlogStore extends EventEmitter {
   }
 
   getPosts(count = 0, page = 1) {
-    let posts = this._store;
     let _page = page;
+    let posts = this._store;
 
     const maxPage = Math.ceil(posts.length / count);
 

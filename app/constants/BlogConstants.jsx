@@ -1,4 +1,4 @@
-import mirror from 'keymirror';
+import mirror from 'fbjs/lib/keyMirror';
 
 export default mirror({
   BLOG_CREATE: null,
