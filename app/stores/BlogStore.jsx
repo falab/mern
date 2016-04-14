@@ -4,7 +4,6 @@ import request from 'superagent';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import BlogConstants from '../constants/BlogConstants';
 
-
 /**
  * Class representing a blog store
  *
