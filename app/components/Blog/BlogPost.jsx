@@ -18,7 +18,9 @@ export default class BlogPost extends React.Component {
       <div className="blogPost">
         <div className="title">{post.title}</div>
         <div className="content">{post.content}</div>
-        <div className="author">{post.author}</div>
+        <div className="details">
+          Posted by <span className="author">{post.author}</span> on <span className="date">Feb. 28, 1989</span>
+        </div>
       </div>
     );
   }

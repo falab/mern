@@ -1,0 +1,25 @@
+@import '../../variables';
+
+.blogPost {
+  background   : $ui-color;
+  border       : 1px solid $ui-border-color;
+  box-shadow   : 2px 2px 5px $ui-shadow-color;
+  margin-top   : 20px;
+  color        : lighten(black, 25%);
+  border-radius: 2px;
+
+  & > * {
+    padding: 10px;
+  }
+
+  .title {
+    font-weight  : bold;
+    font-size    : 18px;
+    border-bottom: 1px solid $ui-border-color;
+  }
+
+  .details {
+    border-top: 1px solid $ui-border-color;
+    padding   : 5px 10px;
+  }
+}

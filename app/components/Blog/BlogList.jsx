@@ -1,6 +1,7 @@
 import React from 'react';
 import BlogPost from './BlogPost';
 import blogStore from '../../stores/BlogStore';
+import './blog.scss';
 
 /**
  * Class representing a list of blog posts
@@ -41,7 +42,7 @@ export default class BlogList extends React.Component {
     const { posts } = this.state;
 
     return (
-      <div className="blog-list">
+      <div className="blogList">
         {posts.map((post) =>
           <BlogPost
             key={post.id}
