@@ -38,8 +38,7 @@
 
   &:hover,
   &.active {
-    border-bottom   : 2px solid $ui-border-color;
-    box-shadow      : 0 0 15px rgba(#dddddd, 0.5) inset;
+    box-shadow      : 0 0 15px rgba(#e4dfdf, 0.5) inset;
     background-color: transparent;
     cursor          : pointer;
   }

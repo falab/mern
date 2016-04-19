@@ -12,14 +12,14 @@ export default class BlogPost extends React.Component {
   }
 
   render() {
-    const post = this.props.postData;
+    const props = this.props;
 
     return (
       <div className="blogPost">
-        <div className="title">{post.title}</div>
-        <div className="content">{post.content}</div>
+        <div className="title">{props.title}</div>
+        <div className="content">{props.content}</div>
         <div className="details">
-          Posted by <span className="author">{post.author}</span> on <span className="date">Feb. 28, 1989</span>
+          Posted by <span className="author">{props.author}</span> on <span className="date">Feb. 28, 1989</span>
         </div>
       </div>
     );

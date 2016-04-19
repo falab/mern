@@ -102,12 +102,12 @@ class BlogStore extends Store {
 
     switch (type) {
       // Handle create action
-      case BlogConstants.BLOG_CREATE:
+      case BlogConstants.POST_CREATE:
         this.createPost(payload);
         break;
 
       // Handle destroy action
-      case BlogConstants.BLOG_DESTROY:
+      case BlogConstants.POST_DESTROY:
         this.destroyPost(payload);
         break;
 
