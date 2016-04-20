@@ -54,7 +54,6 @@ class BlogStore extends Store {
    */
   handlePostCreateResponse({ response: { body: post } }) {
     this.store.posts.unshift(post);
-    console.log(post);
     this.emitChange();
   }
 

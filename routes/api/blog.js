@@ -5,10 +5,7 @@ const router = new express.Router();
 const posts = require('../../data/posts');
 
 // Posts index
-router.get([
-  '/',
-  '/posts',
-], (req, res) => {
+router.get([ '/', '/posts' ], (req, res) => {
   let count;
 
   if (req.query.count || req.query.count !== '0') {
@@ -40,10 +37,7 @@ router.get('/post/:id', (req, res) => {
 });
 
 // Post create
-router.post([
-  '/',
-  '/posts',
-], (req, res) => {
+router.post([ '/', '/posts' ], (req, res) => {
   const reqBody = req.body;
   const post = posts.addPost({
     author: 'Alex Howard',

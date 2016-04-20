@@ -14,13 +14,10 @@ export function getPosts(count) {
 }
 
 export function createPost({ title, content }) {
-  const req = request
+  request
     .post('/api/blog')
     .type('json')
-    .send({
-      title,
-      content,
-    })
+    .send({ title, content })
     .end((err, res) => {
       if (err) throw err;
 
