@@ -41,10 +41,6 @@ export default class BlogList extends React.Component {
   render() {
     const { posts } = this.state;
 
-
-
-    console.log(this.state);
-
     return (
       <div className="blogList">
         {posts.map((post) =>

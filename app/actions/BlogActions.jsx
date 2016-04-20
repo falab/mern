@@ -7,19 +7,19 @@ export function createPost({ title, content }) {
 
   AppDispatcher.viewAction({
     type: BlogConstants.POST_CREATE,
-    post: {
-      id: createdAt,
-      author: 'Alex',
-      title,
-      content,
-      createdAt,
-    },
+  });
+
+  BlogApi.createPost({
+    author: 'Alex',
+    title,
+    content,
+    createdAt,
   });
 }
 
 export function getPosts() {
   AppDispatcher.viewAction({
-    type: BlogConstants.GET_POSTS,
+    type: BlogConstants.POSTS_FETCH,
   });
 
   BlogApi.getPosts();

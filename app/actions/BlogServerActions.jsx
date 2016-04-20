@@ -3,14 +3,14 @@ import AppDispatcher from '../dispatchers/AppDispatcher';
 
 export function receiveCreateResponse(response) {
   AppDispatcher.serverAction({
-    type: BlogConstants.CREATE_RESPONSE,
+    type: BlogConstants.POST_CREATE_RESPONSE,
     response,
   });
 }
 
 export function receivePosts(response) {
   AppDispatcher.serverAction({
-    type: BlogConstants.RECEIVE_POSTS,
+    type: BlogConstants.POSTS_FETCH_RESPONSE,
     response,
   });
 }

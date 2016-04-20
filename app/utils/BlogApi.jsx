@@ -12,3 +12,18 @@ export function getPosts(count) {
     BlogServerActions.receivePosts(res);
   });
 }
+
+export function createPost({ title, content }) {
+  const req = request
+    .post('/api/blog')
+    .type('json')
+    .send({
+      title,
+      content,
+    })
+    .end((err, res) => {
+      if (err) throw err;
+
+      BlogServerActions.receiveCreateResponse(res);
+    });
+}

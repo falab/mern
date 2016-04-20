@@ -40,8 +40,18 @@ router.get('/post/:id', (req, res) => {
 });
 
 // Post create
-router.post('/posts', (req, res) => {
-  console.log(req, res);
+router.post([
+  '/',
+  '/posts',
+], (req, res) => {
+  const reqBody = req.body;
+  const post = posts.addPost({
+    author: 'Alex Howard',
+    title: reqBody.title,
+    content: reqBody.content,
+  });
+
+  return res.json(post);
 });
 
 module.exports = router;
