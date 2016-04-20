@@ -1,10 +1,11 @@
 import BlogConstants from '../constants/BlogConstants';
-import dispatcher from '../dispatchers/AppDispatcher';
+import AppDispatcher from '../dispatchers/AppDispatcher';
+import * as BlogApi from '../utils/BlogApi';
 
 export function createPost({ title, content }) {
   const createdAt = new Date();
 
-  dispatcher.dispatch({
+  AppDispatcher.viewAction({
     type: BlogConstants.POST_CREATE,
     post: {
       id: createdAt,
@@ -14,4 +15,12 @@ export function createPost({ title, content }) {
       createdAt,
     },
   });
+}
+
+export function getPosts() {
+  AppDispatcher.viewAction({
+    type: BlogConstants.GET_POSTS,
+  });
+
+  BlogApi.getPosts();
 }

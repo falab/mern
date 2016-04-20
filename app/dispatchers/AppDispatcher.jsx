@@ -1,6 +1,19 @@
 import { Dispatcher } from 'flux';
 
-const dispatcher = new Dispatcher();
-window.dispatcher = dispatcher;
+class AppDispatcher extends Dispatcher {
+  viewAction(action) {
+    this.dispatch({
+      source: 'VIEW_ACTION',
+      action,
+    });
+  }
 
-export default dispatcher;
+  serverAction(action) {
+    this.dispatch({
+      source: 'SERVER_ACTION',
+      action,
+    });
+  }
+}
+
+export default new AppDispatcher();

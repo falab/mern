@@ -1,8 +1,8 @@
 import Store from './Store';
-import request from 'superagent';
 
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import BlogConstants from '../constants/BlogConstants';
+import * as BlogActions from '../actions/BlogActions';
 
 /**
  * Class representing a blog store
@@ -14,30 +14,7 @@ class BlogStore extends Store {
   constructor() {
     super();
     this.store.posts = [];
-    this._fetchPosts();
-  }
-
-  /**
-   * Request post from api and return request object
-   *
-   * @private
-   * @param {number} count
-   * @return {Object} req - the request object
-   */
-  _fetchPosts(count) {
-    const req = request
-      .get('/api/blog')
-      .type('json');
-
-    if (count > 0) {
-      req.query({ count });
-    }
-
-    req.end((err, res) => {
-      if (err) throw err;
-      this.store.posts = res.body;
-      this.emitChange();
-    });
+    BlogActions.getPosts();
   }
 
   /**
@@ -69,25 +46,36 @@ class BlogStore extends Store {
   }
 
   /**
-   * Inserts a new post at the front of the posts store and emits a change
+   * Inserts a new post at the front of the posts store; emits a change
    * event.
    *
    * @param {Object} param - destructured object
    * @param {Object} param.post - an object representing a blog post
    */
-  createPost({ post }) {
+  handleCreatePost({ post }) {
     this.store.posts.unshift(post);
     this.emitChange();
   }
 
   /**
-   * Removes a post from the posts store by id and emits a change event.
+   * Removes a post from the posts store by id; emits a change event.
    *
    * @param {Object} param - destructured object
    * @param {number} param.id - The id of a post
    */
-  destroyPost({ id }) {
+  handleDestroyPost({ id }) {
     this.store.posts = this.store.posts.filter(item => item.id !== id);
+    this.emitChange();
+  }
+
+  /**
+   * Receives an array of posts from the blog api and assigns them to the posts
+   * store; emits a change event.
+   *
+   * @param {Object[]} posts - Array of posts
+   */
+  handleReceivePosts({ response: { body: posts } }) {
+    this.store.posts = posts;
     this.emitChange();
   }
 
@@ -97,18 +85,22 @@ class BlogStore extends Store {
    *
    * @param {Object} payload - the payload object from the dispatcher
    */
-  dispatchHandler = (payload) => {
-    const { type } = payload;
+  dispatchHandler = ({ action }) => {
+    const { type } = action;
 
     switch (type) {
       // Handle create action
       case BlogConstants.POST_CREATE:
-        this.createPost(payload);
+        this.handleCreatePost(action);
         break;
 
       // Handle destroy action
       case BlogConstants.POST_DESTROY:
-        this.destroyPost(payload);
+        this.handleDestroyPost(action);
+        break;
+
+      case BlogConstants.RECEIVE_POSTS:
+        this.handleReceivePosts(action);
         break;
 
       default: // do nothing
