@@ -1,16 +1,23 @@
 import BlogConstants from '../constants/BlogConstants';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 
-export function receiveCreateResponse(response) {
+export function createPostResponse(res) {
   AppDispatcher.serverAction({
     type: BlogConstants.POST_CREATE_RESPONSE,
-    response,
+    response: res.body,
   });
 }
 
-export function receivePosts(response) {
+export function deletePostResponse(res) {
+  AppDispatcher.serverAction({
+    type: BlogConstants.POST_DELETE_RESPONSE,
+    response: res.body,
+  });
+}
+
+export function fetchPostsResponse(res) {
   AppDispatcher.serverAction({
     type: BlogConstants.POSTS_FETCH_RESPONSE,
-    response,
+    response: res.body,
   });
 }

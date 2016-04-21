@@ -52,7 +52,7 @@ class BlogStore extends Store {
    * @param {Object} param - destructured object
    * @param {Object} param.post - an object representing a blog post
    */
-  handlePostCreateResponse({ response: { body: post } }) {
+  handlePostCreateResponse({ post }) {
     this.store.posts.unshift(post);
     this.emitChange();
   }
@@ -63,8 +63,8 @@ class BlogStore extends Store {
    * @param {Object} param - destructured object
    * @param {number} param.id - The id of a post
    */
-  handleDestroyPost({ id }) {
-    this.store.posts = this.store.posts.filter(item => item.id !== id);
+  handlePostDeleteResponse({ id }) {
+    this.store.posts = this.store.posts.filter(p => p.id !== id);
     this.emitChange();
   }
 
@@ -74,7 +74,7 @@ class BlogStore extends Store {
    *
    * @param {Object[]} posts - Array of posts
    */
-  handlePostsReceive({ response: { body: posts } }) {
+  handlePostsFetchResponse({ posts }) {
     this.store.posts = posts;
     this.emitChange();
   }
@@ -89,16 +89,18 @@ class BlogStore extends Store {
     const { type } = action;
 
     switch (type) {
-      case BlogConstants.POST_DESTROY:
-        this.handleDestroyPost(action);
+      case BlogConstants.POST_CREATE_RESPONSE:
+        this.handlePostCreateResponse(action.response);
+        break;
+
+      case BlogConstants.POST_DELETE_RESPONSE:
+        this.handlePostDeleteResponse(action.response);
         break;
 
       case BlogConstants.POSTS_FETCH_RESPONSE:
-        this.handlePostsReceive(action);
+        this.handlePostsFetchResponse(action.response);
         break;
 
-      case BlogConstants.POST_CREATE_RESPONSE:
-        this.handlePostCreateResponse(action);
       default: // do nothing
     }
   }
