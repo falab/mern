@@ -72,7 +72,8 @@ class BlogStore extends Store {
    * Receives an array of posts from the blog api and assigns them to the posts
    * store; emits a change event.
    *
-   * @param {Object[]} posts - Array of posts
+   * @param {Object} param - destructured object
+   * @param {Object[]} param.posts - Array of posts
    */
   handlePostsFetchResponse({ posts }) {
     this.store.posts = posts;
@@ -83,22 +84,23 @@ class BlogStore extends Store {
    * Implements a switch to route different event types to different methods.
    * Will be passed to the AppDispatcher.
    *
-   * @param {Object} payload - the payload object from the dispatcher
+   * @param {Object} param - destructured object
+   * @param {Object} param.action - the action object from the dispatcher
    */
   dispatchHandler = ({ action }) => {
-    const { type } = action;
+    const { type, response } = action;
 
     switch (type) {
       case BlogConstants.POST_CREATE_RESPONSE:
-        this.handlePostCreateResponse(action.response);
+        this.handlePostCreateResponse(response);
         break;
 
       case BlogConstants.POST_DELETE_RESPONSE:
-        this.handlePostDeleteResponse(action.response);
+        this.handlePostDeleteResponse(response);
         break;
 
       case BlogConstants.POSTS_FETCH_RESPONSE:
-        this.handlePostsFetchResponse(action.response);
+        this.handlePostsFetchResponse(response);
         break;
 
       default: // do nothing
