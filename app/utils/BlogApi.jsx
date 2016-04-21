@@ -1,37 +1,37 @@
-import request from 'superagent';
+import request from 'axios';
 import * as BlogServerActions from '../actions/BlogServerActions';
 
 export function createPost({ title, content }) {
-  request
-    .post('/api/blog')
-    .type('json')
-    .send({ title, content })
-    .end((err, res) => {
-      if (err) throw err;
+  const opts = {
+    responseType: 'json',
+    data: { title, content },
+  };
 
+  request
+    .post('/api/blog', opts)
+    .then((res) => {
       BlogServerActions.createPostResponse(res);
     });
 }
 
 export function deletePost(postId) {
-  request
-    .del(`/api/blog/${postId}`)
-    .type('json')
-    .end((err, res) => {
-      if (err) throw err;
+  const opts = { responseType: 'json' };
 
+  request
+    .delete(`/api/blog/${postId}`, opts)
+    .then((res) => {
       BlogServerActions.deletePostResponse(res);
     });
 }
 
 export function fetchPosts(count) {
-  const req = request.get('/api/blog').type('json');
+  const opts = { responseType: 'json' };
 
-  if (count > 0) req.query({ count });
+  if (count > 0) opts.data = { count };
 
-  req.end((err, res) => {
-    if (err) throw err;
-
-    BlogServerActions.fetchPostsResponse(res);
-  });
+  request
+    .get('/api/blog', opts)
+    .then((res) => {
+      BlogServerActions.fetchPostsResponse(res);
+    });
 }

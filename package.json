@@ -12,7 +12,8 @@
     "history": "^2.0.1",
     "jade": "~1.11.0",
     "serve-favicon": "~2.3.0",
-    "superagent": "^1.8.3"
+    "superagent": "^1.8.3",
+    "axios": "^0.10.0"
   },
   "devDependencies": {
     "babel-core": "^6.7.4",
