@@ -5,8 +5,6 @@ module.exports = {
   context: `${__dirname}/app`,
   devtool: debug ? 'inline-sourcemap' : null,
   entry: [
-    // 'webpack-dev-server/client?http://0.0.0.0:3001',
-    // 'webpack/hot/only-dev-server',
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
     './application.jsx',
   ],
@@ -16,7 +14,7 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.scss'],
+    extensions: ['', '.js', '.jsx', '.css', '.scss'],
   },
   module: {
     loaders: [
@@ -32,6 +30,10 @@ module.exports = {
       {
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass'],
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css'],
       },
       {
         test: /\.(png|jpe?g|gif|svg)/,
