@@ -14,9 +14,9 @@ export function createPost({ title, content }) {
     });
 }
 
-export function deletePost(postId) {
+export function deletePost(id) {
   request
-    .delete(`/${postId}`)
+    .delete(`/${id}`)
     .then((res) => {
       BlogServerActions.deletePostResponse(res);
     });
