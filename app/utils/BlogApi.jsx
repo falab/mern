@@ -1,36 +1,34 @@
-import request from 'axios';
+import axios from 'axios';
 import * as BlogServerActions from '../actions/BlogServerActions';
 
-export function createPost({ title, content }) {
-  const opts = {
-    responseType: 'json',
-    data: { title, content },
-  };
+const request = axios.create({
+  baseURL: '/api/blog',
+  responseType: 'json',
+});
 
+export function createPost({ title, content }) {
   request
-    .post('/api/blog', opts)
+    .post('/', { title, content })
     .then((res) => {
       BlogServerActions.createPostResponse(res);
     });
 }
 
 export function deletePost(postId) {
-  const opts = { responseType: 'json' };
-
   request
-    .delete(`/api/blog/${postId}`, opts)
+    .delete(`/${postId}`)
     .then((res) => {
       BlogServerActions.deletePostResponse(res);
     });
 }
 
 export function fetchPosts(count) {
-  const opts = { responseType: 'json' };
+  const data = {};
 
-  if (count > 0) opts.data = { count };
+  if (count > 0) data.count = { count };
 
   request
-    .get('/api/blog', opts)
+    .get('/', data)
     .then((res) => {
       BlogServerActions.fetchPostsResponse(res);
     });
