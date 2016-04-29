@@ -7,7 +7,7 @@ export default class InlineControls extends React.Component {
   static propTypes = {
     editorState: React.PropTypes.object,
     inlineStyles: React.PropTypes.array,
-    onToggle: React.PropTypes.function,
+    onToggle: React.PropTypes.func,
   }
 
   render() {

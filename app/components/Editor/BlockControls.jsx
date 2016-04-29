@@ -7,7 +7,7 @@ export default class BlockControls extends React.Component {
   static propTypes = {
     editorState: React.PropTypes.object,
     blockStyles: React.PropTypes.array,
-    onToggle: React.PropTypes.function,
+    onToggle: React.PropTypes.func,
   }
 
   render() {

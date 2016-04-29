@@ -2,9 +2,9 @@ import React from 'react';
 
 export default class StyleButton extends React.Component {
   static propTypes = {
-    active: React.PropTypes.boolean,
+    active: React.PropTypes.bool,
     label: React.PropTypes.string,
-    onToggle: React.PropTypes.function,
+    onToggle: React.PropTypes.func,
     style: React.PropTypes.string,
   }
 
@@ -15,6 +15,7 @@ export default class StyleButton extends React.Component {
 
   render() {
     let className = 'RichEditor-styleButton';
+
     if (this.props.active) className += ' RichEditor-activeButton';
 
     return (
