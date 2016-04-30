@@ -2,11 +2,11 @@ import React from 'react';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-import AppLayout from 'AppLayout';
-import HomePage from 'HomePage';
-import PortfolioPage from 'PortfolioPage';
-import BlogPage from 'BlogPage';
-import NotFoundPage from 'NotFoundPage';
+import AppLayout from './AppLayout';
+import HomePage from './HomePage';
+import PortfolioPage from './PortfolioPage';
+import BlogPage from './BlogPage';
+import NotFoundPage from './NotFoundPage';
 
 export default class AppRoutes extends React.Component {
   render() {

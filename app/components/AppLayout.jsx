@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Menu from 'Menu';
-import MenuItem from 'Menu/MenuItem';
+import Menu from './Menu';
+import MenuItem from './Menu/MenuItem';
 
-import 'appStyle';
+import './appStyle';
 
 /**
  * Class representing the application layout used in the router

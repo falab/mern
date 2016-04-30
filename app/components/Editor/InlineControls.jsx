@@ -1,5 +1,6 @@
 import React from 'react';
-import StyleButton from 'StyleButton';
+
+import StyleButton from './StyleButton';
 
 import 'draft-js/dist/Draft.css';
 

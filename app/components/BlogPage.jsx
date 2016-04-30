@@ -1,5 +1,5 @@
 import React from 'react';
-import { BlogList, BlogForm } from 'Blog';
+import { BlogList, BlogForm } from './Blog';
 
 /**
  * Class representing the blog page used in routing

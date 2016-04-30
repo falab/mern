@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SocialIconList from 'SocialIconList';
+import SocialIconList from './SocialIconList';
 
 /**
  * Class representing the home page used in routing

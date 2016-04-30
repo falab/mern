@@ -1,6 +1,8 @@
 import React from 'react';
+
 import request from 'superagent';
-import SocialIcon from 'SocialIcon';
+
+import SocialIcon from './SocialIcon';
 
 /**
  * Class representing a list of social icons

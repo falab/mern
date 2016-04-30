@@ -1,5 +1,6 @@
 import React from 'react';
-import 'menuStyle';
+
+import './menuStyle';
 
 /**
  * Class representing a menu
