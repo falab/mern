@@ -5,8 +5,8 @@ import {
   RichUtils,
 } from 'draft-js';
 
-import BlockControls from './BlockControls';
-import InlineControls from './InlineControls';
+import BlockControls from 'BlockControls';
+import InlineControls from 'InlineControls';
 
 import 'draft-js/dist/Draft.css';
 
