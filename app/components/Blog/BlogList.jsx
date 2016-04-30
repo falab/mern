@@ -1,7 +1,7 @@
 import React from 'react';
 import BlogPost from './BlogPost';
 import blogStore from '../../stores/BlogStore';
-import './blog.scss';
+import './blogStyle';
 
 /**
  * Class representing a list of blog posts
