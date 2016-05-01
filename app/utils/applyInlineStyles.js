@@ -75,7 +75,7 @@ export function applyInlineStyles({ text, styles }) {
     if (! endMap.has(endTagPos)) endMap.set(endTagPos, []);
 
     // Add style object to endMap
-    endMap.get(endTagPos).push(styleObj);
+    endMap.get(endTagPos).unshift(styleObj);
 
     // Shift the top style off the stack
     styles.shift();
