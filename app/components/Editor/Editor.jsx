@@ -6,11 +6,18 @@ import {
   RichUtils,
 } from 'draft-js';
 
+import { convertToHTML } from '../../utils';
+
 import BlockControls from './BlockControls';
 import InlineControls from './InlineControls';
 
 import 'draft-js/dist/Draft.css';
 
+/**
+ * Class representing rich text editor
+ *
+ * @extends React.Component
+ */
 export default class Editor extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +27,12 @@ export default class Editor extends React.Component {
     };
   }
 
-  onEditorChanged = (editorState) => this.setState({ editorState })
+  onEditorChanged = (editorState) => {
+    this.setState({ editorState });
+
+    const contentHTML = convertToHTML(editorState.getCurrentContent());
+    this.setState({ contentHTML });
+  }
 
   onEditorClick = () => this.editor.focus();
 

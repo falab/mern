@@ -1,5 +1,14 @@
 import React from 'react';
 
+/**
+ * Class representing a control button for our rich text editor
+ *
+ * @extends React.Component
+ * @prop {boolean} active
+ * @prop {string} label
+ * @prop {function} onToggle
+ * @prop {string} style
+ **/
 export default class StyleButton extends React.Component {
   static propTypes = {
     active: React.PropTypes.bool,

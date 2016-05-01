@@ -1,6 +1,6 @@
 import BlogConstants from '../constants/BlogConstants';
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import * as BlogApi from '../utils/BlogApi';
+import { BlogApi } from '../utils';
 
 export function createPost({ title, content }) {
   AppDispatcher.viewAction({ type: BlogConstants.POST_CREATE });

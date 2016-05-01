@@ -4,6 +4,14 @@ import StyleButton from './StyleButton';
 
 import 'draft-js/dist/Draft.css';
 
+/**
+ * Class representing the list of block controls for the rich text editorState
+ *
+ * @extends React.Component
+ * @prop {object} editorState
+ * @prop {object[]} blockStyles
+ * @prop {function} onToggle
+ **/
 export default class BlockControls extends React.Component {
   static propTypes = {
     editorState: React.PropTypes.object,

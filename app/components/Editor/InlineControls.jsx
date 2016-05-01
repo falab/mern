@@ -4,6 +4,14 @@ import StyleButton from './StyleButton';
 
 import 'draft-js/dist/Draft.css';
 
+/**
+ * Class representing the inline controls for our rich text editor
+ *
+ * @extends React.Component
+ * @prop {object} editorState
+ * @prop {object[]} inlineStyles
+ * @prop {function} onToggle
+ **/
 export default class InlineControls extends React.Component {
   static propTypes = {
     editorState: React.PropTypes.object,
