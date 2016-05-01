@@ -83,18 +83,64 @@ export function applyInlineStyles({ text, styles }) {
     next();
   };
 
+  const deleteEnd = (styleObj) => {
+    const styleEndPos = styleObj.offset + styleObj.length;
+    const endPosArr = endMap.get(styleEndPos);
+    endPosArr.splice(endPosArr.indexOf(styleObj), 1);
+  };
+
+  const handleChildren = (parentStyle) => {
+    let htmlString = '';
+
+    // TODO 1. find all child styles (based on nest position)
+    const nestIndex = nest.indexOf(parentStyle);
+
+    // Early return if there are no children
+    if (nestIndex === nest.length - 1) return htmlString;
+
+    // splice all children styles from nest
+    const childStyles = nest.splice(nestIndex + 1);
+
+    while (childStyles.length > 0) {
+      const styleObj = childStyles.pop();
+
+      // Delete original closing tag for child
+      deleteEnd(styleObj);
+
+      // add end tag to htmlString
+      htmlString += getClosingTag(styleObj.style);
+
+      // update style object to have new offset
+      const parentEndPos = parentStyle.offset + parentStyle.length;
+
+      styleObj.length -= parentEndPos - styleObj.offset;
+      styleObj.offset = parentEndPos;
+
+      // push updated style back into styles for later processing
+      styles.push(styleObj);
+    }
+
+    return htmlString;
+  };
+
   const handleClosings = () => {
+    // Get the nearest closing tag index
     const closestOffset = Math.min(...endMap.keys());
+
+    // get the array of style objects that close at nearest index
     const closestEnds = endMap.get(closestOffset);
 
     closestEnds.forEach((styleObj) => {
+      const closingTags = handleChildren(styleObj);
+
       nest.splice(nest.indexOf(styleObj), 1);
 
-      const closingHTML = getClosingTag(styleObj.style);
+      const htmlString = `${closingTags}${getClosingTag(styleObj.style)}`;
 
-      insertAtPos(closingHTML, styleObj.offset + styleObj.length);
+      insertAtPos(htmlString, styleObj.offset + styleObj.length);
     });
 
+    // delete recently closed style end index
     endMap.delete(closestOffset);
 
     next();
