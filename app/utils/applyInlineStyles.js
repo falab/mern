@@ -1,10 +1,39 @@
 const STYLE_TYPES = {
-  BOLD: ['<b>', '</b>'],
+  BOLD: ['<strong>', '</strong>'],
   ITALIC: ['<em>', '</em>'],
   UNDERLINE: ['<u>', '</u>'],
   CODE: ['<span class="mono">', '</span>'],
 };
 
+/**
+ * Returns the opening tag for a given style
+ *
+ * @param {string} style
+ * @returns {string} tag - An HTML snippet
+ **/
+function getOpeningTag(style) {
+  const [tag] = STYLE_TYPES[style];
+  return tag;
+}
+
+/**
+ * Returns the closing tag for a given style
+ *
+ * @param {string} style
+ * @returns {string} tag - An HTML snippet
+ **/
+function getClosingTag(style) {
+  const [, tag] = STYLE_TYPES[style];
+  return tag;
+}
+
+/**
+ * Applies rich text inline styles to a text string
+ *
+ * @param {Object} param - destructured object
+ * @param {string} param.text - text string to apply styles to
+ * @param {Object[]} param.styles - Array of style object to apply
+ **/
 export function applyInlineStyles({ text, styles }) {
   const nest = [];
   const endMap = new Map();
@@ -12,24 +41,32 @@ export function applyInlineStyles({ text, styles }) {
   let retHTML = text;
   let leftPad = 0; // ;-D
 
-  const insertTagAtPos = (tag, pos) => {
+  /**
+   * Inserts an htmlString at a given position and adds the length of the new
+   * htmlString to leftPad
+   *
+   * @param {string} htmlString
+   * @param {number} pos - the position the new string should be inserted at
+   **/
+  const insertAtPos = (htmlString, pos) => {
     const _pos = pos + leftPad;
 
-    // Insert new tag into HTML string
-    retHTML = `${retHTML.slice(0, _pos)}${tag}${retHTML.slice(_pos)}`;
+    // Insert new htmlString into HTML string
+    const newHTML = `${retHTML.slice(0, _pos)}${htmlString}${retHTML.slice(_pos)}`;
+    retHTML = newHTML;
 
     // Add to leftPad
-    leftPad += tag.length;
+    leftPad += htmlString.length;
   };
 
   const handleStyles = () => {
     const styleObj = styles[0];
-    const [openingTag] = STYLE_TYPES[styleObj.style];
+    const openingTag = getOpeningTag(styleObj.style);
 
     // Add to the nest
     nest.push(styleObj);
 
-    insertTagAtPos(openingTag, styleObj.offest);
+    insertAtPos(openingTag, styleObj.offset);
 
     // Get the calculated end position for tag
     const endTagPos = styleObj.offset + styleObj.length;
@@ -48,13 +85,17 @@ export function applyInlineStyles({ text, styles }) {
 
   const handleClosings = () => {
     const closestOffset = Math.min(...endMap.keys());
+    const closestEnds = endMap.get(closestOffset);
 
-    const tags = endMap.get(closestOffset).map((styleObj) => {
+    closestEnds.forEach((styleObj) => {
       nest.splice(nest.indexOf(styleObj), 1);
-      return STYLE_TYPES[styleObj.style][1];
+
+      const closingHTML = getClosingTag(styleObj.style);
+
+      insertAtPos(closingHTML, styleObj.offset + styleObj.length);
     });
 
-    console.log(tags);
+    endMap.delete(closestOffset);
 
     next();
   };
@@ -69,6 +110,6 @@ export function applyInlineStyles({ text, styles }) {
 
   next();
 
-  console.log(retHTML, JSON.stringify(styles));
+  console.log(retHTML);
   return retHTML;
 }
