@@ -1,4 +1,5 @@
 import { convertToRaw } from 'draft-js';
+import { applyInlineStyles } from '.';
 
 const BLOCK_TYPES = {
   unstyled: ['<p>', '</p>'],
@@ -11,21 +12,18 @@ const BLOCK_TYPES = {
   blockquote: ['<blockquote>', '</blockquote>'],
 };
 
-const STYLE_TYPES = {
-  BOLD: ['<b>', '</b>'],
-  ITALIC: ['<em>', '</em>'],
-  UNDERLINE: ['<u>', '</u>'],
-  CODE: ['<span class="mono">', '</span>'],
-};
-
-export default function convertToHTML(contentState) {
+export function convertToHTML(contentState) {
   const rawContent = convertToRaw(contentState);
 
   let retHTML = '';
 
   rawContent.blocks.forEach(({ text, type, inlineStyleRanges: styles }) => {
     const [blockOpenTag, blockCloseTag] = BLOCK_TYPES[type];
-    retHTML += `${blockOpenTag}${text}${blockCloseTag}`;
+    retHTML += `
+      ${blockOpenTag}
+        ${applyInlineStyles({ text, styles })}
+      ${blockCloseTag}
+    `;
   });
 
   return retHTML;

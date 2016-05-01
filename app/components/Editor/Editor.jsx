@@ -31,6 +31,7 @@ export default class Editor extends React.Component {
     this.setState({ editorState });
 
     const contentHTML = convertToHTML(editorState.getCurrentContent());
+    // console.log(contentHTML);
     this.setState({ contentHTML });
   }
 
