@@ -17,11 +17,13 @@ export function convertToHTML(contentState) {
 
   let retHTML = '';
 
-  rawContent.blocks.forEach(({ text, type, inlineStyleRanges: styles }) => {
+  rawContent.blocks.forEach((block) => {
+    const { type } = block;
     const [blockOpenTag, blockCloseTag] = BLOCK_TYPES[type];
+
     retHTML += `
       ${blockOpenTag}
-        ${applyInlineStyles({ text, styles })}
+        ${applyInlineStyles(block)}
       ${blockCloseTag}
     `;
   });

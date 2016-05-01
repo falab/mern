@@ -34,7 +34,7 @@ function getClosingTag(style) {
  * @param {string} param.text - text string to apply styles to
  * @param {Object[]} param.styles - Array of style object to apply
  **/
-export function applyInlineStyles({ text, styles }) {
+export function applyInlineStyles({ text, inlineStyleRanges: styles }) {
   const nest = [];
   const endMap = new Map();
 
@@ -59,8 +59,7 @@ export function applyInlineStyles({ text, styles }) {
     leftPad += htmlString.length;
   };
 
-  const handleStyles = () => {
-    const styleObj = styles[0];
+  const handleStyle = (styleObj) => {
     const openingTag = getOpeningTag(styleObj.style);
 
     // Add to the nest
@@ -78,7 +77,7 @@ export function applyInlineStyles({ text, styles }) {
     endMap.get(endTagPos).unshift(styleObj);
 
     // Shift the top style off the stack
-    styles.shift();
+    styles.splice(styles.indexOf(styleObj), 1);
 
     next();
   };
@@ -92,17 +91,22 @@ export function applyInlineStyles({ text, styles }) {
   const handleChildren = (parentStyle) => {
     let htmlString = '';
 
-    // TODO 1. find all child styles (based on nest position)
+    // find all child styles (based on nest position)
     const nestIndex = nest.indexOf(parentStyle);
 
+    const childFilter = (obj) => obj.offset >= parentStyle.offset;
+
     // Early return if there are no children
-    if (nestIndex === nest.length - 1) return htmlString;
+    if (nestIndex === nest.filter(childFilter).length - 1) return htmlString;
 
     // splice all children styles from nest
-    const childStyles = nest.splice(nestIndex + 1);
+    const childStyles = nest.slice(nestIndex + 1).filter(childFilter);
 
     while (childStyles.length > 0) {
       const styleObj = childStyles.pop();
+
+      // Removed current style from nest
+      nest.splice(nest.indexOf(styleObj), 1);
 
       // Delete original closing tag for child
       deleteEnd(styleObj);
@@ -148,7 +152,19 @@ export function applyInlineStyles({ text, styles }) {
 
   const next = () => {
     if (styles.length) {
-      handleStyles();
+      const nextStyle = styles[0];
+
+      if (endMap.size > 0) {
+        const closestEndOffset = Math.min(...endMap.keys());
+
+        if (nextStyle.offset < closestEndOffset) {
+          handleStyle(nextStyle);
+        } else {
+          handleClosings();
+        }
+      } else {
+        handleStyle(nextStyle);
+      }
     } else if (nest.length) {
       handleClosings();
     }
@@ -156,6 +172,5 @@ export function applyInlineStyles({ text, styles }) {
 
   next();
 
-  console.log(retHTML);
   return retHTML;
 }
