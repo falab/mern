@@ -136,7 +136,7 @@ export function applyInlineStyles({ text, inlineStyleRanges: _styles }) {
       styleObj.offset = parentEndPos;
 
       // push updated style back into styles for later processing
-      styles.push(styleObj);
+      styles.unshift(styleObj);
     }
 
     return htmlString;
