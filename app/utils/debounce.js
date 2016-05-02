@@ -1,4 +1,4 @@
-export const debounce = (func, wait = 500) => {
+const debounce = (func, wait = 500) => {
   let pending = null;
 
   return (...args) => {
@@ -11,3 +11,5 @@ export const debounce = (func, wait = 500) => {
     pending = setTimeout(later, wait);
   };
 };
+
+export default debounce;

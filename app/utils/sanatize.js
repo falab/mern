@@ -13,7 +13,7 @@ const tagOrComment = new RegExp([
   ')>',
 ].join(''), 'gi');
 
-export function sanitize(_html) {
+export default function sanitize(_html) {
   let oldHtml;
   let html = _html;
 

@@ -38,7 +38,7 @@ function styleEndPos(styleObj) {
  * @param {string} param.text - text string to apply styles to
  * @param {Object[]} param.styles - Array of style object to apply
  **/
-export function applyInlineStyles({ text, inlineStyleRanges: _styles }) {
+export default function applyInlineStyles({ text, inlineStyleRanges: _styles }) {
   const nest = [];
   const endMap = new Map();
   const styles = _styles.slice(0);

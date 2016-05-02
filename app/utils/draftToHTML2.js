@@ -12,7 +12,7 @@ const BLOCK_TYPES = {
   blockquote: ['<blockquote>', '</blockquote>'],
 };
 
-export function draftToHTML2(contentState) {
+export default function draftToHTML2(contentState) {
   let retHTML = '';
 
   contentState.blockMap.forEach((contentBlock) => {
