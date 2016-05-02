@@ -1,7 +1,7 @@
 import React from 'react';
 import { Editor, EditorState } from '../Editor';
 import * as BlogActions from '../../actions/BlogActions';
-import { draftToHTML, debounce } from '../../utils';
+import { draftToHTML2, debounce } from '../../utils';
 
 /**
  * Class representing the blog post form
@@ -56,7 +56,7 @@ export default class BlogForm extends React.Component {
   }
 
   updateContent = debounce((editorState) => {
-    this.setState({ content: draftToHTML(editorState.getCurrentContent()) });
+    this.setState({ content: draftToHTML2(editorState.getCurrentContent()) });
   });
 
   render() {
