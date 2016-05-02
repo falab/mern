@@ -96,18 +96,23 @@ export function applyInlineStyles({ text, inlineStyleRanges: _styles }) {
     let htmlString = '';
 
     const overlapFilter = (obj) => {
+      // Filter same object
       if (obj === outerStyle) return false;
 
+      // Filter styles opened BEFORE current style (even if on the same offset)
       if (_styles.indexOf(obj) < _styles.indexOf(outerStyle)) return false;
 
       const outerStyleEnd = styleEndPos(outerStyle);
 
+      // Filter styles that end before outer style ends (pure nested)
       if (styleEndPos(obj) < outerStyleEnd) return false;
 
+      // filter styles that start before current starts or after current ends
       if (obj.offset < outerStyle.offset || obj.offset > outerStyleEnd) {
         return false;
       }
 
+      // Only overlapping styles that start after current style should remain
       return true;
     };
 
@@ -170,18 +175,15 @@ export function applyInlineStyles({ text, inlineStyleRanges: _styles }) {
 
       if (endMap.size > 0) {
         const closestEndOffset = Math.min(...endMap.keys());
-
-        if (nextStyle.offset < closestEndOffset) {
-          handleStyle(nextStyle);
-        } else {
-          handleClosings();
-        }
-      } else {
-        handleStyle(nextStyle);
+        if (nextStyle.offset < closestEndOffset) return handleStyle(nextStyle);
+        return handleClosings();
       }
-    } else if (nest.length) {
-      handleClosings();
+
+      return handleStyle(nextStyle);
     }
+
+    if (nest.length) handleClosings();
+    return false;
   };
 
   next();
