@@ -30,14 +30,6 @@ export default class Editor extends React.Component {
     },
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      editorState: props.editorState,
-    };
-  }
-
   onEditorChanged = (editorState) => {
     this.props.onChange(editorState);
   }
@@ -50,7 +42,7 @@ export default class Editor extends React.Component {
   }
 
   handleKeyCommand = (command) => {
-    const { editorState } = this.state;
+    const { editorState } = this.props;
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
     if (newState) {
