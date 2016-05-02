@@ -27,6 +27,10 @@ function getClosingTag(style) {
   return tag;
 }
 
+function styleEndPos(styleObj) {
+  return styleObj.offset + styleObj.length;
+}
+
 /**
  * Applies rich text inline styles to a text string
  *
@@ -34,9 +38,10 @@ function getClosingTag(style) {
  * @param {string} param.text - text string to apply styles to
  * @param {Object[]} param.styles - Array of style object to apply
  **/
-export function applyInlineStyles({ text, inlineStyleRanges: styles }) {
+export function applyInlineStyles({ text, inlineStyleRanges: _styles }) {
   const nest = [];
   const endMap = new Map();
+  const styles = _styles.slice(0);
 
   let retHTML = text;
   let leftPad = 0; // ;-D
@@ -83,39 +88,49 @@ export function applyInlineStyles({ text, inlineStyleRanges: styles }) {
   };
 
   const deleteEnd = (styleObj) => {
-    const styleEndPos = styleObj.offset + styleObj.length;
-    const endPosArr = endMap.get(styleEndPos);
+    const endPosArr = endMap.get(styleEndPos(styleObj));
     endPosArr.splice(endPosArr.indexOf(styleObj), 1);
   };
 
-  const handleChildren = (parentStyle) => {
+  const handleOverlap = (outerStyle) => {
     let htmlString = '';
 
-    // find all child styles (based on nest position)
-    const nestIndex = nest.indexOf(parentStyle);
+    const overlapFilter = (obj) => {
+      if (obj === outerStyle) return false;
 
-    const childFilter = (obj) => obj.offset >= parentStyle.offset;
+      if (_styles.indexOf(obj) < _styles.indexOf(outerStyle)) return false;
 
-    // Early return if there are no children
-    if (nestIndex === nest.filter(childFilter).length - 1) return htmlString;
+      const outerStyleEnd = styleEndPos(outerStyle);
 
-    // splice all children styles from nest
-    const childStyles = nest.slice(nestIndex + 1).filter(childFilter);
+      if (styleEndPos(obj) < outerStyleEnd) return false;
 
-    while (childStyles.length > 0) {
-      const styleObj = childStyles.pop();
+      if (obj.offset < outerStyle.offset || obj.offset > outerStyleEnd) {
+        return false;
+      }
 
-      // Removed current style from nest
+      return true;
+    };
+
+    // splice all overlapping styles from nest
+    const overlapStyles = nest.filter(overlapFilter);
+
+    // Early return if there are no overlapping styles
+    if (! overlapStyles.length) return htmlString;
+
+    while (overlapStyles.length > 0) {
+      const styleObj = overlapStyles.pop();
+
+      // Remove current style from nest
       nest.splice(nest.indexOf(styleObj), 1);
 
-      // Delete original closing tag for child
+      // Delete original closing tag for overlapping style
       deleteEnd(styleObj);
 
       // add end tag to htmlString
       htmlString += getClosingTag(styleObj.style);
 
       // update style object to have new offset
-      const parentEndPos = parentStyle.offset + parentStyle.length;
+      const parentEndPos = styleEndPos(outerStyle);
 
       styleObj.length -= parentEndPos - styleObj.offset;
       styleObj.offset = parentEndPos;
@@ -135,13 +150,12 @@ export function applyInlineStyles({ text, inlineStyleRanges: styles }) {
     const closestEnds = endMap.get(closestOffset);
 
     closestEnds.forEach((styleObj) => {
-      const closingTags = handleChildren(styleObj);
-
-      nest.splice(nest.indexOf(styleObj), 1);
-
+      const closingTags = handleOverlap(styleObj);
       const htmlString = `${closingTags}${getClosingTag(styleObj.style)}`;
 
-      insertAtPos(htmlString, styleObj.offset + styleObj.length);
+      insertAtPos(htmlString, styleEndPos(styleObj));
+
+      nest.splice(nest.indexOf(styleObj), 1);
     });
 
     // delete recently closed style end index
