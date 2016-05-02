@@ -1,4 +1,4 @@
 export * as BlogApi from './BlogApi';
 export { debounce } from './debounce';
-export { convertToHTML } from './convertToHTML';
+export { draftToHTML } from './draftToHTML';
 export { applyInlineStyles } from './applyInlineStyles';

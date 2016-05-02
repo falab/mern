@@ -12,7 +12,7 @@ const BLOCK_TYPES = {
   blockquote: ['<blockquote>', '</blockquote>'],
 };
 
-export function convertToHTML(contentState) {
+export function draftToHTML(contentState) {
   const rawContent = convertToRaw(contentState);
 
   let retHTML = '';

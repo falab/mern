@@ -1,6 +1,7 @@
 import React from 'react';
-import { Editor } from '../Editor';
+import { Editor, EditorState } from '../Editor';
 import * as BlogActions from '../../actions/BlogActions';
+import { draftToHTML, debounce } from '../../utils';
 
 /**
  * Class representing the blog post form
@@ -27,19 +28,36 @@ export default class BlogForm extends React.Component {
     this.state = {
       title: props.title,
       content: props.content,
+      editorState: EditorState.createEmpty(),
     };
+  }
+
+  onEditorChanged = (editorState) => {
+    this.setState({ editorState });
+    this.updateContent(editorState);
   }
 
   submitAction = (e) => {
     e.preventDefault();
+
     const { title, content } = this.state;
+
     BlogActions.createPost({ title, content });
-    this.setState({ title: '', content: '' });
+
+    this.setState({
+      title: '',
+      content: '',
+      editorState: EditorState.createEmpty(),
+    });
   }
 
   updateTitle = (e) => {
     this.setState({ title: e.target.value });
   }
+
+  updateContent = debounce((editorState) => {
+    this.setState({ content: draftToHTML(editorState.getCurrentContent()) });
+  });
 
   render() {
     const titleStyle = { width: '100%' };
@@ -56,7 +74,10 @@ export default class BlogForm extends React.Component {
           />
           <br />
           <br />
-          <Editor />
+          <Editor
+            onChange={this.onEditorChanged}
+            editorState={this.state.editorState}
+          />
           <br />
           <input type="submit" value="Submit" />
         </form>

@@ -2,16 +2,15 @@ import React from 'react';
 
 import {
   Editor as DraftEditor,
-  EditorState,
   RichUtils,
 } from 'draft-js';
-
-import { convertToHTML } from '../../utils';
 
 import BlockControls from './BlockControls';
 import InlineControls from './InlineControls';
 
 import 'draft-js/dist/Draft.css';
+
+export { EditorState } from 'draft-js';
 
 /**
  * Class representing rich text editor
@@ -19,20 +18,28 @@ import 'draft-js/dist/Draft.css';
  * @extends React.Component
  */
 export default class Editor extends React.Component {
+  static propTypes = {
+    editorState: React.PropTypes.object,
+    onChange: React.PropTypes.func,
+  }
+
+  static defaultProps = {
+    onChange: (editorHTML) => {
+      console.info('No updateContent set for editor');
+      console.info(editorHTML);
+    },
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
-      editorState: EditorState.createEmpty(),
+      editorState: props.editorState,
     };
   }
 
   onEditorChanged = (editorState) => {
-    this.setState({ editorState });
-
-    const contentHTML = convertToHTML(editorState.getCurrentContent());
-    console.log(contentHTML);
-    this.setState({ contentHTML });
+    this.props.onChange(editorState);
   }
 
   onEditorClick = () => this.editor.focus();
@@ -55,11 +62,11 @@ export default class Editor extends React.Component {
   }
 
   toggleBlockType = (blockType) => this.onEditorChanged(
-    RichUtils.toggleBlockType(this.state.editorState, blockType)
+    RichUtils.toggleBlockType(this.props.editorState, blockType)
   )
 
   toggleInlineStyle = (inlineStyle) => this.onEditorChanged(
-    RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle)
+    RichUtils.toggleInlineStyle(this.props.editorState, inlineStyle)
   )
 
   blockStyles = [
@@ -83,7 +90,7 @@ export default class Editor extends React.Component {
   ]
 
   render() {
-    const { editorState } = this.state;
+    const { editorState } = this.props;
     const contentState = editorState.getCurrentContent();
     const styleMap = {
       CODE: {
@@ -119,7 +126,7 @@ export default class Editor extends React.Component {
             ref={(el) => { this.editor = el; }}
             blockStyleFn={this.getBlockStyle}
             customStyleMap={styleMap}
-            editorState={this.state.editorState}
+            editorState={this.props.editorState}
             placeholder="Tell a story..."
             onChange={this.onEditorChanged}
             spellCheck
