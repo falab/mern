@@ -1,4 +1,3 @@
-import { convertToRaw } from 'draft-js';
 import { applyInlineStyles2 } from '.';
 
 const BLOCK_TYPES = {
