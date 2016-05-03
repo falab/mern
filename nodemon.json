@@ -1,3 +1,3 @@
 {
-  "ignore": ["public/*", "vendor/*", "src/*"]
+  "ignore": ["public/*", "vendor/*", "app/*"]
 }

@@ -7,7 +7,17 @@ const STYLE_MAP = new Map([
   ['CODE', 'rich-code'],
 ]);
 
+const FILTER_MAP = new Map([
+  ['<', '&lt;'],
+  ['>', '&gt;'],
+  ['&', '&amp;'],
+  ['"', '&quot;'],
+  ['\'', '&#x27;'],
+  ['/', '&#x2F;'],
+]);
+
 const stylesToClasses = styles => styles.map(style => STYLE_MAP.get(style)).toArray();
+const filter = char => (FILTER_MAP.has(char) ? FILTER_MAP.get(char) : char);
 
 export default function applyInlineStyles(contentBlock) {
   const parts = [];
@@ -17,7 +27,7 @@ export default function applyInlineStyles(contentBlock) {
   let el = null;
 
   for (let i = 0; i < contentText.length; i += 1) {
-    const char = contentText.charAt(i);
+    const char = filter(contentText.charAt(i));
     const styles = contentBlock.getInlineStyleAt(i);
 
     if (styles !== lastStyles) {
