@@ -1,7 +1,8 @@
 import { applyInlineStyles } from '.';
 
 const BLOCK_TYPES = {
-  unstyled: ['<p>', '</p>'],
+  unstyled: ['<div>', '</div>'],
+  paragraph: ['<p>', '</p>'],
   'header-one': ['<h1>', '</h1>'],
   'header-two': ['<h2>', '</h2>'],
   'header-three': ['<h3>', '</h3>'],

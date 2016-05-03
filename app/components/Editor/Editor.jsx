@@ -39,6 +39,7 @@ export default class Editor extends React.Component {
 
   getBlockStyle = (block) => {
     if (block.getType() === 'blockquote') return 'RichEditor-blockquote';
+    if (block.getType() === 'paragraph') return 'RichEditor-paragraph';
     return null;
   }
 
@@ -63,6 +64,7 @@ export default class Editor extends React.Component {
   )
 
   blockStyles = [
+    { label: 'P', style: 'paragraph' },
     { label: 'H1', style: 'header-one' },
     { label: 'H2', style: 'header-two' },
     { label: 'H3', style: 'header-three' },
