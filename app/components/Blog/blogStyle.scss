@@ -37,5 +37,7 @@
 }
 
 .rich-code {
-  font-family: monospace;
+  background-color: rgba(0, 0, 0, 0.05);
+  font-family: "Inconsolata", "Menlo", "Consolas", monospace;
+  padding: 2px;
 }
