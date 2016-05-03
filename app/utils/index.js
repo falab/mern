@@ -1,9 +1,7 @@
 export * as BlogApi from './BlogApi';
 export { default as debounce } from './debounce';
 export { default as draftToHTML } from './draftToHTML';
-export { default as draftToHTML2 } from './draftToHTML2';
-export { default as applyInlineStyles } from './applyInlineStyles';
-export { default as applyInlineStyles2, StyleInliner } from './applyInlineStyles2';
+export { default as applyInlineStyles, StyleInliner } from './applyInlineStyles';
 export { default as uniqueMerge } from './uniqueMerge';
 export { default as Elemental } from './Elemental';
 export { default as sanitize } from './sanitize';

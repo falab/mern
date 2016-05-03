@@ -1,4 +1,3 @@
-import { convertToRaw } from 'draft-js';
 import { applyInlineStyles } from '.';
 
 const BLOCK_TYPES = {
@@ -13,19 +12,14 @@ const BLOCK_TYPES = {
 };
 
 export default function draftToHTML(contentState) {
-  const rawContent = convertToRaw(contentState);
-
   let retHTML = '';
 
-  rawContent.blocks.forEach((block) => {
-    const { type } = block;
+  contentState.blockMap.forEach((contentBlock) => {
+    const type = contentBlock.getType();
     const [blockOpenTag, blockCloseTag] = BLOCK_TYPES[type];
+    const styledContent = applyInlineStyles(contentBlock);
 
-    retHTML += `
-      ${blockOpenTag}
-        ${applyInlineStyles(block)}
-      ${blockCloseTag}
-    `;
+    retHTML += `${blockOpenTag}${styledContent}${blockCloseTag}`;
   });
 
   return retHTML;

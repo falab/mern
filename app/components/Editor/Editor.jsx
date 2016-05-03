@@ -79,7 +79,7 @@ export default class Editor extends React.Component {
     { label: 'Bold', style: 'BOLD' },
     { label: 'Italic', style: 'ITALIC' },
     { label: 'Underline', style: 'UNDERLINE' },
-    { label: 'Monospace', style: 'CODE' },
+    { label: 'Inline Code', style: 'CODE' },
   ]
 
   render() {

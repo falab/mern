@@ -8,7 +8,7 @@ export default class Elemental {
 
     const _classes = classes || className;
 
-    if (_classes) instance.addClass(_classes);
+    if (_classes) instance.addClasses(_classes);
 
     return instance;
   }
@@ -43,7 +43,7 @@ export default class Elemental {
       classes = splitStr(classes);
     }
 
-    classes.forEach((c) => this._classes.add(c));
+    classes.forEach((c) => this._classes.remove(c));
   }
 
   // alias removeClasses
@@ -53,15 +53,15 @@ export default class Elemental {
     return [...this._classes].join(' ');
   }
 
+  addText(str) {
+    this._innerText += str;
+  }
+
   toString() {
     const className = this.getClassName();
 
     if (! className) return this._innerText;
 
     return `<${this._type} class="${className}">${this._innerText}</${this._type}>`;
-  }
-
-  addText(str) {
-    this._innerText += str;
   }
 }

@@ -1,4 +1,5 @@
-import { applyInlineStyles2 } from '.';
+import { convertToRaw } from 'draft-js';
+import { applyInlineStyles } from '.';
 
 const BLOCK_TYPES = {
   unstyled: ['<p>', '</p>'],
@@ -11,15 +12,20 @@ const BLOCK_TYPES = {
   blockquote: ['<blockquote>', '</blockquote>'],
 };
 
-export default function draftToHTML2(contentState) {
+export default function draftToHTML(contentState) {
+  const rawContent = convertToRaw(contentState);
+
   let retHTML = '';
 
-  contentState.blockMap.forEach((contentBlock) => {
-    const type = contentBlock.getType();
+  rawContent.blocks.forEach((block) => {
+    const { type } = block;
     const [blockOpenTag, blockCloseTag] = BLOCK_TYPES[type];
-    const styledContent = applyInlineStyles2(contentBlock);
 
-    retHTML += `${blockOpenTag}${styledContent}${blockCloseTag}`;
+    retHTML += `
+      ${blockOpenTag}
+        ${applyInlineStyles(block)}
+      ${blockCloseTag}
+    `;
   });
 
   return retHTML;
