@@ -9,6 +9,7 @@ import BlockControls from './BlockControls';
 import InlineControls from './InlineControls';
 
 import 'draft-js/dist/Draft.css';
+import './editorStyle';
 
 export { EditorState } from 'draft-js';
 

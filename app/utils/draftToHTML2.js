@@ -18,12 +18,9 @@ export default function draftToHTML2(contentState) {
   contentState.blockMap.forEach((contentBlock) => {
     const type = contentBlock.getType();
     const [blockOpenTag, blockCloseTag] = BLOCK_TYPES[type];
+    const styledContent = applyInlineStyles2(contentBlock);
 
-    retHTML += `
-      ${blockOpenTag}
-        ${applyInlineStyles2(contentBlock)}
-      ${blockCloseTag}
-    `;
+    retHTML += `${blockOpenTag}${styledContent}${blockCloseTag}`;
   });
 
   return retHTML;
