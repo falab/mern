@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
   const reqBody = req.body;
   const post = posts.addPost({
     author: 'Alex Howard',
-    title: reqBody.title,
+    title: reqBody.title || 'Untitled Post',
     content: reqBody.content,
   });
 

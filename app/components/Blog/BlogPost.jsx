@@ -33,7 +33,7 @@ export default class BlogPost extends React.Component {
           dangerouslySetInnerHTML={this.sanitizedContent()}
         />
         <div className="details">
-          Posted by <span className="author">{props.author}</span> on <span className="date">Feb. 28, 1989</span>
+          Posted by <span className="author">{props.author}</span> on <span className="date">{new Date(props.createdAt).toLocaleString('en-US')}</span>
         </div>
         <button onClick={this.deletePost}>Delete</button>
       </div>
