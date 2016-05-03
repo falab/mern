@@ -13,14 +13,14 @@ const tagOrComment = new RegExp([
   ')>',
 ].join(''), 'gi');
 
-export default function sanitize(_html) {
-  let oldHtml;
-  let html = _html;
+export default function sanitize(_str) {
+  let oldStr;
+  let str = _str;
 
   do {
-    oldHtml = html;
-    html = html.replace(tagOrComment, '');
-  } while (html !== oldHtml);
+    oldStr = str;
+    str = str.replace(tagOrComment, '');
+  } while (str !== oldStr);
 
-  return html.replace(/</g, '&lt;');
+  return str.replace(/</g, '&lt;');
 }
