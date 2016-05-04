@@ -1,5 +1,8 @@
 const tagBody = '(?:[^"\'>]|"[^"]*"|\'[^\']*\')*';
 
+/**
+ * Regular expression that will match html tags and comments
+ */
 const tagOrComment = new RegExp([
   '<(?:',
   // Comment body.
@@ -13,6 +16,11 @@ const tagOrComment = new RegExp([
   ')>',
 ].join(''), 'gi');
 
+/**
+ * Removes html tags and comments from a string
+ * @param  {string} _str - the string you want to sanitize
+ * @return {string} the sanitized string
+ */
 export default function sanitize(_str) {
   let oldStr;
   let str = _str;
