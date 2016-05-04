@@ -4,7 +4,6 @@ import { Link, IndexLink } from 'react-router';
 
 /**
  * Class representing a menu item
- *
  * @extends React.Component
  * @prop {string} to - the url the link will go to
  * @prop {node} children - child elements of the component

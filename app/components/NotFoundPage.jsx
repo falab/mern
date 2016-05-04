@@ -2,7 +2,6 @@ import React from 'react';
 
 /**
  * Class representing the "not found" error page used in routing
- *
  * @extends React.Component
  */
 export default class NotFoundPage extends React.Component {

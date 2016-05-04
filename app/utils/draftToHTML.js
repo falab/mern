@@ -1,5 +1,8 @@
 import { applyInlineStyles } from '.';
 
+/**
+ * Map of DraftJS block tag translations
+ */
 const BLOCK_TYPES = new Map([
   ['unstyled', ['<div>', '</div>']],
   ['paragraph', ['<p>', '</p>']],
@@ -13,6 +16,11 @@ const BLOCK_TYPES = new Map([
   ['code-block', ['<pre>', '</pre>']],
 ]);
 
+/**
+ * Returns the html representation of a DraftJS ContentState
+ * @param  {ContentState} contentState - a DraftJS ContentState object
+ * @return {string} an html string
+ */
 export default function draftToHTML(contentState) {
   let retHTML = '';
 

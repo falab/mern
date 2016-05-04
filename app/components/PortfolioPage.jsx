@@ -2,7 +2,6 @@ import React from 'react';
 
 /**
  * Class representing the portfolio page used in routing
- *
  * @extends React.Component
  */
 export default class PortfolioPage extends React.Component {

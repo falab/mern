@@ -6,7 +6,6 @@ import './blogStyle';
 
 /**
  * Class representing a list of blog posts
- *
  * @extends React.Component
  * @prop {number} count - how many blog posts to list
  */

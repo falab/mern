@@ -11,7 +11,7 @@ import 'draft-js/dist/Draft.css';
  * @prop {object} editorState
  * @prop {object[]} blockStyles
  * @prop {function} onToggle
- **/
+ */
 export default class BlockControls extends React.Component {
   static propTypes = {
     editorState: React.PropTypes.object,

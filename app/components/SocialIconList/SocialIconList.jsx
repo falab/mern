@@ -6,7 +6,6 @@ import SocialIcon from './SocialIcon';
 
 /**
  * Class representing a list of social icons
- *
  * @extends React.Component
  */
 class SocialIconList extends React.Component {

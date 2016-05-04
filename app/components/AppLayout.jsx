@@ -7,7 +7,6 @@ import './appStyle';
 
 /**
  * Class representing the application layout used in the router
- *
  * @extends React.Component
  * @prop {node} children - child elements passed in by the router
  */

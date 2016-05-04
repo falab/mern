@@ -6,14 +6,13 @@ import * as BlogActions from '../actions/BlogActions';
 
 /**
  * Class representing a blog store
- *
  * @extends Store
  */
 class BlogStore extends Store {
   // Initializes posts array on the store and fetches initial posts
   constructor() {
     super();
-    this.store.posts = [];
+    this._store.posts = [];
     BlogActions.getPosts();
   }
 
@@ -22,21 +21,20 @@ class BlogStore extends Store {
    * page of results. If a page number is supplied with count it will return a
    * slice of posts that represent that page. If page is larger than the maximum
    * possible pages, will return the last page.
-   *
-   * @param {number} count - how many posts you want per page (max)
+   * @param {number} [count=0] - how many posts you want per page (max)
    * @param {number} [page=0] - represents which page of posts you want
-   * @returns {Object[]} [posts=1] - an array of post objects
+   * @returns {Object[]} an array of post objects
    */
-  getPosts(count = 0, page = 1) {
-    let _page = page;
-    let posts = this.store.posts;
+  getPosts(count = 0, _page = 0) {
+    let page = _page;
+    let posts = this._store.posts;
 
     const maxPage = Math.ceil(posts.length / count);
 
     if (count) {
-      if (_page > maxPage) _page = maxPage;
+      if (page > maxPage) page = maxPage;
 
-      const start = (_page - 1) * count;
+      const start = (page - 1) * count;
       const end = start + count;
 
       posts = posts.slice(start, end);
@@ -48,48 +46,44 @@ class BlogStore extends Store {
   /**
    * Inserts a new post at the front of the posts store; emits a change
    * event.
-   *
    * @param {Object} param - destructured object
    * @param {Object} param.post - an object representing a blog post
    */
   handlePostCreateResponse({ post }) {
-    this.store.posts.unshift(post);
+    this._store.posts.unshift(post);
     this.emitChange();
   }
 
   /**
    * Removes a post from the posts store by id; emits a change event.
-   *
    * @param {Object} param - destructured object
    * @param {number} param.id - The id of a post
    */
   handlePostDeleteResponse({ id }) {
-    this.store.posts = this.store.posts.filter(p => p.id !== id);
+    this._store.posts = this._store.posts.filter(p => p.id !== id);
     this.emitChange();
   }
 
   /**
    * Receives an array of posts from the blog api and assigns them to the posts
    * store; emits a change event.
-   *
-   * @param {Object} param - destructured object
+   * @param {Object}   param - destructured object
    * @param {Object[]} param.posts - Array of posts
    */
   handlePostsFetchResponse({ posts }) {
-    this.store.posts = posts;
+    this._store.posts = posts;
     this.emitChange();
   }
 
   /**
    * Implements a switch to route different event types to different methods.
    * Will be passed to the AppDispatcher.
-   *
    * @param {Object} param - destructured object
    * @param {Object} param.action - the action object from the dispatcher
+   * @param {string} param.action.type - the action type
+   * @param {*}      param.action.response - the response for the action
    */
-  dispatchHandler = ({ action }) => {
-    const { type, response } = action;
-
+  dispatchHandler = ({ action: { type, response } }) => {
     switch (type) {
       case BlogConstants.POST_CREATE_RESPONSE:
         this.handlePostCreateResponse(response);

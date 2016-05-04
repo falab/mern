@@ -10,7 +10,7 @@ const STYLE_TYPES = {
  *
  * @param {string} style
  * @returns {string} tag - An HTML snippet
- **/
+ */
 function getOpeningTag(style) {
   const [tag] = STYLE_TYPES[style];
   return tag;
@@ -21,7 +21,7 @@ function getOpeningTag(style) {
  *
  * @param {string} style
  * @returns {string} tag - An HTML snippet
- **/
+ */
 function getClosingTag(style) {
   const [, tag] = STYLE_TYPES[style];
   return tag;
@@ -37,7 +37,7 @@ function styleEndPos(styleObj) {
  * @param {Object} param - destructured object
  * @param {string} param.text - text string to apply styles to
  * @param {Object[]} param.styles - Array of style object to apply
- **/
+ */
 export default function applyInlineStyles({ text, inlineStyleRanges: _styles }) {
   const nest = [];
   const endMap = new Map();
@@ -52,7 +52,7 @@ export default function applyInlineStyles({ text, inlineStyleRanges: _styles }) 
    *
    * @param {string} htmlString
    * @param {number} pos - the position the new string should be inserted at
-   **/
+   */
   const insertAtPos = (htmlString, pos) => {
     const _pos = pos + leftPad;
 

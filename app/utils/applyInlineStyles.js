@@ -1,5 +1,8 @@
 import { Elemental } from '.';
 
+/**
+ * Map of DraftJS inline class translations
+ */
 const STYLE_MAP = new Map([
   ['BOLD', 'rich-bold'],
   ['ITALIC', 'rich-italic'],
@@ -7,6 +10,18 @@ const STYLE_MAP = new Map([
   ['CODE', 'rich-code'],
 ]);
 
+/**
+ * Returns an array of classes for styles
+ * @param  {string[]} styles - an array of DraftJS inline styles
+ * @return {string[]}
+ */
+const stylesToClasses = styles => (
+  styles.map(style => STYLE_MAP.get(style)).toArray()
+);
+
+/**
+ * Map of blacklisted characters
+ */
 const FILTER_MAP = new Map([
   ['<', '&lt;'],
   ['>', '&gt;'],
@@ -16,9 +31,21 @@ const FILTER_MAP = new Map([
   ['/', '&#x2F;'],
 ]);
 
-const stylesToClasses = styles => styles.map(style => STYLE_MAP.get(style)).toArray();
-const filter = char => (FILTER_MAP.has(char) ? FILTER_MAP.get(char) : char);
+/**
+ * Transforms blacklisten characters into their html-safe counterparts
+ * @param  {string} char - a single character of text
+ * @return {string} an html-safe representation of char
+ */
+const filter = char => (
+  FILTER_MAP.has(char) ? FILTER_MAP.get(char) : char
+);
 
+/**
+ * Returns a string of html representing the text in the contentBlock with the
+ * inline styles applied.
+ * @param  {ContentBlock} contentBlock - DraftJS content block
+ * @return {string} all parts combined into one string
+ */
 export default function applyInlineStyles(contentBlock) {
   const parts = [];
   const contentText = contentBlock.getText();

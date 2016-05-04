@@ -3,7 +3,6 @@ import * as BlogActions from '../../actions/BlogActions';
 
 /**
  * Class representing a blog post
- *
  * @extends React.Component
  * @prop {Object} postData - a post object
  */

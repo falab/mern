@@ -15,7 +15,6 @@ export { EditorState } from 'draft-js';
 
 /**
  * Class representing rich text editor
- *
  * @extends React.Component
  */
 export default class Editor extends React.Component {

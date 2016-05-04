@@ -5,11 +5,10 @@ import { draftToHTML, debounce } from '../../utils';
 
 /**
  * Class representing the blog post form
- *
  * @extends React.Component
  * @prop {string} title
  * @prop {string} content
- **/
+ */
 export default class BlogForm extends React.Component {
   static propTypes = {
     blogId: React.PropTypes.number,

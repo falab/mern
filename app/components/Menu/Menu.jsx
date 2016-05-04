@@ -4,7 +4,6 @@ import './menuStyle';
 
 /**
  * Class representing a menu
- *
  * @extends React.Component
  * @prop {node} children - child elements of the component
  */
