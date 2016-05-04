@@ -7,7 +7,6 @@ const STYLE_TYPES = {
 
 /**
  * Returns the opening tag for a given style
- *
  * @param {string} style
  * @returns {string} tag - An HTML snippet
  */
@@ -18,7 +17,6 @@ function getOpeningTag(style) {
 
 /**
  * Returns the closing tag for a given style
- *
  * @param {string} style
  * @returns {string} tag - An HTML snippet
  */
@@ -33,7 +31,6 @@ function styleEndPos(styleObj) {
 
 /**
  * Applies rich text inline styles to a text string
- *
  * @param {Object} param - destructured object
  * @param {string} param.text - text string to apply styles to
  * @param {Object[]} param.styles - Array of style object to apply
@@ -49,7 +46,6 @@ export default function applyInlineStyles({ text, inlineStyleRanges: _styles }) 
   /**
    * Inserts an htmlString at a given position and adds the length of the new
    * htmlString to leftPad
-   *
    * @param {string} htmlString
    * @param {number} pos - the position the new string should be inserted at
    */
