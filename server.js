@@ -1,12 +1,10 @@
 const express = require('express');
 
-const env = process.env.NODE_ENV || 'development';
-const config = require('./config')[env];
-
 const app = express();
 
-require('./config/express')(app, config);
+module.exports = (config) => {
+  require('./config/express')(app, config);
+  require('./config/routes')(app, config);
 
-require('./config/routes')(app, config);
-
-module.exports = app;
+  return app;
+};
