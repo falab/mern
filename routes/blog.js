@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = new express.Router();
-const posts = require('../../data/posts');
+const posts = require('../data/posts');
 
 // Posts index
 router.get('/', (req, res) => {
