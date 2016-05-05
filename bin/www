@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-const env = process.env.NODE_ENV || 'development';
-const config = require('../config')[env];
-
-const app = require('../server')(config);
 const debug = require('debug')('api:server');
 const http = require('http');
+
+const env = process.env.NODE_ENV || 'development';
+const config = require('../config')[env];
+const app = require('../server')(config);
 
 app.set('port', config.port);
 
