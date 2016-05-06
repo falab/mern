@@ -33,7 +33,7 @@ export default class Elemental {
   constructor() {
     this._type = 'span';
     this._classes = new Set();
-    this._innerText = '';
+    this._innerHTML = '';
     this._alwaysWrap = false;
   }
 
@@ -44,10 +44,10 @@ export default class Elemental {
   setType(type) { this._type = type; }
 
   /**
-   * Overwrites the innerText
+   * Overwrites the innerHTML
    * @param {string} str
    */
-  setText(str) { this._innerText = str; }
+  setText(str) { this._innerHTML = str; }
 
   /**
    * Sets whether or not to wrap the text with a tag if no classes are supplied
@@ -111,10 +111,15 @@ export default class Elemental {
   hasClass(className) { return this._classes.has(className); }
 
   /**
-   * Adds a string to the innerText property
+   * Adds a string to the innerHTML property
    * @param {string} str
    */
-  addText(str) { this._innerText += str; }
+  addHTML(str) { this._innerHTML += str; }
+
+  /**
+   * Adds a newline to the innerHTML property
+   */
+  addNewLine() { this._innerHTML += '\n'; }
 
   /**
    * Describes how the class should be converted to a string
@@ -123,10 +128,10 @@ export default class Elemental {
   toString() {
     const className = this.getClassName();
 
-    if (! this._alwaysWrap && ! className) return this._innerText;
+    if (! this._alwaysWrap && ! className) return this._innerHTML;
 
     let retStr = `<${this._type}${className ? ` class="${className}"` : ''}>`;
-    retStr += this._innerText;
+    retStr += this._innerHTML;
     retStr += `</${this._type}>`;
 
     return retStr;

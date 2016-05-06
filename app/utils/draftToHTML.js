@@ -1,19 +1,20 @@
 import { applyInlineStyles } from '.';
+import { Elemental } from '.';
 
 /**
  * Map of DraftJS block tag translations
  */
-const BLOCK_TYPES = new Map([
-  ['unstyled', ['<div>', '</div>']],
-  ['paragraph', ['<p>', '</p>']],
-  ['header-one', ['<h1>', '</h1>']],
-  ['header-two', ['<h2>', '</h2>']],
-  ['header-three', ['<h3>', '</h3>']],
-  ['header-four', ['<h4>', '</h4>']],
-  ['header-five', ['<h5>', '</h5>']],
-  ['header-size', ['<h6>', '</h6>']],
-  ['blockquote', ['<blockquote>', '</blockquote>']],
-  ['code-block', ['<pre>', '</pre>']],
+const BLOCK_DATA = new Map([
+  ['unstyled', { type: 'div', alwaysWrap: true }],
+  ['paragraph', { type: 'p', alwaysWrap: true }],
+  ['header-one', { type: 'h1', alwaysWrap: true }],
+  ['header-two', { type: 'h2', alwaysWrap: true }],
+  ['header-three', { type: 'h3', alwaysWrap: true }],
+  ['header-four', { type: 'h4', alwaysWrap: true }],
+  ['header-five', { type: 'h5', alwaysWrap: true }],
+  ['header-six', { type: 'h6', alwaysWrap: true }],
+  ['blockquote', { type: 'blockquote', alwaysWrap: true }],
+  ['code-block', { type: 'pre', alwaysWrap: true }],
 ]);
 
 /**
@@ -22,15 +23,24 @@ const BLOCK_TYPES = new Map([
  * @return {string} an html string
  */
 export default function draftToHTML(contentState) {
-  let retHTML = '';
+  const parts = [];
+  let lastType = null;
+  let el = null;
 
   contentState.blockMap.forEach((contentBlock) => {
     const type = contentBlock.getType();
-    const [blockOpenTag, blockCloseTag] = BLOCK_TYPES.get(type);
-    const styledContent = applyInlineStyles(contentBlock);
 
-    retHTML += `${blockOpenTag}${styledContent}${blockCloseTag}`;
+    if (type === 'code-block' && type === lastType) {
+      el.addNewLine();
+    } else {
+      el = Elemental.createElement(BLOCK_DATA.get(type));
+      parts.push(el);
+    }
+
+    el.addHTML(applyInlineStyles(contentBlock));
+
+    lastType = type;
   });
 
-  return retHTML;
+  return parts.join('');
 }

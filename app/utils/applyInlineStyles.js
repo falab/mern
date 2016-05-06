@@ -62,7 +62,7 @@ export default function applyInlineStyles(contentBlock) {
       parts.push(el);
     }
 
-    el.addText(char);
+    el.addHTML(char);
     lastStyles = styles;
   }
 
