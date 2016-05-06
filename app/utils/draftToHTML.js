@@ -24,6 +24,7 @@ const BLOCK_DATA = new Map([
  */
 export default function draftToHTML(contentState) {
   const parts = [];
+
   let lastType = null;
   let el = null;
 
