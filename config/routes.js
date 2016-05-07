@@ -1,7 +1,9 @@
 const path = require('path');
 
 module.exports = (app, config) => {
-  app.use('/api', require(path.join(config.rootPath, 'routes')));
+  const blogRoutes = require(path.join(config.rootPath, 'routes'));
+
+  app.use('/api', blogRoutes);
 
   app.get('*', (req, res) => {
     res.render('index', { title: 'Thezanke.com' });

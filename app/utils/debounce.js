@@ -7,7 +7,7 @@
  * @param  {number} [wait=500] - how frequently the function can be called
  * @return {function} the original function with the wrapper applied
  */
-const debounce = (func, wait = 500) => {
+const debounce = (func, wait = 200) => {
   let pending = null;
 
   return (...args) => {

@@ -1,6 +1,8 @@
 'use strict';
 
 const express = require('express');
+const logger = require('morgan');
+
 const router = new express.Router();
 const BlogPost = require('../models/BlogPost');
 
@@ -22,7 +24,7 @@ router.get('/', (req, res) => {
     .exec((err, posts) => {
       if (err) {
         res.status(500).json({ error: 'db_error' });
-        console.log(err);
+        logger.error(err);
         return;
       }
 
@@ -32,16 +34,16 @@ router.get('/', (req, res) => {
 
 // Post create
 router.post('/', (req, res) => {
-  const reqBody = req.body;
+  const data = req.body;
 
   BlogPost.create({
     author: 'Alex Howard',
-    title: reqBody.title || 'Untitled Post',
-    content: reqBody.content,
+    title: data.title || undefined,
+    content: data.content,
   }, (err, post) => {
     if (err) {
       res.status(500).json({ error: 'db_error' });
-      console.log(err);
+      logger.error(err);
       return;
     }
 
@@ -51,17 +53,17 @@ router.post('/', (req, res) => {
 
 // Post show
 router.get('/:id', (req, res) => {
-  const postId = req.params.id;
+  const id = req.params.id;
 
-  if (typeof postId !== 'string') {
+  if (typeof id !== 'string') {
     res.status(500).json({ error: 'id_not_string' });
     return;
   }
 
-  BlogPost.findById(postId, (err, post) => {
+  BlogPost.findById(id, (err, post) => {
     if (err) {
       res.status(500).json({ error: 'db_error' });
-      console.log(err);
+      logger.error(err);
       return;
     }
 
@@ -76,21 +78,21 @@ router.get('/:id', (req, res) => {
 
 // Post delete
 router.delete('/:id', (req, res) => {
-  const postId = req.params.id;
+  const id = req.params.id;
 
-  if (typeof postId !== 'string') {
+  if (typeof id !== 'string') {
     res.status(500).json({ error: 'id_not_string' });
     return;
   }
 
-  BlogPost.findById(postId).remove((err) => {
+  BlogPost.findById(id).remove((err) => {
     if (err) {
       res.status(500).json({ error: 'db_error' });
-      console.log(err);
+      logger.error(err);
       return;
     }
 
-    res.json({ id: postId });
+    res.json({ id });
   });
 });
 
