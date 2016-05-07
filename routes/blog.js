@@ -77,7 +77,6 @@ router.get('/:id', (req, res) => {
 // Post delete
 router.delete('/:id', (req, res) => {
   const postId = req.params.id;
-  console.log(postId);
 
   if (typeof postId !== 'string') {
     res.status(500).json({ error: 'id_not_string' });
