@@ -50,8 +50,8 @@ export default function applyInlineStyles(contentBlock) {
   const parts = [];
   const contentText = contentBlock.getText();
 
-  let lastStyles = null;
-  let el = null;
+  let lastStyles;
+  let el;
 
   for (let i = 0; i < contentText.length; i += 1) {
     const char = filter(contentText.charAt(i));

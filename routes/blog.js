@@ -5,6 +5,13 @@ const logger = require('morgan');
 
 const router = new express.Router();
 const BlogPost = require('../models/BlogPost');
+const blogPostFields = {
+  author: 1,
+  title: 1,
+  content: 1,
+  createdAt: 1,
+  updatedAt: 1,
+};
 
 // Posts index
 router.get('/', (req, res) => {
@@ -19,7 +26,7 @@ router.get('/', (req, res) => {
   if (count) query.limit(count);
 
   query
-    .select('author title content createdAt')
+    .select(blogPostFields)
     .sort({ _id: -1 })
     .exec((err, posts) => {
       if (err) {
@@ -34,12 +41,15 @@ router.get('/', (req, res) => {
 
 // Post create
 router.post('/', (req, res) => {
-  const data = req.body;
+  let { title, content } = req.body;
+
+  title = title.trim();
+  content = content.trim();
 
   BlogPost.create({
     author: 'Alex Howard',
-    title: data.title || undefined,
-    content: data.content,
+    title: title || undefined,
+    content,
   }, (err, post) => {
     if (err) {
       res.status(500).json({ error: 'db_error' });

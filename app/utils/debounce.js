@@ -8,11 +8,11 @@
  * @return {function} the original function with the wrapper applied
  */
 const debounce = (func, wait = 200) => {
-  let pending = null;
+  let pending;
 
   return (...args) => {
     const later = () => {
-      pending = null;
+      pending = undefined;
       func.apply(this, args);
     };
 

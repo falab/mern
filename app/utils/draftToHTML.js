@@ -25,8 +25,8 @@ const BLOCK_DATA = new Map([
 export default function draftToHTML(contentState) {
   const parts = [];
 
-  let lastType = null;
-  let el = null;
+  let lastType;
+  let el;
 
   contentState.blockMap.forEach((contentBlock) => {
     const type = contentBlock.getType();
