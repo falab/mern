@@ -60,7 +60,7 @@ class BlogStore extends Store {
    * @param {number} param.id - The id of a post
    */
   handlePostDeleteResponse({ id }) {
-    this._store.posts = this._store.posts.filter(p => p.id !== id);
+    this._store.posts = this._store.posts.filter(p => p._id !== id);
     this.emitChange();
   }
 

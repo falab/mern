@@ -44,7 +44,7 @@ export default class BlogList extends React.Component {
     return (
       <div className="blogList">
         {posts.map((post) =>
-          <BlogPost key={post.id} {...post} />
+          <BlogPost key={post._id} id={post._id} {...post} />
         )}
       </div>
     );

@@ -8,7 +8,7 @@ import * as BlogActions from '../../actions/BlogActions';
  */
 export default class BlogPost extends React.Component {
   static propTypes = {
-    id: React.PropTypes.number,
+    id: React.PropTypes.string,
     title: React.PropTypes.string,
     content: React.PropTypes.string,
     author: React.PropTypes.string,

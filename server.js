@@ -4,6 +4,7 @@ const app = express();
 
 module.exports = (config) => {
   require('./config/express')(app, config);
+  require('./config/mongoose')(config);
   require('./config/routes')(app, config);
 
   return app;
