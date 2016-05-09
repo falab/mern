@@ -147,7 +147,7 @@ export default class Elemental {
       return;
     }
 
-    this.last._innerHTML += '\n';
+    this._innerHTML += '\n';
   }
 
   /**

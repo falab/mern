@@ -7,7 +7,7 @@ const STYLE_MAP = new Map([
   ['BOLD', 'rich-bold'],
   ['ITALIC', 'rich-italic'],
   ['UNDERLINE', 'rich-underline'],
-  ['CODE', 'rich-code'],
+  ['CODE', false],
 ]);
 
 /**
@@ -32,7 +32,7 @@ const FILTER_MAP = new Map([
 ]);
 
 /**
- * Transforms blacklisten characters into their html-safe counterparts
+ * Transforms blacklisted characters into their html-safe counterparts
  * @param  {string} char - a single character of text
  * @return {string} an html-safe representation of char
  */
@@ -49,21 +49,33 @@ const filter = char => (
 export default function applyInlineStyles(contentBlock) {
   const parts = [];
   const contentText = contentBlock.getText();
+  const ignoreStyles = contentBlock.getType() === 'code-block';
 
   let lastStyles;
   let el;
 
   for (let i = 0; i < contentText.length; i += 1) {
     const char = filter(contentText.charAt(i));
-    const styles = contentBlock.getInlineStyleAt(i);
 
-    if (styles !== lastStyles) {
-      el = Elemental.createElement({ classes: stylesToClasses(styles) });
-      parts.push(el);
+    el = Elemental.createElement();
+    parts.push(el);
+
+    if (! ignoreStyles) {
+      const styles = contentBlock.getInlineStyleAt(i);
+
+      if (styles !== lastStyles) {
+        if (! styles.has('CODE')) {
+          el.addClasses(stylesToClasses(styles));
+        } else {
+          el.setType('code');
+          el.alwaysWrap();
+        }
+      }
+
+      lastStyles = styles;
     }
 
     el.addHTML(char);
-    lastStyles = styles;
   }
 
   return parts.join('');
