@@ -81,7 +81,7 @@ export default class BlogForm extends React.Component {
             editorState={this.state.editorState}
           />
           <br />
-          <input type="submit" value="Submit" />
+          <input className="btn" type="submit" value="Submit" />
         </form>
       </div>
     );
