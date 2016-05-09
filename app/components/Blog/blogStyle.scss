@@ -45,22 +45,22 @@
       padding: 10px 20px;
     }
 
-    pre, code {
-      background-color: rgba(255, 255, 255, 0.75);
-      font-family: "Inconsolata", "Menlo", "Consolas", monospace;
-    }
-
-    pre {
-      white-space: pre;
-      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-      overflow: auto;
-      margin: 5px;
-      padding: 5px;
-
-      code {
-        background-color: transparent;
-      }
-    }
+    // pre, code {
+    //   background-color: rgba(255, 255, 255, 0.75);
+    //   font-family: "Inconsolata", "Menlo", "Consolas", monospace;
+    // }
+    //
+    // pre {
+    //   white-space: pre;
+    //   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    //   overflow: auto;
+    //   margin: 5px;
+    //   padding: 5px;
+    //
+    //   code {
+    //     background-color: transparent;
+    //   }
+    // }
   }
 
 }

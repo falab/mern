@@ -14,6 +14,14 @@ export default class BlogPost extends React.Component {
     author: React.PropTypes.string,
   }
 
+  componentDidMount() {
+    Prism.highlightAll();
+  }
+
+  componentDidUpdate() {
+    Prism.highlightAll();
+  }
+
   deletePost = (e) => {
     e.preventDefault();
     BlogActions.deletePost(this.props.id);

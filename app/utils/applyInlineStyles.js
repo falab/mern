@@ -56,20 +56,20 @@ export default function applyInlineStyles(contentBlock) {
 
   for (let i = 0; i < contentText.length; i += 1) {
     const char = filter(contentText.charAt(i));
+    const styles = contentBlock.getInlineStyleAt(i);
 
-    el = Elemental.createElement();
-    parts.push(el);
+    if (styles !== lastStyles) {
+      el = Elemental.createElement();
+      parts.push(el);
+    }
 
     if (! ignoreStyles) {
-      const styles = contentBlock.getInlineStyleAt(i);
-
-      if (styles !== lastStyles) {
-        if (! styles.has('CODE')) {
-          el.addClasses(stylesToClasses(styles));
-        } else {
-          el.setType('code');
-          el.alwaysWrap();
-        }
+      if (! styles.has('CODE')) {
+        el.addClasses(stylesToClasses(styles));
+      } else {
+        el.setType('code');
+        el.addClasses('language-jsx');
+        el.alwaysWrap();
       }
 
       lastStyles = styles;

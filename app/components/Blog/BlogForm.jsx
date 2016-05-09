@@ -3,6 +3,9 @@ import { Editor, EditorState } from '../Editor';
 import * as BlogActions from '../../actions/BlogActions';
 import { draftToHTML, debounce } from '../../utils';
 
+import '../../libs/prism/prism.js';
+import '../../libs/prism/prism.css';
+
 /**
  * Class representing the blog post form
  * @extends React.Component

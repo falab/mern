@@ -16,7 +16,11 @@ const BLOCK_DATA = new Map([
   ['blockquote', { type: 'blockquote', alwaysWrap: true }],
   ['code-block', [
     { type: 'pre', alwaysWrap: true },
-    { type: 'code', alwaysWrap: true },
+    {
+      type: 'code',
+      classes: ['language-jsx', 'line-numbers'],
+      alwaysWrap: true
+    },
   ]],
 ]);
 

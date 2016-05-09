@@ -169,7 +169,7 @@ export default class Elemental {
    * Returns boolean depending on if object is a parent
    * @return {Boolean}
    */
-  hasChild() { return !!this._child; }
+  hasChild() { return this._child !== undefined; }
 
   /**
    * Returns the last child in a nest of Elemental object
