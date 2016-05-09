@@ -14,34 +14,55 @@ const BLOCK_DATA = new Map([
   ['header-five', { type: 'h5', alwaysWrap: true }],
   ['header-six', { type: 'h6', alwaysWrap: true }],
   ['blockquote', { type: 'blockquote', alwaysWrap: true }],
-  ['code-block', { type: 'pre', alwaysWrap: true }],
+  ['code-block', [
+    { type: 'pre', alwaysWrap: true },
+    { type: 'code', alwaysWrap: true }
+  ]],
 ]);
 
-/**
- * Returns the html representation of a DraftJS ContentState
- * @param  {ContentState} contentState - a DraftJS ContentState object
- * @return {string} an html string
- */
 export default function draftToHTML(contentState) {
   const parts = [];
 
   let lastType;
   let el;
 
-  contentState.blockMap.forEach((contentBlock) => {
+  function createElement(type) {
+    const blockData = BLOCK_DATA.get(type);
+
+    if (! blockData.hasOwnProperty('length')) {
+      return Elemental.createElement(blockData);
+    }
+
+    const _el = Elemental.createElement(blockData[0]);
+
+    blockData.slice(1).forEach((block) => {
+      _el.lastChild().wrap(Elemental.createElement(block));
+    });
+
+    return _el;
+  }
+
+  /**
+   * Returns the html representation of a DraftJS ContentState
+   * @param  {ContentState} contentState - a DraftJS ContentState object
+   * @return {string} an html string
+   */
+  function contentBlockToHTML(contentBlock) {
     const type = contentBlock.getType();
 
     if (type === 'code-block' && type === lastType) {
       el.addNewLine();
     } else {
-      el = Elemental.createElement(BLOCK_DATA.get(type));
+      el = createElement(type);
       parts.push(el);
     }
 
     el.addHTML(applyInlineStyles(contentBlock));
 
     lastType = type;
-  });
+  }
+
+  contentState.blockMap.forEach(contentBlockToHTML);
 
   return parts.join('');
 }

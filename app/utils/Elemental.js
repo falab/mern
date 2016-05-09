@@ -35,19 +35,34 @@ export default class Elemental {
     this._classes = new Set();
     this._innerHTML = '';
     this._alwaysWrap = false;
+    this._child = undefined;
   }
 
   /**
    * Set the type of html tag to wrap with
    * @param {string} type
    */
-  setType(type) { this._type = type; }
+  setType(type) {
+    if (this.hasChild()) {
+      this.lastChild().setType(type);
+      return;
+    }
+
+    this._type = type;
+  }
 
   /**
    * Overwrites the innerHTML
    * @param {string} str
    */
-  setText(str) { this._innerHTML = str; }
+  setHTML(str) {
+    if (this.hasChild()) {
+      this.lastChild().setHTML(str);
+      return;
+    }
+
+    this._innerHTML = str;
+  }
 
   /**
    * Sets whether or not to wrap the text with a tag if no classes are supplied
@@ -114,12 +129,62 @@ export default class Elemental {
    * Adds a string to the innerHTML property
    * @param {string} str
    */
-  addHTML(str) { this._innerHTML += str; }
+  addHTML(str) {
+    if (this.hasChild()) {
+      this.lastChild().addHTML(str);
+      return;
+    }
+
+    this._innerHTML += str;
+  }
 
   /**
    * Adds a newline to the innerHTML property
    */
-  addNewLine() { this._innerHTML += '\n'; }
+  addNewLine() {
+    if (this.hasChild()) {
+      this.lastChild().addNewLine();
+      return;
+    }
+
+    this.last._innerHTML += '\n';
+  }
+
+  /**
+   * Sets the current Elemental to be a wrapper for another Elemental object
+   * @param  {Elemental} elem - the Elemental object to wrap
+   */
+  wrap(elem) {
+    this._child = elem;
+    this.alwaysWrap();
+  }
+
+  /**
+   * Returns the child elemental object
+   * @return {Elemental} child elemental object
+   */
+  child() { return this._child; }
+
+  /**
+   * Returns boolean depending on if object is a parent
+   * @return {Boolean}
+   */
+  hasChild() { return !!this._child; }
+
+  /**
+   * Returns the last child in a nest of Elemental object
+   * @return {Elemental}
+   */
+  lastChild() { return this.hasChild() ? this.child().lastChild() : this; }
+
+  /**
+   * Returns either the innerHTML of the current object, or the child if one
+   * exists
+   * @return {(string|Elemental)} innerHTML or child as string
+   */
+  innerHTML() {
+    return this.hasChild() ? this.child().toString() : this._innerHTML;
+  }
 
   /**
    * Describes how the class should be converted to a string
@@ -131,7 +196,7 @@ export default class Elemental {
     if (! this._alwaysWrap && ! className) return this._innerHTML;
 
     let retStr = `<${this._type}${className ? ` class="${className}"` : ''}>`;
-    retStr += this._innerHTML;
+    retStr += this.innerHTML();
     retStr += `</${this._type}>`;
 
     return retStr;
