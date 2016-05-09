@@ -58,7 +58,8 @@ export default class BlogForm extends React.Component {
   }
 
   updateContent = debounce((editorState) => {
-    this.setState({ content: draftToHTML(editorState.getCurrentContent()) });
+    const html = draftToHTML(editorState.getCurrentContent());
+    this.setState({ content: html });
   });
 
   render() {

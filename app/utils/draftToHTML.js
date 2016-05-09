@@ -19,7 +19,7 @@ const BLOCK_DATA = new Map([
     {
       type: 'code',
       classes: ['language-jsx', 'line-numbers'],
-      alwaysWrap: true
+      alwaysWrap: true,
     },
   ]],
 ]);
