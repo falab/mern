@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AppRoutes from './components/AppRoutes';
+import App from './components/App';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(<AppRoutes />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));

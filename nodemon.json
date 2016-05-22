@@ -1,6 +1,6 @@
 {
   "execMap": {
-    "": "node --harmony --harmony_destructuring"
+    "": "node --harmony"
   },
   "ignore": ["public/*", "vendor/*", "app/*"],
   "NODE_ENV": "development"

@@ -8,7 +8,7 @@ import PortfolioPage from './PortfolioPage';
 import BlogPage from './BlogPage';
 import NotFoundPage from './NotFoundPage';
 
-export default class AppRoutes extends React.Component {
+export default class App extends React.Component {
   render() {
     return (
       <Router history={browserHistory}>
