@@ -1,5 +1,4 @@
-import { applyInlineStyles } from '.';
-import { Elemental } from '.';
+import { applyInlineStyles, Elemental } from '.';
 
 /**
  * Map of DraftJS block tag translations
@@ -25,11 +24,6 @@ const BLOCK_DATA = new Map([
 ]);
 
 export default function draftToHTML(contentState) {
-  const parts = [];
-
-  let lastType;
-  let el;
-
   function createElement(type) {
     const blockData = BLOCK_DATA.get(type);
 
@@ -37,14 +31,18 @@ export default function draftToHTML(contentState) {
       return Elemental.createElement(blockData);
     }
 
-    const _el = Elemental.createElement(blockData[0]);
+    const el = Elemental.createElement(blockData[0]);
 
     blockData.slice(1).forEach((block) => {
-      _el.lastChild().wrap(Elemental.createElement(block));
+      el.lastChild().wrap(Elemental.createElement(block));
     });
 
-    return _el;
+    return el;
   }
+
+  const parts = [];
+  let lastType;
+  let el;
 
   /**
    * Returns the html representation of a DraftJS ContentState

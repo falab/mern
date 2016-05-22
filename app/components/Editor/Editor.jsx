@@ -9,7 +9,7 @@ import BlockControls from './BlockControls';
 import InlineControls from './InlineControls';
 
 import 'draft-js/dist/Draft.css';
-import './editorStyle';
+import './editorStyle.scss';
 
 export { EditorState } from 'draft-js';
 
@@ -38,7 +38,6 @@ export default class Editor extends React.Component {
 
   getBlockStyle = (block) => {
     if (block.getType() === 'blockquote') return 'RichEditor-blockquote';
-    if (block.getType() === 'paragraph') return 'RichEditor-paragraph';
     return null;
   }
 
@@ -56,14 +55,13 @@ export default class Editor extends React.Component {
 
   toggleBlockType = (blockType) => this.onEditorChanged(
     RichUtils.toggleBlockType(this.props.editorState, blockType)
-  )
+  );
 
   toggleInlineStyle = (inlineStyle) => this.onEditorChanged(
     RichUtils.toggleInlineStyle(this.props.editorState, inlineStyle)
   )
 
   blockStyles = [
-    { label: 'P', style: 'paragraph' },
     { label: 'H1', style: 'header-one' },
     { label: 'H2', style: 'header-two' },
     { label: 'H3', style: 'header-three' },
