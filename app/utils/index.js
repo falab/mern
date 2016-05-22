@@ -4,5 +4,4 @@ export { default as draftToHTML } from './draftToHTML';
 export { default as applyInlineStyles, StyleInliner } from './applyInlineStyles';
 export { default as uniqueMerge } from './uniqueMerge';
 export { default as Elemental } from './Elemental';
-export { default as sanitize } from './sanitize';
 export { default as splitStr } from './splitStr';
