@@ -1,7 +1,5 @@
 import React from 'react';
-
-import request from 'superagent';
-
+import axios from 'axios';
 import SocialIcon from './SocialIcon';
 
 /**
@@ -20,12 +18,10 @@ class SocialIconList extends React.Component {
 
   // Fires ajax request to retrieve social icon data and updates internal state
   componentDidMount() {
-    request
+    axios
       .get('/api/socialIcons')
-      .type('json')
-      .end((err, res) => {
-        if (err) throw err;
-        this.setState({ icons: res.body });
+      .then((res) => {
+        this.setState({ icons: res.data });
       });
   }
 
