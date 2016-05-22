@@ -33,35 +33,56 @@ const posts = [
   },
 ];
 
-let nextId = 7;
+let nextId = 6;
+
+function createPost(id, title, content) {
+  const post = {
+    id: `${nextId}`,
+    author: 'Tester McTesterton',
+    title,
+    content,
+  };
+
+  return post;
+}
 
 class Axios {
   constructor(baseURL = '') {
     this.baseURL = baseURL;
-    this.responseType = 'json';
-    this.lastURL = undefined;
   }
 
-  get(_url) {
+  get(_url, data = {}) {
     const url = path.join(this.baseURL, _url);
+    const rx = new RegExp(`${this.baseURL}/?`);
 
-    this.lastURL = url;
+    if (rx.test(url)) {
+      const { count } = data;
 
-    let urlTest = null;
-    let rx;
-
-    rx = new RegExp(`${this.baseURL}(/[0-9]+)?`);
-    urlTest = url.match(rx);
-
-    if (urlTest !== null) {
-      return new Promise((resolve) => {
-        process.nextTick(() => {
-          resolve()
-        });
+      return new Promise(resolve => {
+        process.nextTick(() => resolve({ body: posts.slice(0, count) }));
       });
     }
 
-    throw new Error(`URL ${url} needs to be mocked for axios.`);
+    throw new Error(`GET "${url}" needs to be mocked for axios.`);
+  }
+
+  post(_url, data) {
+    const url = path.join(this.baseURL, _url);
+    const rx = new RegExp(`${this.baseURL}/?`);
+
+    if (rx.test(url)) {
+      const { title, content } = data;
+      const newPost = createPost(nextId, title, content);
+
+      posts.push(newPost);
+      nextId += 1;
+
+      return new Promise(resolve => {
+        process.nextTick(() => resolve({ body: { post: newPost } }));
+      });
+    }
+
+    throw new Error(`POST "${url}" needs to be mocked for axios.`);
   }
 }
 

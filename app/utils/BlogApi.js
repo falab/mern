@@ -5,7 +5,7 @@ const request = axios.create({ baseURL: '/api/blog' });
 export function fetchPosts(count) {
   const data = {};
 
-  if (count > 0) data.count = { count };
+  if (count > 0) data.count = count;
 
   return request.get('/', data);
 }
