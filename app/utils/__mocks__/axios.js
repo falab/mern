@@ -1,6 +1,6 @@
 import path from 'path';
 
-const posts = [
+let posts = [
   {
     _id: '1',
     author: 'Tester McTesterton',
@@ -83,6 +83,23 @@ class Axios {
     }
 
     throw new Error(`POST "${url}" needs to be mocked for axios.`);
+  }
+
+  delete(_url) {
+    const url = path.join(this.baseURL, _url);
+    const rx = new RegExp(`${this.baseURL}/([A-Za-z0-9]+)`);
+    const matches = url.match(rx);
+
+    if (matches) {
+      const id = matches[1];
+      posts = posts.filter(post => post._id !== id);
+
+      return new Promise(resolve => {
+        process.nextTick(() => resolve({ body: { id } }));
+      });
+    }
+
+    throw new Error(`DELETE "${url}" needs to be mocked for axios.`);
   }
 }
 

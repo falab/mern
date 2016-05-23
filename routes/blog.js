@@ -90,11 +90,6 @@ router.get('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
 
-  if (typeof id !== 'string') {
-    res.status(500).json({ error: 'id_not_string' });
-    return;
-  }
-
   BlogPost.findById(id).remove((err) => {
     if (err) {
       res.status(500).json({ error: 'db_error' });
