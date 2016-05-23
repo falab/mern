@@ -5,7 +5,7 @@ import BlogConstants from '../constants/BlogConstants';
 import * as BlogActions from '../actions/BlogActions';
 
 /**
- * Class representing a blog store
+ * Class representing the blog store
  * @extends Store
  */
 class BlogStore extends Store {
