@@ -8,11 +8,11 @@ import { splitStr } from '.';
 export default class Elemental {
   /**
    * createElement is a factory for creating new Elemental objects
-   * @param  {Object} param - destructured object
-   * @param  {Object} param.type - the element type to generate
-   * @param  {Object} param.classes - initial classes to use
-   * @param  {Object} param.className - alternate syntax for classes
-   * @param  {Object} param.alwaysWrap - determines whether the element should
+   * @param {Object} param - destructured object
+   * @param {Object} param.type - the element type to generate
+   * @param {Object} param.classes - initial classes to use
+   * @param {Object} param.className - alternate syntax for classes
+   * @param {Object} param.alwaysWrap - determines whether the element should
    * always be wrapped in tags, or be allowed to represent just a text node if
    * no classes are given
    * @return {Elemental} a new instance of Elemental
