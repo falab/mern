@@ -1,0 +1,52 @@
+@import '../variables';
+
+.blog-form {
+  margin-bottom: 50px;
+}
+
+.blogPost {
+  background   : $ui-color;
+  border       : 1px solid $ui-border-color;
+  box-shadow   : 2px 2px 5px $ui-shadow-color;
+  margin-top   : 20px;
+  color        : lighten(black, 25%);
+  border-radius: 2px;
+
+  & > * {
+    padding: 10px;
+  }
+
+  .title {
+    font-weight  : bold;
+    font-size    : 18px;
+    border-bottom: 1px solid $ui-border-color;
+  }
+
+  .details {
+    border-top: 1px solid $ui-border-color;
+    padding   : 5px 10px;
+  }
+
+  .content {
+    .rich-bold {
+      font-weight: bold;
+    }
+
+    .rich-italic {
+      font-style: italic;
+    }
+
+    .rich-underline {
+      text-decoration: underline;
+    }
+
+    blockquote {
+      border-left: 5px solid #aaa;
+      color: #666;
+      font-family: 'Hoefler Text', 'Georgia', serif;
+      font-style: italic;
+      margin: 16px 0;
+      padding: 10px 20px;
+    }
+  }
+}

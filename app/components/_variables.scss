@@ -1,0 +1,17 @@
+// colors
+$ui-base-color  : rgb(254, 254, 254);
+$ui-color       : rgba($ui-base-color, 0.75);
+$ui-border-color: darken($ui-color, 15%);
+$ui-shadow-color: rgba(10, 10, 10, 0.1);
+$link-color     : rgb(37, 123, 224);
+$font-color     : rgb(100, 100, 100);
+
+// Screen sizes
+$screen-xl   : 1824px;
+$screen-lg   : 1224px;
+$screen-md   : 1024px;
+$screen-sm   : 768px;
+$screen-xs   : 480px;
+$font-size   : 14px;
+$menu-height : 50px;
+$gutter-width: 20px;

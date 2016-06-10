@@ -1,0 +1,60 @@
+@import '../variables';
+
+.menu,
+.menuItem {
+  background-color: $ui-color;
+}
+
+.menu {
+  border-bottom: 1px solid $ui-border-color;
+  height       : $menu-height;
+  position     : absolute;
+  top          : 0;
+  left         : 0;
+  width        : 100%;
+}
+
+.menuItem {
+  border-bottom: 1px solid $ui-border-color;
+  height       : $menu-height;
+  display      : inline-block;
+  position     : relative;
+  transition   : background-color 0.25s, box-shadow 0.5s, border 0.15s;
+  line-height  : $menu-height;
+  border-right : 1px solid $ui-border-color;
+  box-shadow   : 0 0 0 transparent inset;
+  font-size    : 14px;
+  min-width    : 100px;
+  text-align   : center;
+  padding      : 0 30px;
+
+  &,
+  &:hover,
+  &:active,
+  &:visited,
+  &:focus {
+    color: $font-color;
+  }
+
+  &:hover,
+  &.active {
+    box-shadow      : 0 0 15px rgba(#e4dfdf, 0.5) inset;
+    background-color: transparent;
+    cursor          : pointer;
+  }
+
+  &:first-child {
+    border-left: 1px solid $ui-border-color;
+  }
+}
+
+@media screen and (min-width: $screen-xs) {
+  .menu .container {
+    display: flex;
+  }
+
+  .menuItem {
+    padding  : 0;
+    min-width: 120px;
+  }
+}

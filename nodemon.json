@@ -1,0 +1,7 @@
+{
+  "execMap": {
+    "": "node --harmony"
+  },
+  "ignore": ["public/*", "vendor/*", "app/*"],
+  "NODE_ENV": "development"
+}
