@@ -8,8 +8,8 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../../webpack.config';
 
 export default function expressConfig(app, config) {
-  // uncomment after placing your favicon in /public
-  // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+  // uncomment after placing your favicon in /static
+  // app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
   app.use(config.logger('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
