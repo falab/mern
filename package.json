@@ -1,9 +1,8 @@
 {
-  "name": "thezanke.com",
+  "name": "nomore",
   "private": true,
   "version": "1.0.0",
   "description": "",
-  "main": "index.html",
   "dependencies": {
     "axios": "^0.11.0",
     "body-parser": "~1.15.1",
@@ -53,7 +52,7 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "nodemon ./server/bin/www",
     "test": "jest"
   },
   "eslintConfig": {

@@ -1,12 +1,28 @@
 const path = require('path');
 
 module.exports = (app, config) => {
-  const blogRoutes = require(path.join(config.rootPath, 'routes'));
+  const blogRoutes = require(path.join(config.rootPath, 'server', 'routes'));
 
   app.use('/api', blogRoutes);
 
   app.get('*', (req, res) => {
-    res.render('index', { title: 'Thezanke.com' });
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="HandheldFriendly" content="True">
+            <meta name="MobileOptimized" content="320">
+            <meta name="viewport" content="width=device-width">
+            <title>NoMoRe</title>
+            <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700" rel="stylesheet" type="text/css">
+        </head>
+        <body>
+            <div id="app"></div>
+            <script src="/application.min.js"></script>
+        </body>
+      </html>
+    `);
   });
 
   // catch 404 and forward to error handler

@@ -4,10 +4,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 module.exports = (app, config) => {
-  app.set('view engine', 'jade');
-
-  // uncomment after placing your favicon in /public
-  // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+  // uncomment after placing your favicon in /static
+  // app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
   app.use(config.logger('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -38,5 +36,5 @@ module.exports = (app, config) => {
     app.use(webpackHotMiddleware(compiler));
   }
 
-  app.use(express.static(path.join(config.rootPath, 'public')));
+  app.use(express.static(path.join(config.rootPath, 'static')));
 };
