@@ -12,7 +12,7 @@ export default function routesConfig(app, config) {
             <meta name="HandheldFriendly" content="True">
             <meta name="MobileOptimized" content="320">
             <meta name="viewport" content="width=device-width">
-            <title>NoMoRe</title>
+            <title>TheZanke</title>
             <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700" rel="stylesheet" type="text/css">
         </head>
         <body>
