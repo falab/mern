@@ -2,6 +2,6 @@
   "execMap": {
     "": "node --harmony"
   },
-  "ignore": ["public/*", "vendor/*", "app/*"],
+  "ignore": ["static/*", "vendor/*", "app/*"],
   "NODE_ENV": "development"
 }
