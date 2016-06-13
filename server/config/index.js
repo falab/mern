@@ -1,4 +1,6 @@
-const path = require('path');
+import path from 'path';
+import morgan from 'morgan';
+
 const rootPath = path.normalize(`${__dirname}/../../`);
 
 function normalizePort(val) {
@@ -10,12 +12,14 @@ function normalizePort(val) {
   return false;
 }
 
-module.exports = {
+const configs = {
   development: {
     rootPath,
     db: 'mongodb://localhost/thezanke',
     port: normalizePort(process.env.PORT || 3000),
     debug: true,
-    logger: require('morgan'),
+    logger: morgan,
   },
 };
+
+export default configs;

@@ -1,8 +1,6 @@
-const path = require('path');
+import blogRoutes from '../routes';
 
-module.exports = (app, config) => {
-  const blogRoutes = require(path.join(config.rootPath, 'server', 'routes'));
-
+export default function routesConfig(app, config) {
   app.use('/api', blogRoutes);
 
   app.get('*', (req, res) => {
@@ -55,4 +53,4 @@ module.exports = (app, config) => {
       error: {},
     });
   });
-};
+}

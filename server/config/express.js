@@ -1,26 +1,24 @@
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import webpackConfig from '../../webpack.config';
 
-module.exports = (app, config) => {
-  // uncomment after placing your favicon in /static
-  // app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
+export default function expressConfig(app, config) {
+  // uncomment after placing your favicon in /public
+  // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
   app.use(config.logger('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
 
   if (config.debug) {
-    const webpack = require('webpack');
-    const webpackMiddleware = require('webpack-dev-middleware');
-    const webpackHotMiddleware = require('webpack-hot-middleware');
-
-    const cfg = require(path.join(config.rootPath, 'webpack.config.js'));
-
-    const compiler = webpack(cfg);
-    const middleware = webpackMiddleware(compiler, {
-      publicPath: cfg.output.publicPath,
+    const compiler = webpack(webpackConfig);
+    const middleware = webpackDevMiddleware(compiler, {
+      publicPath: webpackConfig.output.publicPath,
       contentBase: 'src',
       stats: {
         colors: true,
@@ -37,4 +35,4 @@ module.exports = (app, config) => {
   }
 
   app.use(express.static(path.join(config.rootPath, 'static')));
-};
+}

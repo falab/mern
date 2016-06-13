@@ -1,9 +1,10 @@
-'use strict';
+import express from 'express';
+import blog from './blog';
+import socialIcons from './socialIcons';
 
-const express = require('express');
 const router = new express.Router();
 
-router.use('/blog', require('./blog'));
-router.use('/socialIcons', require('./socialIcons'));
+router.use('/blog', blog);
+router.use('/socialIcons', socialIcons);
 
-module.exports = router;
+export default router;

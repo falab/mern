@@ -1,6 +1,5 @@
-'use strict';
+import express from 'express';
 
-const express = require('express');
 const router = new express.Router();
 
 // Faux posts array
@@ -30,4 +29,4 @@ router.get('/', (req, res) => {
   res.json(socialIcons);
 });
 
-module.exports = router;
+export default router;

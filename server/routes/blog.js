@@ -1,10 +1,8 @@
-'use strict';
-
-const express = require('express');
-const logger = require('morgan');
+import express from 'express';
+import logger from 'morgan';
+import BlogPost from '../models/BlogPost';
 
 const router = new express.Router();
-const BlogPost = require('../models/BlogPost');
 const blogPostFields = {
   author: 1,
   title: 1,
@@ -101,4 +99,4 @@ router.delete('/:id', (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;
