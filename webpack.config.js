@@ -9,7 +9,7 @@ module.exports = {
     './application.jsx',
   ],
   output: {
-    path: `${__dirname}/public`,
+    path: `${__dirname}/static`,
     filename: 'application.min.js',
     publicPath: '/',
   },
